@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private Canvas canvas;
-
+    [Header("Functions")]
     [SerializeField] private DragFunction functionOnDrag = DragFunction.none;
+    [SerializeField] private ClickFunction functionOnClick = ClickFunction.sendToTop;
+
     private enum DragFunction
     {
         none,
@@ -15,19 +15,37 @@ public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
         resizeWidth,
         resizeHeight
     }
+    private enum ClickFunction
+    {
+        sendToTop,
+        close,
+        none
+    }
+
+    [Header("References")]
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject windowParent;
 
     private void Awake()
     {
         if (canvas == null)
         {
             Transform testCanvasTransform = transform.parent;
+            GameObject testParentObject = this.gameObject;
             while (testCanvasTransform != null)
             {
                 canvas = testCanvasTransform.GetComponent<Canvas>();
                 if (canvas != null)
                 {
+                    if (windowParent == null)
+                    {
+                        windowParent = testParentObject;
+                    }
+
                     break;
                 }
+                testParentObject = testCanvasTransform.gameObject;
                 testCanvasTransform = testCanvasTransform.parent;
             }
         }
@@ -37,15 +55,13 @@ public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
         }
     }
 
-
-
     public void OnDrag(PointerEventData eventData)
     {
-        if(functionOnDrag == DragFunction.move)
+        if (functionOnDrag == DragFunction.move)
         {
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         }
-        else if(functionOnDrag == DragFunction.resizeBoth)
+        else if (functionOnDrag == DragFunction.resizeBoth)
         {
             //rectTransform.sizeDelta += eventData.delta / canvas.scaleFactor; <----- This line was removed because it worked inversely if the pivot value was above 0.5
             rectTransform.sizeDelta = new Vector2
@@ -79,7 +95,18 @@ public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        rectTransform.SetAsLastSibling();
+        if (functionOnClick == ClickFunction.sendToTop)
+        {
+            rectTransform.SetAsLastSibling();
+        }
+        else if (functionOnClick == ClickFunction.close)
+        {
+            Destroy(windowParent);
+        }
+        else
+        {
+
+        }
     }
 
 
