@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
+public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     [Header("Functions")]
-    [SerializeField] private DragFunction functionOnDrag = DragFunction.none;
-    [SerializeField] private ClickFunction functionOnClick = ClickFunction.sendToTop;
+    public DragFunction functionOnDrag = DragFunction.none;
+    public ClickFunction functionOnClick = ClickFunction.sendToTop;
 
-    private enum DragFunction
+    public enum DragFunction
     {
         none,
         move,
@@ -15,17 +15,23 @@ public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
         resizeWidth,
         resizeHeight
     }
-    private enum ClickFunction
+    public enum ClickFunction
     {
         sendToTop,
         close,
+        openOtherWindow,
         none
     }
 
+    public GameObject otherWindow;
+
     [Header("References")]
-    [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private GameObject windowParent;
+    [SerializeField]
+    private RectTransform rectTransform;
+    [SerializeField]
+    private Canvas canvas;
+    [SerializeField]
+    private GameObject windowParent;
 
     private void Awake()
     {
@@ -87,10 +93,6 @@ public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
                 rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
             );
         }
-        else
-        {
-            return;
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -102,10 +104,6 @@ public class UIClickAndDrag : MonoBehaviour, IDragHandler, IPointerDownHandler
         else if (functionOnClick == ClickFunction.close)
         {
             Destroy(windowParent);
-        }
-        else
-        {
-
         }
     }
 
