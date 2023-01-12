@@ -647,6 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   functionOnDrag: 0
   functionOnClick: 2
+  otherWindow: {fileID: 6381182916882127693, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}

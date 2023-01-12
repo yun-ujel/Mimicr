@@ -26,12 +26,9 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
     public GameObject otherWindow;
 
     [Header("References")]
-    [SerializeField]
-    private RectTransform rectTransform;
-    [SerializeField]
-    private Canvas canvas;
-    [SerializeField]
-    private GameObject windowParent;
+    public RectTransform rectTransform;
+    public Canvas canvas;
+    public GameObject windowParent;
 
     private void Awake()
     {
@@ -58,6 +55,10 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         if (rectTransform == null)
         {
             rectTransform = GetComponent<RectTransform>();
+        }
+        if (otherWindow == null)
+        {
+            otherWindow = this.gameObject;
         }
     }
 
@@ -104,6 +105,21 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         else if (functionOnClick == ClickFunction.close)
         {
             Destroy(windowParent);
+        }
+        else if (functionOnClick == ClickFunction.openOtherWindow)
+        {
+            Instantiate
+                (
+                otherWindow, 
+                new Vector3
+                    (
+                        canvas.transform.position.x,
+                        canvas.transform.position.y,
+                        canvas.transform.position.z
+                    ), 
+                Quaternion.identity, 
+                canvas.gameObject.transform
+                );
         }
     }
 
