@@ -19,10 +19,10 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
     }
     public enum ClickFunction
     {
+        none,
         sendToTop,
         close,
-        openOtherWindow,
-        none
+        openOtherWindow
     }
 
     [HideInInspector] public GameObject otherWindow;

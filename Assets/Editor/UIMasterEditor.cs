@@ -6,7 +6,14 @@ using UnityEngine;
 public class UIMasterEditor : Editor
 {
     UIMaster uMaster;
-
+    public string[] clickFunctions = new string[]
+    {
+        "None",
+        "Send To Top",
+        "Close",
+        "Open Other Window"
+    };
+    public int clickFunctionIndex = 1;
 
     private void OnEnable()
     {
@@ -16,17 +23,21 @@ public class UIMasterEditor : Editor
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
+
+        var uM = new SerializedObject(uMaster);
+        //SerializedProperty joe = uM.FindProperty("functionOnClick");
+
         EditorGUILayout.LabelField("Functions", EditorStyles.boldLabel);
 
-        
+        //uM.FindProperty("functionOnClick").joe = EditorGUILayout.EnumPopup("Function On Click", uMaster.functionOnClick);
 
         uMaster.functionOnClick = (UIMaster.ClickFunction)EditorGUILayout.EnumPopup("Function On Click", uMaster.functionOnClick);
         uMaster.functionOnDrag = (UIMaster.DragFunction)EditorGUILayout.EnumPopup("Function On Drag", uMaster.functionOnDrag);
 
-        var yadda = new SerializedObject(uMaster);
+        clickFunctionIndex = EditorGUILayout.Popup("Function On Click (test)", clickFunctionIndex, clickFunctions);
 
-        yadda.FindProperty("yaddaValue").floatValue = EditorGUILayout.Slider("Joe Balls value", uMaster.yaddaValue, 0.1f, 10f);
-        yadda.ApplyModifiedProperties();
+        //yadda.FindProperty("yaddaValue").floatValue = EditorGUILayout.Slider("Joe Balls value", uMaster.yaddaValue, 0.1f, 10f);
+        //yadda.ApplyModifiedProperties();
 
         EditorGUILayout.Space();
 
