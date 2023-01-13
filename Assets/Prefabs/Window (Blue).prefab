@@ -88,12 +88,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 4
-  functionOnClick: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 1
+  functionOnDrag: 4
+  otherWindow: {fileID: 0}
 --- !u!1 &6151544174347598201
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,12 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 3
-  functionOnClick: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 1
+  functionOnDrag: 3
+  otherWindow: {fileID: 0}
 --- !u!1 &6381182916704916385
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,12 +276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 1
-  functionOnClick: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 1
+  functionOnDrag: 1
+  otherWindow: {fileID: 0}
 --- !u!1 &6381182916882127693
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,12 +374,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 0
-  functionOnClick: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 1
+  functionOnDrag: 0
+  otherWindow: {fileID: 0}
 --- !u!1 &9124240317283131429
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,9 +468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 2
-  functionOnClick: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 1
+  functionOnDrag: 2
+  otherWindow: {fileID: 0}

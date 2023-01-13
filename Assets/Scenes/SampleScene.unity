@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 600411107}
   - component: {fileID: 600411106}
   - component: {fileID: 600411105}
+  - component: {fileID: 600411109}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -344,6 +345,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &600411109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600411104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cd34abcfc086348ba2bd5916d91169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowsToOpen:
+  - {fileID: 6381182916882127693, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
 --- !u!1 &660004591
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,13 +799,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnClick: 2
-  functionOnDrag: 0
-  yaddaValue: 0.1
-  otherWindow: {fileID: 6381182916882127693, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 3
+  functionOnDrag: 0
+  otherWindow: {fileID: 6381182916882127693, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
 --- !u!114 &1318257762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1237,13 +1251,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnClick: 0
-  functionOnDrag: 3
-  yaddaValue: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 0
+  functionOnDrag: 3
+  otherWindow: {fileID: 0}
 --- !u!114 &4184226309244448924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,13 +1307,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnClick: 0
-  functionOnDrag: 4
-  yaddaValue: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 0
+  functionOnDrag: 4
+  otherWindow: {fileID: 0}
 --- !u!1 &6504966546633859187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,13 +1401,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnClick: 0
-  functionOnDrag: 2
-  yaddaValue: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 0
+  functionOnDrag: 2
+  otherWindow: {fileID: 0}
 --- !u!222 &8959661525243565043
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1446,13 +1457,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnClick: 0
-  functionOnDrag: 1
-  yaddaValue: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 0
+  functionOnDrag: 1
+  otherWindow: {fileID: 0}
 --- !u!224 &8959661525243565046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1533,13 +1543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnClick: 0
-  functionOnDrag: 0
-  yaddaValue: 0
-  otherWindow: {fileID: 0}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
   windowParent: {fileID: 0}
+  functionOnClick: 0
+  functionOnDrag: 0
+  otherWindow: {fileID: 0}
 --- !u!224 &8959661525322210074
 RectTransform:
   m_ObjectHideFlags: 0

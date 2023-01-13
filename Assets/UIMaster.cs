@@ -3,21 +3,32 @@ using UnityEngine.EventSystems;
 
 public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    //[Header("Functions")]
-    //public ClickFunction functionOnClick = ClickFunction.sendToTop;
-    //public DragFunction functionOnDrag = DragFunction.none;
-    //public enum DragFunction { none, move, resizeBoth, resizeWidth, resizeHeight }
-    public enum ClickFunction { none, sendToTop, close, openOtherWindow }
+    [Header("References")]
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject windowParent;
 
-    public int clickFunctionIndex = 1;
-    public int dragFunctionIndex = 0;
+    [Header("Functions")]
+    [SerializeField] private ClickFunction functionOnClick = ClickFunction.sendToTop;
+    [SerializeField] private DragFunction functionOnDrag = DragFunction.none;
+
+    private enum DragFunction
+    {
+        none,
+        move,
+        resizeBoth,
+        resizeWidth,
+        resizeHeight
+    }
+    private enum ClickFunction
+    {
+        none,
+        sendToTop,
+        close,
+        openNewWindow
+    }
 
     [HideInInspector] public GameObject otherWindow;
-
-    [Header("References")]
-    [HideInInspector] public RectTransform rectTransform;
-    [HideInInspector] public Canvas canvas;
-    [HideInInspector] public GameObject windowParent;
 
     private void Awake()
     {
@@ -53,19 +64,20 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (dragFunctionIndex == 1) // Move
+        if (functionOnDrag == DragFunction.move)
         {
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         }
-        else if (dragFunctionIndex == 2) // Resize Both Height and Width
+        else if (functionOnDrag == DragFunction.resizeBoth)
         {
+            //rectTransform.sizeDelta += eventData.delta / canvas.scaleFactor; <----- This line was removed because it worked inversely if the pivot value was above 0.5
             rectTransform.sizeDelta = new Vector2
             (
                 rectTransform.sizeDelta.x + eventData.delta.x * -Map(rectTransform.pivot.x, 0, 1, -1, 1) / canvas.scaleFactor,
                 rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
             );
         }
-        else if (dragFunctionIndex == 3) // Resize Width
+        else if (functionOnDrag == DragFunction.resizeWidth)
         {
             rectTransform.sizeDelta = new Vector2
                (
@@ -74,7 +86,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                );
 
         }
-        else if (dragFunctionIndex == 4) // Resize Height
+        else if (functionOnDrag == DragFunction.resizeHeight)
         {
             rectTransform.sizeDelta = new Vector2
             (
@@ -82,48 +94,21 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                 rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
             );
         }
-        else if (dragFunctionIndex == 0) // None
-        {
-
-        }
-        else
-        {
-            Debug.Log("Drag Function not recognised");
-        }
     }
 
-    public void OnPointerDown(PointerEventData eventData) // On Click
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if (clickFunctionIndex == 1) // Send to Top
+        if (functionOnClick == ClickFunction.sendToTop)
         {
             rectTransform.SetAsLastSibling();
         }
-        else if (clickFunctionIndex == 2) // Close
+        else if (functionOnClick == ClickFunction.close)
         {
             Destroy(windowParent);
         }
-        else if (clickFunctionIndex == 3) // Open Other Window
+        else if (functionOnClick == ClickFunction.openNewWindow)
         {
-            Instantiate
-                (
-                otherWindow, 
-                new Vector3
-                    (
-                        canvas.transform.position.x,
-                        canvas.transform.position.y,
-                        canvas.transform.position.z
-                    ), 
-                Quaternion.identity, 
-                canvas.gameObject.transform
-                );
-        }
-        else if (clickFunctionIndex == 0) // None
-        {
-
-        }
-        else
-        {
-            Debug.Log("Click Function not recognised");
+            canvas.gameObject.GetComponent<CanvasHandler>().SendMessage("InstantiateWindow", 1) ;
         }
     }
 
