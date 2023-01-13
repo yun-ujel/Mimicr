@@ -4,8 +4,10 @@ using UnityEngine.EventSystems;
 public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     [Header("Functions")]
-    public DragFunction functionOnDrag = DragFunction.none;
     public ClickFunction functionOnClick = ClickFunction.sendToTop;
+    public DragFunction functionOnDrag = DragFunction.none;
+
+    [HideInInspector] public float yaddaValue;
 
     public enum DragFunction
     {
@@ -23,12 +25,12 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         none
     }
 
-    public GameObject otherWindow;
+    [HideInInspector] public GameObject otherWindow;
 
     [Header("References")]
-    public RectTransform rectTransform;
-    public Canvas canvas;
-    public GameObject windowParent;
+    [HideInInspector] public RectTransform rectTransform;
+    [HideInInspector] public Canvas canvas;
+    [HideInInspector] public GameObject windowParent;
 
     private void Awake()
     {

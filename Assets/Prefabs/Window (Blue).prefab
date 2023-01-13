@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   functionOnDrag: 4
-  functionOnClick: 2
+  functionOnClick: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   functionOnDrag: 3
-  functionOnClick: 2
+  functionOnClick: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   functionOnDrag: 2
-  functionOnClick: 2
+  functionOnClick: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 6381182916882127692}
   canvas: {fileID: 0}
