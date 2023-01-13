@@ -556,6 +556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Window (Blue)
       objectReference: {fileID: 0}
+    - target: {fileID: 6381182916882127695, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
+      propertyPath: yaddaValue
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
 --- !u!224 &1000480144 stripped
@@ -780,8 +784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 0
   functionOnClick: 2
+  functionOnDrag: 0
+  yaddaValue: 0.1
   otherWindow: {fileID: 6381182916882127693, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
@@ -1232,8 +1237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 3
   functionOnClick: 0
+  functionOnDrag: 3
+  yaddaValue: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
@@ -1288,8 +1294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 4
   functionOnClick: 0
+  functionOnDrag: 4
+  yaddaValue: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
@@ -1382,8 +1389,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 2
   functionOnClick: 0
+  functionOnDrag: 2
+  yaddaValue: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
@@ -1438,8 +1446,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 1
   functionOnClick: 0
+  functionOnDrag: 1
+  yaddaValue: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 8959661525322210074}
   canvas: {fileID: 0}
@@ -1524,8 +1533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  functionOnDrag: 0
   functionOnClick: 0
+  functionOnDrag: 0
+  yaddaValue: 0
   otherWindow: {fileID: 0}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
