@@ -3,27 +3,14 @@ using UnityEngine.EventSystems;
 
 public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    [Header("Functions")]
-    public ClickFunction functionOnClick = ClickFunction.sendToTop;
-    public DragFunction functionOnDrag = DragFunction.none;
+    //[Header("Functions")]
+    //public ClickFunction functionOnClick = ClickFunction.sendToTop;
+    //public DragFunction functionOnDrag = DragFunction.none;
+    //public enum DragFunction { none, move, resizeBoth, resizeWidth, resizeHeight }
+    public enum ClickFunction { none, sendToTop, close, openOtherWindow }
 
-    [HideInInspector] public float yaddaValue;
-
-    public enum DragFunction
-    {
-        none,
-        move,
-        resizeBoth,
-        resizeWidth,
-        resizeHeight
-    }
-    public enum ClickFunction
-    {
-        none,
-        sendToTop,
-        close,
-        openOtherWindow
-    }
+    public int clickFunctionIndex = 1;
+    public int dragFunctionIndex = 0;
 
     [HideInInspector] public GameObject otherWindow;
 
@@ -66,20 +53,19 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (functionOnDrag == DragFunction.move)
+        if (dragFunctionIndex == 1) // Move
         {
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         }
-        else if (functionOnDrag == DragFunction.resizeBoth)
+        else if (dragFunctionIndex == 2) // Resize Both Height and Width
         {
-            //rectTransform.sizeDelta += eventData.delta / canvas.scaleFactor; <----- This line was removed because it worked inversely if the pivot value was above 0.5
             rectTransform.sizeDelta = new Vector2
             (
                 rectTransform.sizeDelta.x + eventData.delta.x * -Map(rectTransform.pivot.x, 0, 1, -1, 1) / canvas.scaleFactor,
                 rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
             );
         }
-        else if (functionOnDrag == DragFunction.resizeWidth)
+        else if (dragFunctionIndex == 3) // Resize Width
         {
             rectTransform.sizeDelta = new Vector2
                (
@@ -88,7 +74,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                );
 
         }
-        else if (functionOnDrag == DragFunction.resizeHeight)
+        else if (dragFunctionIndex == 4) // Resize Height
         {
             rectTransform.sizeDelta = new Vector2
             (
@@ -96,19 +82,27 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                 rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
             );
         }
+        else if (dragFunctionIndex == 0) // None
+        {
+
+        }
+        else
+        {
+            Debug.Log("Drag Function not recognised");
+        }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData) // On Click
     {
-        if (functionOnClick == ClickFunction.sendToTop)
+        if (clickFunctionIndex == 1) // Send to Top
         {
             rectTransform.SetAsLastSibling();
         }
-        else if (functionOnClick == ClickFunction.close)
+        else if (clickFunctionIndex == 2) // Close
         {
             Destroy(windowParent);
         }
-        else if (functionOnClick == ClickFunction.openOtherWindow)
+        else if (clickFunctionIndex == 3) // Open Other Window
         {
             Instantiate
                 (
@@ -122,6 +116,14 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                 Quaternion.identity, 
                 canvas.gameObject.transform
                 );
+        }
+        else if (clickFunctionIndex == 0) // None
+        {
+
+        }
+        else
+        {
+            Debug.Log("Click Function not recognised");
         }
     }
 

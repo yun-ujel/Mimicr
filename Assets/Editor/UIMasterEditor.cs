@@ -13,7 +13,15 @@ public class UIMasterEditor : Editor
         "Close",
         "Open Other Window"
     };
-    public int clickFunctionIndex = 1;
+    public string[] dragFunctions = new string[]
+{
+        "None",
+        "Move",
+        "Resize Width and Height",
+        "Resize Width",
+        "Resize Height"
+};
+
 
     private void OnEnable()
     {
@@ -22,28 +30,22 @@ public class UIMasterEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+        
 
         var uM = new SerializedObject(uMaster);
-        //SerializedProperty joe = uM.FindProperty("functionOnClick");
 
         EditorGUILayout.LabelField("Functions", EditorStyles.boldLabel);
 
-        //uM.FindProperty("functionOnClick").joe = EditorGUILayout.EnumPopup("Function On Click", uMaster.functionOnClick);
+        uM.FindProperty("clickFunctionIndex").intValue = EditorGUILayout.Popup("Function On Click", uMaster.clickFunctionIndex, clickFunctions);
+        uM.FindProperty("dragFunctionIndex").intValue = EditorGUILayout.Popup("Function On Drag", uMaster.dragFunctionIndex, dragFunctions);
+        uM.ApplyModifiedProperties();
 
-        uMaster.functionOnClick = (UIMaster.ClickFunction)EditorGUILayout.EnumPopup("Function On Click", uMaster.functionOnClick);
-        uMaster.functionOnDrag = (UIMaster.DragFunction)EditorGUILayout.EnumPopup("Function On Drag", uMaster.functionOnDrag);
-
-        clickFunctionIndex = EditorGUILayout.Popup("Function On Click (test)", clickFunctionIndex, clickFunctions);
-
-        //yadda.FindProperty("yaddaValue").floatValue = EditorGUILayout.Slider("Joe Balls value", uMaster.yaddaValue, 0.1f, 10f);
-        //yadda.ApplyModifiedProperties();
 
         EditorGUILayout.Space();
 
-        if (uMaster.functionOnClick == UIMaster.ClickFunction.openOtherWindow)
+        if (uMaster.clickFunctionIndex == 4)
         {
-            uMaster.otherWindow = (GameObject)EditorGUILayout.ObjectField("Window to Spawn", uMaster.otherWindow, typeof(GameObject), allowSceneObjects: false);
+
         }
 
         EditorGUILayout.Space();
@@ -53,6 +55,6 @@ public class UIMasterEditor : Editor
 
         //EditorGUILayout.LabelField("Yadda Yadda Yadda");
 
-
+        DrawDefaultInspector();
     }
 }
