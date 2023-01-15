@@ -6,12 +6,12 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
     [Header("References")]
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Canvas canvas;
+    private CanvasHandler canvasHandler;
     [SerializeField] private GameObject windowParent;
 
     [Header("Functions")]
     [SerializeField] private ClickFunction functionOnClick = ClickFunction.sendToTop;
     [SerializeField] private DragFunction functionOnDrag = DragFunction.none;
-
     private enum DragFunction
     {
         none,
@@ -60,6 +60,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         {
             otherWindow = this.gameObject;
         }
+        canvasHandler = canvas.gameObject.GetComponent<CanvasHandler>();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -71,17 +72,18 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         else if (functionOnDrag == DragFunction.resizeBoth)
         {
             //rectTransform.sizeDelta += eventData.delta / canvas.scaleFactor; <----- This line was removed because it worked inversely if the pivot value was above 0.5
+            //the pivot must be remapped to a range between -1 and 1 (instead of 0 and 1) in order to work consistently
             rectTransform.sizeDelta = new Vector2
             (
-                rectTransform.sizeDelta.x + eventData.delta.x * -Map(rectTransform.pivot.x, 0, 1, -1, 1) / canvas.scaleFactor,
-                rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
+                rectTransform.sizeDelta.x + (eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor),
+                rectTransform.sizeDelta.y + (eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor)
             );
         }
         else if (functionOnDrag == DragFunction.resizeWidth)
         {
             rectTransform.sizeDelta = new Vector2
                (
-                   rectTransform.sizeDelta.x + eventData.delta.x * -Map(rectTransform.pivot.x, 0, 1, -1, 1) / canvas.scaleFactor,
+                   rectTransform.sizeDelta.x + (eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor),
                    rectTransform.sizeDelta.y
                );
 
@@ -91,9 +93,14 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
             rectTransform.sizeDelta = new Vector2
             (
                 rectTransform.sizeDelta.x,
-                rectTransform.sizeDelta.y + eventData.delta.y * -Map(rectTransform.pivot.y, 0, 1, -1, 1) / canvas.scaleFactor
+                rectTransform.sizeDelta.y + (eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor)
             );
         }
+    }
+
+    private float RemapPivot(float input)
+    {
+        return (input * 2) - 1;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -108,13 +115,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         }
         else if (functionOnClick == ClickFunction.openNewWindow)
         {
-            canvas.gameObject.GetComponent<CanvasHandler>().SendMessage("InstantiateWindow", 1) ;
+            canvasHandler.SendMessage("InstantiateWindow", 1) ;
         }
-    }
-
-
-    private float Map(float input, float min1, float max1, float min2, float max2)
-    {
-        return min2 + (input - min1) * (max2 - min2) / (max1 - min1);
     }
 }
