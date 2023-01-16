@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 91.93
   m_ScaleFactor: 0.4
   m_ReferenceResolution: {x: 2000, y: 2000}
   m_ScreenMatchMode: 0
@@ -362,7 +362,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowsToOpen:
   - {fileID: 6381182916882127693, guid: 158cef8a2bdf6d445be7b9f18131e44f, type: 3}
-  rectTransform: {fileID: 0}
 --- !u!1 &630048121
 GameObject:
   m_ObjectHideFlags: 0
