@@ -34,18 +34,33 @@ public class CanvasHandler : MonoBehaviour
             -((rectTransform.anchorMax.y * 2) - 1)
         );
 
+        Vector2 minPosition = new Vector2
+        (
+            ((0f + (rectTransform.sizeDelta.x * (-rectTransform.anchorMax.x))) * remappedAnchor.x) * remappedAnchor.x,
+            0f + (rectTransform.sizeDelta.y * (-rectTransform.anchorMax.y + 1f)) * remappedAnchor.y
+        );
+        Vector2 maxPosition = new Vector2
+        (
+            (canvasRectTransform.sizeDelta.x + (rectTransform.sizeDelta.x * (rectTransform.anchorMax.x - 1f))) * remappedAnchor.x, 
+            (canvasRectTransform.sizeDelta.y + ((rectTransform.sizeDelta.y * rectTransform.anchorMax.y) * remappedAnchor.y)) * remappedAnchor.y
+        );
+
+        Debug.Log("Min Position:" + minPosition.ToString());
+        Debug.Log("Max Position:" + maxPosition.ToString());
+
+
         rectTransform.anchoredPosition = new Vector2
         (
             Random.Range
             (
-                0f, 
-                canvasRectTransform.sizeDelta.x
-            ) * remappedAnchor.x,
+                minPosition.x, 
+                maxPosition.x
+            ),
             Random.Range
             (
-                0f, 
-                canvasRectTransform.sizeDelta.y
-            ) * remappedAnchor.y
+                minPosition.y,
+                maxPosition.y
+            )
         );
     }
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
