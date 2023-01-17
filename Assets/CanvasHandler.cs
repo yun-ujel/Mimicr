@@ -18,7 +18,9 @@ public class CanvasHandler : MonoBehaviour
         foreach (GameObject window in windowsToOpen)
         {
             RectTransform rT = window.GetComponent<RectTransform>();
-            Debug.Log(GetScreenPosition(rT));
+            Vector2 screenPosition = AnchoredToScreenPosition(rT);
+            Debug.Log("Screen Position of " + window.name + ": " + screenPosition.ToString());
+            Debug.Log("Anchored Position of " + window.name + ": " + ScreenToAnchoredPosition(rT, screenPosition).ToString());
         }
     }
 
@@ -34,7 +36,7 @@ public class CanvasHandler : MonoBehaviour
         RectTransform rT = newWindow.GetComponent<RectTransform>();
     }
 
-    public Vector2 GetScreenPosition(RectTransform rectTransform)
+    public Vector2 AnchoredToScreenPosition(RectTransform rectTransform)
     {
         Vector2 basePivotPosition = new Vector2
             (
@@ -48,6 +50,21 @@ public class CanvasHandler : MonoBehaviour
             basePivotPosition.y + (canvasRectTransform.sizeDelta.y * rectTransform.anchorMax.y)
         );
 
+        return returnedPosition;
+    }
+
+    public Vector2 ScreenToAnchoredPosition(RectTransform rectTransform, Vector2 screenPosition)
+    {
+        Vector2 reanchoredPosition = new Vector2
+        (
+            screenPosition.x - (canvasRectTransform.sizeDelta.x * rectTransform.anchorMax.x),
+            screenPosition.y - (canvasRectTransform.sizeDelta.y * rectTransform.anchorMax.y)
+        );
+        Vector2 returnedPosition = new Vector2
+        (
+            reanchoredPosition.x + (rectTransform.sizeDelta.x * rectTransform.pivot.x),
+            reanchoredPosition.y + (rectTransform.sizeDelta.y * rectTransform.pivot.y)
+        );
         return returnedPosition;
     }
 
