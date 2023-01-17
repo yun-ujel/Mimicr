@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,23 +6,17 @@ using UnityEngine.UI;
 public class CanvasHandler : MonoBehaviour
 {
     [SerializeField] private GameObject[] windowsToOpen;
-    RectTransform canvasRectTransform;
+    //RectTransform canvasRectTransform;
     Canvas canvas;
     void Awake()
     {
         canvas = GetComponent<Canvas>();
-        canvasRectTransform = GetComponent<RectTransform>();
+        //canvasRectTransform = GetComponent<RectTransform>();
     }
     
     void Start()
     {
-        foreach (GameObject window in windowsToOpen)
-        {
-            RectTransform rT = window.GetComponent<RectTransform>();
-            Vector2 screenPosition = AnchoredToScreenPosition(rT);
-            Debug.Log("Screen Position of " + window.name + ": " + screenPosition.ToString());
-            Debug.Log("Anchored Position of " + window.name + ": " + ScreenToAnchoredPosition(rT, screenPosition).ToString());
-        }
+
     }
 
     public void InstantiateWindow(int windowIndex)
@@ -36,37 +31,72 @@ public class CanvasHandler : MonoBehaviour
         RectTransform rT = newWindow.GetComponent<RectTransform>();
     }
 
-    public Vector2 AnchoredToScreenPosition(RectTransform rectTransform)
+
+    public Vector2 AnchoredToCanvasPosition(RectTransform rectTransform)
     {
-        Vector2 basePivotPosition = new Vector2
-            (
-                rectTransform.anchoredPosition.x - (rectTransform.sizeDelta.x * rectTransform.pivot.x),
-                rectTransform.anchoredPosition.y - (rectTransform.sizeDelta.y * rectTransform.pivot.y)
-            );
+        List<RectTransform> testListOfParents = new List<RectTransform>();
+        RectTransform testTransform = rectTransform;
+        while (testTransform.parent != null)
+        {
+            testListOfParents.Add(testTransform);
+            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
+        }
 
-        Vector2 returnedPosition = new Vector2
-        (
-            basePivotPosition.x + (canvasRectTransform.sizeDelta.x * rectTransform.anchorMax.x),
-            basePivotPosition.y + (canvasRectTransform.sizeDelta.y * rectTransform.anchorMax.y)
-        );
+        RectTransform[] listOfParents = testListOfParents.ToArray();
+        Debug.Log("Number of Parents of " + rectTransform.gameObject.name + ": " + listOfParents.Length.ToString());
 
-        return returnedPosition;
+        RectTransform childRectTransform = rectTransform;
+        RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
+        Vector2 relativePosition = childRectTransform.anchoredPosition;
+
+        for (int i = 0; i < listOfParents.Length; i++)
+        {
+            parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
+            relativePosition = new Vector2
+                (
+                    (relativePosition.x - (childRectTransform.sizeDelta.x * childRectTransform.pivot.x))
+                    + (parentRectTransform.sizeDelta.x * childRectTransform.anchorMax.x),
+
+                    (relativePosition.y - (childRectTransform.sizeDelta.y * childRectTransform.pivot.y))
+                    + (parentRectTransform.sizeDelta.y * childRectTransform.anchorMax.y)
+                );
+            childRectTransform = parentRectTransform;
+        }
+        return relativePosition;
+    }
+    public Vector2 CanvasToAnchoredPosition(RectTransform rectTransform, Vector2 screenPosition)
+    {
+        List<RectTransform> testListOfParents = new List<RectTransform>();
+        RectTransform testTransform = rectTransform;
+        while (testTransform.parent != null)
+        {
+            testListOfParents.Add(testTransform);
+            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
+        }
+
+        RectTransform[] listOfParents = testListOfParents.ToArray();
+        Debug.Log("Number of Parents of " + rectTransform.gameObject.name + ": " + listOfParents.Length.ToString());
+
+        RectTransform childRectTransform = rectTransform;
+        RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
+        Vector2 universalPosition = screenPosition;
+
+        for (int i = 0; i < listOfParents.Length; i++)
+        {
+            parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
+            universalPosition = new Vector2
+                (
+                    (universalPosition.x - (parentRectTransform.sizeDelta.x * childRectTransform.anchorMax.x))
+                    + (childRectTransform.sizeDelta.x * childRectTransform.pivot.x),
+
+                    (universalPosition.y - (parentRectTransform.sizeDelta.y * childRectTransform.anchorMax.y))
+                    + (childRectTransform.sizeDelta.y * childRectTransform.pivot.y)
+                );
+            childRectTransform = parentRectTransform;
+        }
+        return universalPosition;
     }
 
-    public Vector2 ScreenToAnchoredPosition(RectTransform rectTransform, Vector2 screenPosition)
-    {
-        Vector2 reanchoredPosition = new Vector2
-        (
-            screenPosition.x - (canvasRectTransform.sizeDelta.x * rectTransform.anchorMax.x),
-            screenPosition.y - (canvasRectTransform.sizeDelta.y * rectTransform.anchorMax.y)
-        );
-        Vector2 returnedPosition = new Vector2
-        (
-            reanchoredPosition.x + (rectTransform.sizeDelta.x * rectTransform.pivot.x),
-            reanchoredPosition.y + (rectTransform.sizeDelta.y * rectTransform.pivot.y)
-        );
-        return returnedPosition;
-    }
 
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
     {

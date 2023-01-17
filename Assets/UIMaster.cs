@@ -48,6 +48,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 
                     break;
                 }
+
                 testParentObject = testCanvasTransform.gameObject;
                 testCanvasTransform = testCanvasTransform.parent;
             }
