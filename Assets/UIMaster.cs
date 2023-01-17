@@ -8,7 +8,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     [SerializeField] private Canvas canvas;
 
-    [HideInInspector] private CanvasHandler canvasHandler;
+    [HideInInspector] public CanvasHandler canvasHandler;
     [HideInInspector] public GameObject windowToClose;
     [HideInInspector] public RectTransform movementBoundaries;
 
@@ -58,6 +58,10 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         {
             rectTransform = GetComponent<RectTransform>();
         }
+        if (movementBoundaries == null)
+        {
+            movementBoundaries = canvas.GetComponent<RectTransform>();
+        }
         canvasHandler = canvas.gameObject.GetComponent<CanvasHandler>();
     }
 
@@ -102,13 +106,23 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
     private bool withinParentBoundaries(RectTransform rT, RectTransform parent)
     {
         Vector2 unanchoredPosition = canvasHandler.AnchoredToParentPosition(rT, parent);
-        return
+
+        if
         (
-            unanchoredPosition.x >= parent.sizeDelta.x - rT.sizeDelta.x ||
-            unanchoredPosition.x <= 0f ||
-            unanchoredPosition.y >= parent.sizeDelta.y - rT.sizeDelta.y ||
-            unanchoredPosition.y <= 0f
-        );
+            unanchoredPosition.x <= parent.sizeDelta.x - rT.sizeDelta.x ||
+            unanchoredPosition.x >= 0f ||
+            unanchoredPosition.y <= parent.sizeDelta.y - rT.sizeDelta.y ||
+            unanchoredPosition.y >= 0f
+        )
+        {
+            Debug.Log("true");
+            return true;
+        }
+        else
+        {
+            Debug.Log("false");
+            return false;
+        }
     }
 
     private float RemapPivot(float input)

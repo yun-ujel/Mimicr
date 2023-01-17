@@ -20,16 +20,13 @@ public class UIMasterEditor : Editor
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("References", EditorStyles.boldLabel);
-        EditorGUILayout.Space();
 
-
-
-        if(uMaster.functionOnClick == UIMaster.ClickFunction.close)
+        if (uMaster.functionOnClick == UIMaster.ClickFunction.close)
         {
             uM.FindProperty("windowToClose").objectReferenceValue = EditorGUILayout.ObjectField("Window To Close", uMaster.windowToClose, typeof(GameObject), allowSceneObjects: true);
         }
         
-        if(uMaster.functionOnDrag == UIMaster.DragFunction.move)
+        if (uMaster.functionOnDrag == UIMaster.DragFunction.move)
         {
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Move)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
             uM.FindProperty("movementBoundaries").objectReferenceValue = EditorGUILayout.ObjectField("Movement Boundaries", uMaster.movementBoundaries, typeof(RectTransform), allowSceneObjects: true);
@@ -43,12 +40,23 @@ public class UIMasterEditor : Editor
         {
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Resize)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
         }
-        else if(uMaster.functionOnClick == UIMaster.ClickFunction.sendToTop)
+        else if (uMaster.functionOnClick == UIMaster.ClickFunction.sendToTop)
         {
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Send to Top)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
         }
 
-
-        uM.ApplyModifiedProperties();
+        if (uMaster.canvasHandler == null)
+        {
+            uM.FindProperty("canvasHandler").objectReferenceValue = EditorGUILayout.ObjectField("Canvas Handler", uMaster.canvasHandler, typeof(CanvasHandler), allowSceneObjects: true);
+            uM.ApplyModifiedProperties();
+        }
+        else
+        {
+            uM.ApplyModifiedProperties();
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Canvas Position", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+            EditorGUILayout.Vector3Field("", uMaster.canvasHandler.AnchoredToCanvasPosition(uMaster.GetComponent<RectTransform>()));
+        }
     }
 }
