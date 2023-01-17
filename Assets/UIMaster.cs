@@ -4,15 +4,18 @@ using UnityEngine.EventSystems;
 public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     [Header("References")]
-    [SerializeField] private RectTransform rectTransform;
+    [HideInInspector] public RectTransform rectTransform;
+
     [SerializeField] private Canvas canvas;
-    private CanvasHandler canvasHandler;
-    [SerializeField] private GameObject windowParent;
+
+    [HideInInspector] private CanvasHandler canvasHandler;
+    [HideInInspector] public GameObject windowToClose;
+    [HideInInspector] public RectTransform movementBoundaries;
 
     [Header("Functions")]
-    [SerializeField] private ClickFunction functionOnClick = ClickFunction.sendToTop;
-    [SerializeField] private DragFunction functionOnDrag = DragFunction.none;
-    private enum DragFunction
+    [SerializeField] public ClickFunction functionOnClick = ClickFunction.sendToTop;
+    [SerializeField] public DragFunction functionOnDrag = DragFunction.none;
+    public enum DragFunction
     {
         none,
         move,
@@ -20,15 +23,13 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         resizeWidth,
         resizeHeight
     }
-    private enum ClickFunction
+    public enum ClickFunction
     {
         none,
         sendToTop,
         close,
         openNewWindow
     }
-
-    [HideInInspector] public GameObject otherWindow;
 
     private void Awake()
     {
@@ -41,9 +42,9 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                 canvas = testCanvasTransform.GetComponent<Canvas>();
                 if (canvas != null)
                 {
-                    if (windowParent == null)
+                    if (windowToClose == null)
                     {
-                        windowParent = testParentObject;
+                        windowToClose = testParentObject;
                     }
 
                     break;
@@ -57,10 +58,6 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         {
             rectTransform = GetComponent<RectTransform>();
         }
-        if (otherWindow == null)
-        {
-            otherWindow = this.gameObject;
-        }
         canvasHandler = canvas.gameObject.GetComponent<CanvasHandler>();
     }
 
@@ -68,12 +65,13 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
     {
         if (functionOnDrag == DragFunction.move)
         {
-            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+            if(withinParentBoundaries(rectTransform, movementBoundaries))
+            {
+                rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+            }
         }
         else if (functionOnDrag == DragFunction.resizeBoth)
         {
-            //rectTransform.sizeDelta += eventData.delta / canvas.scaleFactor; <----- This line was removed because it worked inversely if the pivot value was above 0.5
-            //the pivot must be remapped to a range between -1 and 1 (instead of 0 and 1) in order to work consistently
             rectTransform.sizeDelta = new Vector2
             (
                 rectTransform.sizeDelta.x + (eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor),
@@ -97,13 +95,26 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
                 rectTransform.sizeDelta.y + (eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor)
             );
         }
+
+        Debug.Log("Dragging");
+    }
+
+    private bool withinParentBoundaries(RectTransform rT, RectTransform parent)
+    {
+        Vector2 unanchoredPosition = canvasHandler.AnchoredToParentPosition(rT, parent);
+        return
+        (
+            unanchoredPosition.x >= parent.sizeDelta.x - rT.sizeDelta.x ||
+            unanchoredPosition.x <= 0f ||
+            unanchoredPosition.y >= parent.sizeDelta.y - rT.sizeDelta.y ||
+            unanchoredPosition.y <= 0f
+        );
     }
 
     private float RemapPivot(float input)
     {
         return (input * 2) - 1;
     }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (functionOnClick == ClickFunction.sendToTop)
@@ -112,7 +123,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         }
         else if (functionOnClick == ClickFunction.close)
         {
-            Destroy(windowParent);
+            Destroy(windowToClose);
         }
         else if (functionOnClick == ClickFunction.openNewWindow)
         {

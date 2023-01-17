@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class CanvasHandler : MonoBehaviour
 {
     [SerializeField] private GameObject[] windowsToOpen;
-    //RectTransform canvasRectTransform;
+    RectTransform canvasRectTransform;
     Canvas canvas;
     void Awake()
     {
         canvas = GetComponent<Canvas>();
-        //canvasRectTransform = GetComponent<RectTransform>();
+        canvasRectTransform = GetComponent<RectTransform>();
     }
     
-    void Start()
+    void Update()
     {
 
     }
@@ -29,9 +29,17 @@ public class CanvasHandler : MonoBehaviour
 
         // Randomize position of the object
         RectTransform rT = newWindow.GetComponent<RectTransform>();
+        Vector2 randomizedPosition = CanvasToAnchoredPosition(rT, new Vector2
+        (
+            Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
+            Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
+        ));
+
+        rT.anchoredPosition = randomizedPosition;
     }
 
 
+    // Canvas Position methods have not yet been tested with anchors that have different Min and Max values
     public Vector2 AnchoredToCanvasPosition(RectTransform rectTransform)
     {
         List<RectTransform> testListOfParents = new List<RectTransform>();
@@ -43,7 +51,6 @@ public class CanvasHandler : MonoBehaviour
         }
 
         RectTransform[] listOfParents = testListOfParents.ToArray();
-        Debug.Log("Number of Parents of " + rectTransform.gameObject.name + ": " + listOfParents.Length.ToString());
 
         RectTransform childRectTransform = rectTransform;
         RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
@@ -75,7 +82,6 @@ public class CanvasHandler : MonoBehaviour
         }
 
         RectTransform[] listOfParents = testListOfParents.ToArray();
-        Debug.Log("Number of Parents of " + rectTransform.gameObject.name + ": " + listOfParents.Length.ToString());
 
         RectTransform childRectTransform = rectTransform;
         RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
@@ -97,6 +103,17 @@ public class CanvasHandler : MonoBehaviour
         return universalPosition;
     }
 
+
+    public Vector2 AnchoredToParentPosition(RectTransform rT, RectTransform parentTransform)
+    {
+        Vector2 returnedPosition = new Vector2
+        (
+            (rT.anchoredPosition.x - (rT.sizeDelta.x * rT.pivot.x)) + (parentTransform.sizeDelta.x * rT.anchorMax.x),
+            (rT.anchoredPosition.y - (rT.sizeDelta.y * rT.pivot.y)) + (parentTransform.sizeDelta.y * rT.anchorMax.y)
+        );
+
+        return returnedPosition;
+    }
 
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
     {
