@@ -19,9 +19,14 @@ public class CanvasHandler : MonoBehaviour
     {
         foreach (GameObject gameObject in windowsToLog)
         {
+            Vector2 unanchored = FullyUnanchorPosition(gameObject.GetComponent<RectTransform>());
+
             Debug.Log("Size On Canvas of " + gameObject.name + ": " + FindSizeOnCanvas(gameObject.GetComponent<RectTransform>()));
-            Debug.Log("Unpivot Position Of " + gameObject.name + ": " + UnanchorPosition(gameObject.GetComponent<RectTransform>()));
+            Debug.Log("Unanchored Position Of " + gameObject.name + ": " + unanchored);
+            //Debug.Log("Reanchored Position Of " + gameObject.name + ": " + FullyReanchorPosition(gameObject.GetComponent<RectTransform>(), unanchored));
         }
+
+
     }
 
     public void InstantiateWindow(int windowIndex)
@@ -34,7 +39,7 @@ public class CanvasHandler : MonoBehaviour
 
         // Randomize position of the object
         RectTransform rT = newWindow.GetComponent<RectTransform>();
-        Vector2 randomizedPosition = CanvasToAnchoredPosition(rT, new Vector2
+        Vector2 randomizedPosition = FullyReanchorPosition(rT, new Vector2
         (
             Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
             Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
@@ -42,72 +47,6 @@ public class CanvasHandler : MonoBehaviour
 
         rT.anchoredPosition = randomizedPosition;
     }
-
-
-    // Canvas Position methods have not yet been tested with anchors that have different Min and Max values
-    public Vector2 AnchoredToCanvasPosition(RectTransform rectTransform)
-    {
-        List<RectTransform> testListOfParents = new List<RectTransform>();
-        RectTransform testTransform = rectTransform;
-        while (testTransform.parent != null)
-        {
-            testListOfParents.Add(testTransform);
-            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
-        }
-
-        RectTransform[] listOfParents = testListOfParents.ToArray();
-
-        RectTransform childRectTransform = rectTransform;
-        RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
-        Vector2 relativePosition = childRectTransform.anchoredPosition;
-
-        for (int i = 0; i < listOfParents.Length; i++)
-        {
-            parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
-            relativePosition = new Vector2
-                (
-                    (relativePosition.x - (childRectTransform.sizeDelta.x * childRectTransform.pivot.x))
-                    + (parentRectTransform.sizeDelta.x * childRectTransform.anchorMax.x),
-
-                    (relativePosition.y - (childRectTransform.sizeDelta.y * childRectTransform.pivot.y))
-                    + (parentRectTransform.sizeDelta.y * childRectTransform.anchorMax.y)
-                );
-            childRectTransform = parentRectTransform;
-        }
-        return relativePosition;
-    }
-    public Vector2 CanvasToAnchoredPosition(RectTransform rectTransform, Vector2 screenPosition)
-    {
-        List<RectTransform> testListOfParents = new List<RectTransform>();
-        RectTransform testTransform = rectTransform;
-        while (testTransform.parent != null)
-        {
-            testListOfParents.Add(testTransform);
-            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
-        }
-
-        RectTransform[] listOfParents = testListOfParents.ToArray();
-
-        RectTransform childRectTransform = rectTransform;
-        RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
-        Vector2 universalPosition = screenPosition;
-
-        for (int i = 0; i < listOfParents.Length; i++)
-        {
-            parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
-            universalPosition = new Vector2
-                (
-                    (universalPosition.x - (parentRectTransform.sizeDelta.x * childRectTransform.anchorMax.x))
-                    + (childRectTransform.sizeDelta.x * childRectTransform.pivot.x),
-
-                    (universalPosition.y - (parentRectTransform.sizeDelta.y * childRectTransform.anchorMax.y))
-                    + (childRectTransform.sizeDelta.y * childRectTransform.pivot.y)
-                );
-            childRectTransform = parentRectTransform;
-        }
-        return universalPosition;
-    }
-
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
     {
         return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
@@ -126,7 +65,6 @@ public class CanvasHandler : MonoBehaviour
 
         return returnedSizeDelta;
     }
-
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
         Vector2 transformSize = FindSizeOnCanvas(rectTransform);
@@ -146,8 +84,64 @@ public class CanvasHandler : MonoBehaviour
 
         return returnedPosition;
     }
-
     public Vector2 FullyUnanchorPosition(RectTransform rectTransform)
+    {
+        List<RectTransform> testListOfParents = new List<RectTransform>();
+        RectTransform testTransform = rectTransform;
+        while (testTransform.parent != null)
+        {
+            testListOfParents.Add(testTransform);
+            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
+        }
+
+        RectTransform[] listOfParents = testListOfParents.ToArray();
+
+        Vector2 transformSize = FindSizeOnCanvas(rectTransform);
+        RectTransform childTransform = rectTransform;
+        RectTransform parentTransform = childTransform.parent.GetComponent<RectTransform>();
+        Vector2 relativePosition = new Vector2(0f, 0f);
+
+        for (int i = 0; i < listOfParents.Length; i++)
+        {
+            parentTransform = childTransform.parent.GetComponent<RectTransform>();
+            transformSize = FindSizeOnCanvas(childTransform);
+
+            relativePosition = new Vector2
+            (
+                relativePosition.x + (childTransform.anchoredPosition.x - (transformSize.x * childTransform.pivot.x)) + (parentTransform.sizeDelta.x * ((childTransform.anchorMax.x + childTransform.anchorMin.x) / 2f)),
+                relativePosition.y + (childTransform.anchoredPosition.y - (transformSize.y * childTransform.pivot.y)) + (parentTransform.sizeDelta.y * ((childTransform.anchorMax.y + childTransform.anchorMin.y) / 2f))
+            );
+            childTransform = parentTransform;
+        }
+        return relativePosition;
+    }
+
+    public void FindSizeOnCanvas2(RectTransform rectTransform)
+    {
+        List<RectTransform> testListOfParents = new List<RectTransform>();
+        RectTransform testTransform = rectTransform;
+        testListOfParents.Add(testTransform);
+        while (testTransform.parent != null)
+        {
+            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
+            testListOfParents.Add(testTransform);
+        }
+
+        RectTransform[] listOfParents = testListOfParents.ToArray();
+
+        foreach (RectTransform joe in listOfParents)
+        {
+            Debug.Log(joe.gameObject.name + "is Parent of " + rectTransform.gameObject.name);
+        }
+
+        Vector2 returnedSizeDelta = new Vector2(0f, 0f);
+        
+        //return returnedSizeDelta;
+    }
+
+
+
+    public Vector2 FullyReanchorPosition(RectTransform rectTransform, Vector2 unanchoredPosition)
     {
         List<RectTransform> testListOfParents = new List<RectTransform>();
         RectTransform testTransform = rectTransform;
@@ -162,20 +156,21 @@ public class CanvasHandler : MonoBehaviour
         Vector2 transformSize = FindSizeOnCanvas(rectTransform);
         RectTransform childRectTransform = rectTransform;
         RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
-        Vector2 relativePosition = childRectTransform.anchoredPosition;
 
         for (int i = 0; i < listOfParents.Length; i++)
         {
             parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
             transformSize = FindSizeOnCanvas(childRectTransform);
 
-            relativePosition = new Vector2
+            unanchoredPosition = new Vector2
             (
-                (relativePosition.x - (transformSize.x * childRectTransform.pivot.x)) + (parentRectTransform.sizeDelta.x * ((childRectTransform.anchorMax.x + childRectTransform.anchorMin.x) / 2f)),
-                (relativePosition.y - (transformSize.y * childRectTransform.pivot.y)) + (parentRectTransform.sizeDelta.y * ((childRectTransform.anchorMax.y + childRectTransform.anchorMin.y) / 2f))
+                (unanchoredPosition.x - (transformSize.x * childRectTransform.pivot.x)) + (parentRectTransform.sizeDelta.x * ((childRectTransform.anchorMax.x + childRectTransform.anchorMin.x) / 2f)),
+                (unanchoredPosition.y - (transformSize.y * childRectTransform.pivot.y)) + (parentRectTransform.sizeDelta.y * ((childRectTransform.anchorMax.y + childRectTransform.anchorMin.y) / 2f))
             );
             childRectTransform = parentRectTransform;
         }
-        return relativePosition;
+
+
+        return unanchoredPosition;
     }
 }

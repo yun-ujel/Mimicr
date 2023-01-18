@@ -56,7 +56,7 @@ public class UIMasterEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Canvas Position", EditorStyles.boldLabel);
             EditorGUILayout.Space();
-            EditorGUILayout.Vector3Field("", uMaster.canvasHandler.AnchoredToCanvasPosition(uMaster.GetComponent<RectTransform>()));
+            EditorGUILayout.Vector3Field("", uMaster.canvasHandler.FullyUnanchorPosition(uMaster.GetComponent<RectTransform>()));
         }
     }
 }
