@@ -127,26 +127,25 @@ public class CanvasHandler : MonoBehaviour
         return returnedSizeDelta;
     }
 
-
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
         Vector2 transformSize = FindSizeOnCanvas(rectTransform);
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
 
-        Vector2 minAnchor = new Vector2
+        Vector2 basePivotPosition = new Vector2
+            (
+                rectTransform.anchoredPosition.x - (transformSize.x * rectTransform.pivot.x),
+                rectTransform.anchoredPosition.y - (transformSize.y * rectTransform.pivot.y)
+            );
+
+        Vector2 returnedPosition = new Vector2
         (
-            Mathf.Min(rectTransform.anchorMin.x, rectTransform.anchorMax.x), 
-            Mathf.Min(rectTransform.anchorMin.y, rectTransform.anchorMax.y)
+            basePivotPosition.x + (parentTransform.sizeDelta.x * ((rectTransform.anchorMax.x + rectTransform.anchorMin.x) / 2f)),
+            basePivotPosition.y + (parentTransform.sizeDelta.y * ((rectTransform.anchorMax.y + rectTransform.anchorMin.y) / 2f))
         );
 
-
-        Vector2 unPivotPosition = new Vector2
-        (
-            //rectTransform.anchoredPosition.x - (transformSize.x * rectTransform.pivot.x),
-            ((parentTransform.sizeDelta.x - transformSize.x) * minAnchor.x) + rectTransform.offsetMin.x,
-            ((parentTransform.sizeDelta.y - transformSize.y) * minAnchor.y) + rectTransform.offsetMin.y
-        );
-
-        return unPivotPosition;
+        return returnedPosition;
     }
+
+
 }
