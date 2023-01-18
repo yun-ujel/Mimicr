@@ -21,9 +21,11 @@ public class CanvasHandler : MonoBehaviour
         {
             Vector2 unanchored = FullyUnanchorPosition(gameObject.GetComponent<RectTransform>());
 
-            Debug.Log("Size On Canvas of " + gameObject.name + ": " + FindSizeOnCanvas(gameObject.GetComponent<RectTransform>()));
-            Debug.Log("Unanchored Position Of " + gameObject.name + ": " + unanchored);
+            //Debug.Log("Size On Canvas of " + gameObject.name + ": " + FindSizeOnCanvas(gameObject.GetComponent<RectTransform>()));
+            //Debug.Log("Unanchored Position Of " + gameObject.name + ": " + unanchored);
             //Debug.Log("Reanchored Position Of " + gameObject.name + ": " + FullyReanchorPosition(gameObject.GetComponent<RectTransform>(), unanchored));
+
+            Debug.Log("Size on Canvas of " + gameObject.name + ": " + FullyFindSize(gameObject.GetComponent<RectTransform>()));
         }
 
 
@@ -116,7 +118,7 @@ public class CanvasHandler : MonoBehaviour
         return relativePosition;
     }
 
-    public void FindSizeOnCanvas2(RectTransform rectTransform)
+    public Vector2 FullyFindSize(RectTransform rectTransform)
     {
         List<RectTransform> testListOfParents = new List<RectTransform>();
         RectTransform testTransform = rectTransform;
@@ -129,14 +131,20 @@ public class CanvasHandler : MonoBehaviour
 
         RectTransform[] listOfParents = testListOfParents.ToArray();
 
-        foreach (RectTransform joe in listOfParents)
+        Vector2 lastCalculatedSize = listOfParents[listOfParents.Length - 1].sizeDelta;
+
+        for (int i = listOfParents.Length - 1; i > 0; i--)
         {
-            Debug.Log(joe.gameObject.name + "is Parent of " + rectTransform.gameObject.name);
+            Debug.Log(lastCalculatedSize);
+
+            lastCalculatedSize = new Vector2
+            (
+                (lastCalculatedSize.x * Mathf.Abs(listOfParents[i - 1].anchorMax.x - listOfParents[i - 1].anchorMin.x)) + (listOfParents[i - 1].offsetMax.x - listOfParents[i - 1].offsetMin.x),
+                (lastCalculatedSize.y * Mathf.Abs(listOfParents[i - 1].anchorMax.y - listOfParents[i - 1].anchorMin.y)) + (listOfParents[i - 1].offsetMax.y - listOfParents[i - 1].offsetMin.y)
+            );
         }
 
-        Vector2 returnedSizeDelta = new Vector2(0f, 0f);
-        
-        //return returnedSizeDelta;
+        return lastCalculatedSize;
     }
 
 
