@@ -69,10 +69,10 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
     {
         if (functionOnDrag == DragFunction.move)
         {
-            if(withinParentBoundaries(rectTransform, movementBoundaries))
-            {
+            //if(withinParentBoundaries(rectTransform, movementBoundaries))
+            //{
                 rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-            }
+            //}
         }
         else if (functionOnDrag == DragFunction.resizeBoth)
         {
@@ -101,28 +101,6 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler
         }
 
         Debug.Log("Dragging");
-    }
-
-    private bool withinParentBoundaries(RectTransform rT, RectTransform parent)
-    {
-        Vector2 unanchoredPosition = canvasHandler.AnchoredToParentPosition(rT, parent);
-
-        if
-        (
-            unanchoredPosition.x <= parent.sizeDelta.x - rT.sizeDelta.x ||
-            unanchoredPosition.x >= 0f ||
-            unanchoredPosition.y <= parent.sizeDelta.y - rT.sizeDelta.y ||
-            unanchoredPosition.y >= 0f
-        )
-        {
-            Debug.Log("true");
-            return true;
-        }
-        else
-        {
-            Debug.Log("false");
-            return false;
-        }
     }
 
     private float RemapPivot(float input)

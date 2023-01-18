@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CanvasHandler : MonoBehaviour
 {
     [SerializeField] private GameObject[] windowsToOpen;
+    [SerializeField] private GameObject[] windowsToLog;
     RectTransform canvasRectTransform;
     Canvas canvas;
     void Awake()
@@ -14,9 +15,13 @@ public class CanvasHandler : MonoBehaviour
         canvasRectTransform = GetComponent<RectTransform>();
     }
     
-    void Update()
+    void Start()
     {
-
+        foreach (GameObject gameObject in windowsToLog)
+        {
+            Debug.Log("Size On Canvas of " + gameObject.name + ": " + FindSizeOnCanvas(gameObject.GetComponent<RectTransform>()));
+            Debug.Log("Unpivot Position Of " + gameObject.name + ": " + UnanchorPosition(gameObject.GetComponent<RectTransform>()));
+        }
     }
 
     public void InstantiateWindow(int windowIndex)
@@ -103,20 +108,45 @@ public class CanvasHandler : MonoBehaviour
         return universalPosition;
     }
 
-
-    public Vector2 AnchoredToParentPosition(RectTransform rT, RectTransform parentTransform)
-    {
-        Vector2 returnedPosition = new Vector2
-        (
-            (rT.anchoredPosition.x - (rT.sizeDelta.x * rT.pivot.x)) + (parentTransform.sizeDelta.x * rT.anchorMax.x),
-            (rT.anchoredPosition.y - (rT.sizeDelta.y * rT.pivot.y)) + (parentTransform.sizeDelta.y * rT.anchorMax.y)
-        );
-
-        return returnedPosition;
-    }
-
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
     {
         return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
+    }
+
+
+    public Vector2 FindSizeOnCanvas(RectTransform rectTransform)
+    {
+        RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
+
+        Vector2 returnedSizeDelta = new Vector2
+        (
+            (parentTransform.sizeDelta.x * Mathf.Abs(rectTransform.anchorMax.x - rectTransform.anchorMin.x)) + (rectTransform.offsetMax.x - rectTransform.offsetMin.x),
+            (parentTransform.sizeDelta.y * Mathf.Abs(rectTransform.anchorMax.y - rectTransform.anchorMin.y)) + (rectTransform.offsetMax.y - rectTransform.offsetMin.y)
+        );
+
+        return returnedSizeDelta;
+    }
+
+
+    public Vector2 UnanchorPosition(RectTransform rectTransform)
+    {
+        Vector2 transformSize = FindSizeOnCanvas(rectTransform);
+        RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
+
+        Vector2 minAnchor = new Vector2
+        (
+            Mathf.Min(rectTransform.anchorMin.x, rectTransform.anchorMax.x), 
+            Mathf.Min(rectTransform.anchorMin.y, rectTransform.anchorMax.y)
+        );
+
+
+        Vector2 unPivotPosition = new Vector2
+        (
+            //rectTransform.anchoredPosition.x - (transformSize.x * rectTransform.pivot.x),
+            ((parentTransform.sizeDelta.x - transformSize.x) * minAnchor.x) + rectTransform.offsetMin.x,
+            ((parentTransform.sizeDelta.y - transformSize.y) * minAnchor.y) + rectTransform.offsetMin.y
+        );
+
+        return unPivotPosition;
     }
 }
