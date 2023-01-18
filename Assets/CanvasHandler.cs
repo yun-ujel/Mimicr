@@ -147,5 +147,35 @@ public class CanvasHandler : MonoBehaviour
         return returnedPosition;
     }
 
+    public Vector2 FullyUnanchorPosition(RectTransform rectTransform)
+    {
+        List<RectTransform> testListOfParents = new List<RectTransform>();
+        RectTransform testTransform = rectTransform;
+        while (testTransform.parent != null)
+        {
+            testListOfParents.Add(testTransform);
+            testTransform = testTransform.parent.gameObject.GetComponent<RectTransform>();
+        }
 
+        RectTransform[] listOfParents = testListOfParents.ToArray();
+
+        Vector2 transformSize = FindSizeOnCanvas(rectTransform);
+        RectTransform childRectTransform = rectTransform;
+        RectTransform parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
+        Vector2 relativePosition = childRectTransform.anchoredPosition;
+
+        for (int i = 0; i < listOfParents.Length; i++)
+        {
+            parentRectTransform = childRectTransform.parent.GetComponent<RectTransform>();
+            transformSize = FindSizeOnCanvas(childRectTransform);
+
+            relativePosition = new Vector2
+            (
+                (relativePosition.x - (transformSize.x * childRectTransform.pivot.x)) + (parentRectTransform.sizeDelta.x * ((childRectTransform.anchorMax.x + childRectTransform.anchorMin.x) / 2f)),
+                (relativePosition.y - (transformSize.y * childRectTransform.pivot.y)) + (parentRectTransform.sizeDelta.y * ((childRectTransform.anchorMax.y + childRectTransform.anchorMin.y) / 2f))
+            );
+            childRectTransform = parentRectTransform;
+        }
+        return relativePosition;
+    }
 }
