@@ -45,18 +45,6 @@ public class UIMasterEditor : Editor
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Send to Top)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
         }
 
-        if (uMaster.canvasHandler == null)
-        {
-            uM.FindProperty("canvasHandler").objectReferenceValue = EditorGUILayout.ObjectField("Canvas Handler", uMaster.canvasHandler, typeof(CanvasHandler), allowSceneObjects: true);
-            uM.ApplyModifiedProperties();
-        }
-        else
-        {
-            uM.ApplyModifiedProperties();
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Canvas Position", EditorStyles.boldLabel);
-            EditorGUILayout.Space();
-            EditorGUILayout.Vector3Field("", uMaster.canvasHandler.FullyUnanchorPosition(uMaster.GetComponent<RectTransform>()));
-        }
+
     }
 }
