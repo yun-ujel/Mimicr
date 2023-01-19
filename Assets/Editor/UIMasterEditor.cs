@@ -29,7 +29,6 @@ public class UIMasterEditor : Editor
         if (uMaster.functionOnDrag == UIMaster.DragFunction.move)
         {
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Move)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
-            uM.FindProperty("movementBoundaries").objectReferenceValue = EditorGUILayout.ObjectField("Movement Boundaries", uMaster.movementBoundaries, typeof(RectTransform), allowSceneObjects: true);
         }
         else if 
             (
@@ -45,6 +44,13 @@ public class UIMasterEditor : Editor
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Send to Top)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
         }
 
+        if(uMaster.rectTransform == uMaster.GetComponent<RectTransform>() || uMaster.rectTransform == null)
+        {
+            uM.FindProperty("minWindowSize").vector2Value = EditorGUILayout.Vector2Field("Minimum Window Size", uMaster.minWindowSize);
+        }
+
+
+        uM.ApplyModifiedProperties();
 
     }
 }

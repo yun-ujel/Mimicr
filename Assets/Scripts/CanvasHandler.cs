@@ -6,30 +6,36 @@ using UnityEngine.UI;
 public class CanvasHandler : MonoBehaviour
 {
     [SerializeField] private GameObject[] windowsToOpen;
-    [SerializeField] private GameObject[] windowsToLog;
+
+    [SerializeField] private GameObject cursor;
+    private SpriteRenderer cursorRenderer;
+
     RectTransform canvasRectTransform;
     Canvas canvas;
     void Awake()
     {
         canvas = GetComponent<Canvas>();
         canvasRectTransform = GetComponent<RectTransform>();
+
+        if (cursor == null)
+        {
+            cursor = GameObject.FindGameObjectWithTag("IsCursorObject");
+        }
+        cursorRenderer = cursor.GetComponent<SpriteRenderer>();
     }
     
     void Start()
     {
-        foreach (GameObject gameObject in windowsToLog)
-        {
-            //Debug.Log("Size On Canvas of " + gameObject.name + ": " + FindSizeOnCanvas(gameObject.GetComponent<RectTransform>()));
-            Debug.Log("Full Unanchored Position Of " + gameObject.name + ": " + FullyUnanchorPosition(gameObject.GetComponent<RectTransform>()));
-            //Debug.Log("Reanchored Position Of " + gameObject.name + ": " + FullyReanchorPosition(gameObject.GetComponent<RectTransform>(), unanchored));
-
-            Debug.Log("Full Size on Canvas of " + gameObject.name + ": " + FullyFindSize(gameObject.GetComponent<RectTransform>()));
-        }
-
-
+        cursorRenderer.color = new Color
+        (
+            cursorRenderer.color.r,
+            cursorRenderer.color.g,
+            cursorRenderer.color.b,
+            0f
+        );
     }
 
-    public void InstantiateWindow(int windowIndex)
+    private void InstantiateWindow(int windowIndex)
     {
         // Randomly select and Instantiate window as a child of this object
         int selection = Random.Range(0, windowsToOpen.Length);
@@ -47,13 +53,33 @@ public class CanvasHandler : MonoBehaviour
 
         rT.anchoredPosition = randomizedPosition;
     }
-    private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
+
+    public void OnCursorEnter(int mode)
     {
-        return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
+        cursorRenderer.color = new Color
+        (
+            cursorRenderer.color.r,
+            cursorRenderer.color.g,
+            cursorRenderer.color.b,
+            1f
+        );
+        cursorRenderer.transform.rotation = Quaternion.Euler(0f, 0f, -45 * mode);
+    }
+
+    public void OnCursorExit()
+    {
+        cursorRenderer.color = new Color
+        (
+            cursorRenderer.color.r,
+            cursorRenderer.color.g,
+            cursorRenderer.color.b,
+            0f
+        );
     }
 
 
-    public Vector2 FindSizeOnCanvas(RectTransform rectTransform)
+
+    public Vector2 FindSize(RectTransform rectTransform)
     {
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
 
@@ -67,7 +93,7 @@ public class CanvasHandler : MonoBehaviour
     }
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
-        Vector2 transformSize = FindSizeOnCanvas(rectTransform);
+        Vector2 transformSize = FindSize(rectTransform);
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
         // Method will only work if direct parent has an unstretched size
 
@@ -87,7 +113,7 @@ public class CanvasHandler : MonoBehaviour
     }
     public Vector2 ReanchorPosition(RectTransform rectTransform, Vector2 unanchoredPosition)
     {
-        Vector2 transformSize = FindSizeOnCanvas(rectTransform);
+        Vector2 transformSize = FindSize(rectTransform);
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
         // Method will only work if direct parent has an unstretched size
 
@@ -105,7 +131,6 @@ public class CanvasHandler : MonoBehaviour
 
         return rePivotPosition;
     }
-
     public Vector2 FullyUnanchorPosition(RectTransform rectTransform)
     {
         List<RectTransform> testListOfParents = new List<RectTransform>();
@@ -146,7 +171,6 @@ public class CanvasHandler : MonoBehaviour
 
         return relativePosition;
     }
-
     public Vector2 FullyFindSize(RectTransform rectTransform)
     {
         List<RectTransform> testListOfParents = new List<RectTransform>();
@@ -172,5 +196,10 @@ public class CanvasHandler : MonoBehaviour
         }
 
         return lastCalculatedSize;
+    }
+
+    private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
+    {
+        return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
     }
 }

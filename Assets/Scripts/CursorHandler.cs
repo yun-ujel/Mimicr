@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowMouse : MonoBehaviour
+public class CursorHandler : MonoBehaviour
 {
     public Vector3 screenPosition;
     public Vector3 worldPosition;
