@@ -8,6 +8,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     [Header("References")]
     [HideInInspector] public RectTransform rectTransform;
 
+    [HideInInspector] public int anchorIndex;
     [HideInInspector] public Vector2 minWindowSize;
     [SerializeField] private Canvas canvas;
 
@@ -21,9 +22,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         none,
         move,
-        resizeBoth,
-        resizeWidth,
-        resizeHeight
+        resize
     }
     public enum ClickFunction
     {
@@ -77,50 +76,144 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {            
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;            
         }
-        else if (functionOnDrag == DragFunction.resizeBoth)
+        else if (functionOnDrag == DragFunction.resize)
         {
-            if ((eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor) > 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+            // Top Left
+            if (anchorIndex == 0)
             {
-                rectTransform.sizeDelta = new Vector2
-               (
-                   rectTransform.sizeDelta.x + (eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor),
-                   rectTransform.sizeDelta.y
-               );
+                if (eventData.delta.x < 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+                {
+                    rectTransform.offsetMin = new Vector2
+                    (
+                        rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor, // left
+                        rectTransform.offsetMin.y
+                    );
+                }
+                if (eventData.delta.y > 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+                {
+                    rectTransform.offsetMax = new Vector2
+                    (
+                        rectTransform.offsetMax.x,
+                        rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor  // top
+                    );
+                }
             }
 
-            if ((eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor) > 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+            // Top
+            else if (anchorIndex == 1)
             {
-                rectTransform.sizeDelta = new Vector2
-                (
-                    rectTransform.sizeDelta.x,
-                    rectTransform.sizeDelta.y + (eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor)
-                );
+                if (eventData.delta.y > 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+                {
+                    rectTransform.offsetMax = new Vector2
+                    (
+                        rectTransform.offsetMax.x,
+                        rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor  // top
+                    );
+                }
             }
-        }
-        else if (functionOnDrag == DragFunction.resizeWidth)
-        {
-            if ((eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor) > 0 || rectTransform.sizeDelta.x > minWindowSize.x)
-            {
-                rectTransform.sizeDelta = new Vector2
-               (
-                   rectTransform.sizeDelta.x + (eventData.delta.x * -RemapPivot(rectTransform.pivot.x) / canvas.scaleFactor),
-                   rectTransform.sizeDelta.y
-               );
-            }
-        }
-        else if (functionOnDrag == DragFunction.resizeHeight)
-        {
-            if ((eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor) > 0 || rectTransform.sizeDelta.y > minWindowSize.y)
-            {
-                rectTransform.sizeDelta = new Vector2
-                (
-                    rectTransform.sizeDelta.x,
-                    rectTransform.sizeDelta.y + (eventData.delta.y * -RemapPivot(rectTransform.pivot.y) / canvas.scaleFactor)
-                );
-            }
-        }
 
-        //Debug.Log(eventData.delta);
+            // Top Right
+            else if (anchorIndex == 2)
+            {
+                if (eventData.delta.y > 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+                {
+                    rectTransform.offsetMax = new Vector2
+                    (
+                        rectTransform.offsetMax.x,
+                        rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor  // top
+                    );
+                }
+                if (eventData.delta.x > 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+                {
+                    rectTransform.offsetMax = new Vector2
+                    (
+                        rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor, // right
+                        rectTransform.offsetMax.y
+                    );
+                }
+            }
+
+            // Left
+            else if (anchorIndex == 3)
+            {
+                if (eventData.delta.x < 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+                {
+                    rectTransform.offsetMin = new Vector2
+                    (
+                        rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor, // left
+                        rectTransform.offsetMin.y
+                    );
+                }
+            }
+
+            // Right
+            else if (anchorIndex == 5)
+            {
+                if (eventData.delta.x > 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+                {
+                    rectTransform.offsetMax = new Vector2
+                    (
+                        rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor, // right
+                        rectTransform.offsetMax.y
+                    );
+                }
+            }
+
+            // Bottom Left
+            else if (anchorIndex == 6)
+            {
+                if (eventData.delta.x < 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+                {
+                    rectTransform.offsetMin = new Vector2
+                    (
+                        rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor, // left
+                        rectTransform.offsetMin.y
+                    );
+                }
+                if (eventData.delta.y < 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+                {
+                    rectTransform.offsetMin = new Vector2
+                    (
+                        rectTransform.offsetMin.x,
+                        rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor // bottom
+                    );
+                }
+            }
+
+            // Bottom
+            else if (anchorIndex == 7)
+            {
+                if (eventData.delta.y < 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+                {
+                    rectTransform.offsetMin = new Vector2
+                    (
+                        rectTransform.offsetMin.x,
+                        rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor // bottom
+                    );
+                }
+            }
+
+            // Bottom Right
+            else if (anchorIndex == 8)
+            {
+                if (eventData.delta.y < 0 || rectTransform.sizeDelta.y > minWindowSize.y)
+                {
+                    rectTransform.offsetMin = new Vector2
+                    (
+                        rectTransform.offsetMin.x,
+                        rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor // bottom
+                    );
+                }
+                if (eventData.delta.x > 0 || rectTransform.sizeDelta.x > minWindowSize.x)
+                {
+                    rectTransform.offsetMax = new Vector2
+                    (
+                        rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor, // right
+                        rectTransform.offsetMax.y
+                    );
+                }
+            }
+        }
     }
 
     private float RemapPivot(float input)
@@ -145,17 +238,9 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (functionOnDrag == DragFunction.resizeWidth)
+        if (functionOnDrag == DragFunction.resize)
         {
-            canvasHandler.OnCursorEnter(0);
-        }
-        else if (functionOnDrag == DragFunction.resizeBoth)
-        {
-            canvasHandler.OnCursorEnter(1);
-        }
-        else if (functionOnDrag == DragFunction.resizeHeight)
-        {
-            canvasHandler.OnCursorEnter(2);
+            canvasHandler.OnCursorEnter(anchorIndex);
         }
     }
 

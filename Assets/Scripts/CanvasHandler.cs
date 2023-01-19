@@ -63,7 +63,22 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             1f
         );
-        cursorRenderer.transform.rotation = Quaternion.Euler(0f, 0f, -45 * mode);
+        if (mode == 3 || mode == 5) // Left or Right
+        {
+            cursor.transform.rotation = Quaternion.identity;
+        }
+        if (mode == 0 || mode == 8) // Top Left or Bottom Right
+        {
+            cursor.transform.rotation = Quaternion.Euler(0f, 0f, 135);
+        }
+        if (mode == 1 || mode == 7) // Top or Bottom
+        {
+            cursor.transform.rotation = Quaternion.Euler(0f, 0f, 90);
+        }
+        if (mode == 2 || mode == 6) // Top Right or Bottom Left
+        {
+            cursor.transform.rotation = Quaternion.Euler(0f, 0f, 45);
+        }
     }
 
     public void OnCursorExit()
