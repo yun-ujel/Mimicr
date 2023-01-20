@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -228,11 +227,11 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         else if (functionOnClick == ClickFunction.close)
         {
-            Destroy(windowToClose);
+            windowToClose.BroadcastMessage("OnWindowComplete");
         }
         else if (functionOnClick == ClickFunction.openNewWindow)
         {
-            canvasHandler.SendMessage("InstantiateWindow", 1);
+            canvasHandler.InstantiateWindow();
         }
     }
 

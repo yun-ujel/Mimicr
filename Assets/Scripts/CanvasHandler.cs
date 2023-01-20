@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class CanvasHandler : MonoBehaviour
 {
+    public float currentScore;
+
     [SerializeField] private GameObject[] windowsToOpen;
-    [SerializeField] private RectTransform[] windowsToLog;
+
+    [SerializeField] List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
 
     [SerializeField] private GameObject cursor;
     private SpriteRenderer cursorRenderer;
@@ -36,22 +39,28 @@ public class CanvasHandler : MonoBehaviour
         );
     }
 
-    private void Update()
+    void Update()
     {
-        foreach (RectTransform rT in windowsToLog)
+        if (windowsCurrentlyOpen.Count > 10)
         {
-            Debug.Log(rT.gameObject.name + "Max Offset: " + rT.offsetMax);
-            Debug.Log(rT.gameObject.name + "Min Offset: " + rT.offsetMin);
+            GameObject objectToDestroy = windowsCurrentlyOpen[0];
+
+            windowsCurrentlyOpen.Remove(objectToDestroy);
+
+            Destroy(objectToDestroy);
+
+            currentScore -= 1;
         }
     }
 
-    private void InstantiateWindow(int windowIndex)
+    public void InstantiateWindow()
     {
         // Randomly select and Instantiate window as a child of this object
         int selection = Random.Range(0, windowsToOpen.Length);
         GameObject windowToInstantiate = windowsToOpen[selection];
 
         GameObject newWindow = Instantiate(windowToInstantiate, transform);
+        windowsCurrentlyOpen.Add(newWindow);
 
         // Randomize position of the object
         RectTransform rT = newWindow.GetComponent<RectTransform>();
@@ -102,6 +111,11 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             0f
         );
+    }
+
+    public void WindowCompleted()
+    {
+        currentScore += 1;
     }
 
 
