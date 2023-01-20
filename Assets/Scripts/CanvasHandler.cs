@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CanvasHandler : MonoBehaviour
 {
     [SerializeField] private GameObject[] windowsToOpen;
+    [SerializeField] private RectTransform[] windowsToLog;
 
     [SerializeField] private GameObject cursor;
     private SpriteRenderer cursorRenderer;
@@ -33,6 +34,15 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             0f
         );
+    }
+
+    private void Update()
+    {
+        foreach (RectTransform rT in windowsToLog)
+        {
+            Debug.Log(rT.gameObject.name + "Max Offset: " + rT.offsetMax);
+            Debug.Log(rT.gameObject.name + "Min Offset: " + rT.offsetMin);
+        }
     }
 
     private void InstantiateWindow(int windowIndex)
