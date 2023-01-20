@@ -62,7 +62,10 @@ public class CanvasHandler : MonoBehaviour
         ));
 
         rT.anchoredPosition = randomizedPosition;
+
+        rT.gameObject.BroadcastMessage("OnWindowStart");
     }
+
 
     public void OnCursorEnter(int mode)
     {
@@ -90,7 +93,6 @@ public class CanvasHandler : MonoBehaviour
             cursor.transform.rotation = Quaternion.Euler(0f, 0f, 45);
         }
     }
-
     public void OnCursorExit()
     {
         cursorRenderer.color = new Color
