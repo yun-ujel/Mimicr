@@ -4,23 +4,16 @@ using UnityEngine.UI;
 
 public class SliderMinigame : MonoBehaviour
 {
-    private CanvasHandler canvasHandler;
-
     private int completedSliders = 0;
     private int requiredSliders = 1;
 
     [Header("References")]
     [SerializeField] private List<Slider> sliders = new List<Slider>();
     List<float> correctSliderValues = new List<float>();
-    [SerializeField] private RectTransform fullWindow;
-
-    [Header("Sizes")]
-    [SerializeField] private Vector2 minWindowSize = new Vector2(400, 200);
-    [SerializeField] private Vector2 maxWindowSize = new Vector2(600, 400);
 
     void Awake()
     {
-        canvasHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+
     }
     void Update()
     {
@@ -39,9 +32,9 @@ public class SliderMinigame : MonoBehaviour
         }
         if (completedSliders == requiredSliders)
         {
-            OnWindowComplete();
+            this.BroadcastMessage("OnWindowComplete");
+            completedSliders = 0;
         }
-
     }
 
     void OnWindowStart()
@@ -55,17 +48,5 @@ public class SliderMinigame : MonoBehaviour
         }
         completedSliders = 0;
         requiredSliders = sliders.Count;
-
-        fullWindow.sizeDelta = new Vector2
-        (
-            Random.Range(minWindowSize.x, maxWindowSize.x),
-            Random.Range(minWindowSize.y, maxWindowSize.y)
-        );
-    }
-
-    void OnWindowComplete()
-    {
-        canvasHandler.BroadcastMessage("WindowCompleted");
-        Destroy(gameObject);
     }
 }

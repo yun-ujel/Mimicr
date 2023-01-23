@@ -359,6 +359,8 @@ MonoBehaviour:
   windowsToOpen:
   - {fileID: 1876560914981638741, guid: 1a8d92b78c4469f45a8856932e78b19c, type: 3}
   - {fileID: 5472082189793802703, guid: b2ba31f35d0e4014c959e7a7460c2d29, type: 3}
+  poemWindow: {fileID: 648952942177245943, guid: e5119b8ac9334304bac6945ef0932664, type: 3}
+  maxWindowsOpen: 10
   windowsCurrentlyOpen: []
   cursor: {fileID: 0}
 --- !u!1 &660004591

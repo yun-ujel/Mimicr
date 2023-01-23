@@ -2225,6 +2225,7 @@ GameObject:
   - component: {fileID: 5472082189793802700}
   - component: {fileID: 5472082189793802698}
   - component: {fileID: 5472082189793802701}
+  - component: {fileID: 4220634400237815774}
   m_Layer: 5
   m_Name: DS - Sliders
   m_TagString: Untagged
@@ -2251,9 +2252,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 658, y: -9}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 840}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5472082189793802699
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2308,9 +2309,6 @@ MonoBehaviour:
   - {fileID: 5472082189224275780}
   - {fileID: 5472082189508596204}
   - {fileID: 5472082189686066494}
-  fullWindow: {fileID: 5472082189793802702}
-  minWindowSize: {x: 375, y: 575}
-  maxWindowSize: {x: 900, y: 900}
 --- !u!114 &5472082189793802701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,6 +2329,20 @@ MonoBehaviour:
   windowToClose: {fileID: 0}
   functionOnClick: 0
   functionOnDrag: 0
+--- !u!114 &4220634400237815774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472082189793802703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329443da0bd0b1348abf5e5f09f83994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minigame: {fileID: 5472082189793802698}
+  maxWindowSize: {x: 900, y: 900}
 --- !u!1 &5472082189995319049
 GameObject:
   m_ObjectHideFlags: 0

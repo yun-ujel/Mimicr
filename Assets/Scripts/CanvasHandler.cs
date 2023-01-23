@@ -8,7 +8,9 @@ public class CanvasHandler : MonoBehaviour
     public float currentScore;
 
     [SerializeField] private GameObject[] windowsToOpen;
+    [SerializeField] private GameObject poemWindow;
 
+    [SerializeField] int maxWindowsOpen = 10;
     [SerializeField] List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
 
     [SerializeField] private GameObject cursor;
@@ -41,7 +43,7 @@ public class CanvasHandler : MonoBehaviour
 
     void Update()
     {
-        if (windowsCurrentlyOpen.Count > 10)
+        if (windowsCurrentlyOpen.Count > maxWindowsOpen)
         {
             GameObject objectToDestroy = windowsCurrentlyOpen[0];
 
@@ -50,6 +52,11 @@ public class CanvasHandler : MonoBehaviour
             Destroy(objectToDestroy);
 
             currentScore -= 1;
+        }
+
+        if (currentScore > 10f)
+        {
+
         }
     }
 
@@ -113,7 +120,7 @@ public class CanvasHandler : MonoBehaviour
         );
     }
 
-    public void WindowCompleted()
+    public void CompleteWindow()
     {
         currentScore += 1;
     }
