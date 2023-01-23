@@ -5,16 +5,18 @@ using UnityEngine;
 public class MinigameHandler : MonoBehaviour
 {
     private UIMaster topUIMaster;
-    [SerializeField] private MonoBehaviour minigame;
     private RectTransform rectTransform;
     private CanvasHandler canvasHandler;
-
+    private CanvasGroup canvasGroup;
 
     [Header("Sizes")]
     private Vector2 minWindowSize;
     [SerializeField] private Vector2 maxWindowSize;
+    private Vector2 randWindowSize;
 
     private bool isClosing = false;
+    private bool isOpening = false;
+
     private float closingWindowCounter;
 
     void Awake()
@@ -22,6 +24,7 @@ public class MinigameHandler : MonoBehaviour
         topUIMaster = GetComponent<UIMaster>();
         rectTransform = GetComponent<RectTransform>();
         canvasHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+        canvasGroup = GetComponent<CanvasGroup>();
 
         minWindowSize = topUIMaster.minWindowSize;
     }
@@ -30,24 +33,53 @@ public class MinigameHandler : MonoBehaviour
     {
         if (isClosing)
         {
-            if (rectTransform.sizeDelta.y > 40f)
+            if (canvasGroup.alpha > 0f)
             {
-                rectTransform.sizeDelta = new Vector2(Mathf.MoveTowards(rectTransform.sizeDelta.x, 0f, 20f), Mathf.MoveTowards(rectTransform.sizeDelta.y, 0f, 20f));
+                rectTransform.sizeDelta = new Vector2
+                (
+                    rectTransform.sizeDelta.x - (rectTransform.sizeDelta.x * Time.deltaTime * 4f),
+                    rectTransform.sizeDelta.y - (rectTransform.sizeDelta.y * Time.deltaTime * 4f)
+                );
+
+                canvasGroup.alpha -= Time.deltaTime * 8f;
             }
             else
             {
+                isClosing = false;
                 Destroy(gameObject);
+            }
+        }
+
+        if (isOpening)
+        {
+            if (canvasGroup.alpha < 1f)
+            {
+                rectTransform.sizeDelta = new Vector2
+                (
+                    Mathf.MoveTowards(rectTransform.sizeDelta.x, randWindowSize.x, 4f),
+                    Mathf.MoveTowards(rectTransform.sizeDelta.y, randWindowSize.y, 4f)
+                );
+                canvasGroup.alpha += Time.deltaTime * 8f;
+            }
+            else
+            {
+                isOpening = false;
             }
         }
     }
 
     void OnWindowStart()
     {
-        rectTransform.sizeDelta = new Vector2
+        canvasGroup.alpha = 0f;
+
+        randWindowSize = new Vector2
         (
             Random.Range(minWindowSize.x, maxWindowSize.x),
             Random.Range(minWindowSize.y, maxWindowSize.y)
         );
+
+        rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+        isOpening = true;
     }
 
     void OnWindowComplete()
@@ -55,5 +87,10 @@ public class MinigameHandler : MonoBehaviour
         isClosing = true;
 
         canvasHandler.CompleteWindow();
+    }
+
+    void OnWindowFail()
+    {
+        isClosing = true;
     }
 }

@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 1876560914981638737}
   - component: {fileID: 1876560914981638766}
   - component: {fileID: 4696807082288393536}
+  - component: {fileID: 1561370799484063442}
   m_Layer: 5
   m_Name: DS - Agree
   m_TagString: Untagged
@@ -1008,8 +1009,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329443da0bd0b1348abf5e5f09f83994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigame: {fileID: 1876560914981638766}
   maxWindowSize: {x: 600, y: 400}
+--- !u!225 &1561370799484063442
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876560914981638741}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1876560915191627913
 GameObject:
   m_ObjectHideFlags: 0

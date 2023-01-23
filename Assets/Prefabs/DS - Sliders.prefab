@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6771143558977683824}
   - component: {fileID: 7247607946227930268}
   - component: {fileID: 8095853153835524470}
+  - component: {fileID: 7033960519047796669}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -33,7 +34,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -72,6 +73,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7033960519047796669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139384260558451000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 1
 --- !u!1 &2166271260638114239
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +805,7 @@ GameObject:
   - component: {fileID: 5472082188757680979}
   - component: {fileID: 5472082188757680980}
   - component: {fileID: 3486737302223081409}
+  - component: {fileID: 1175228653245391734}
   m_Layer: 5
   m_Name: Top Half
   m_TagString: Untagged
@@ -867,6 +883,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
+--- !u!114 &1175228653245391734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472082188757680982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &5472082188891018130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,6 +2255,7 @@ GameObject:
   - component: {fileID: 5472082189793802698}
   - component: {fileID: 5472082189793802701}
   - component: {fileID: 4220634400237815774}
+  - component: {fileID: 8251120053753185213}
   m_Layer: 5
   m_Name: DS - Sliders
   m_TagString: Untagged
@@ -2341,8 +2371,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329443da0bd0b1348abf5e5f09f83994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigame: {fileID: 5472082189793802698}
   maxWindowSize: {x: 900, y: 900}
+--- !u!225 &8251120053753185213
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472082189793802703}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5472082189995319049
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,18 +11,14 @@ public class SliderMinigame : MonoBehaviour
     [SerializeField] private List<Slider> sliders = new List<Slider>();
     List<float> correctSliderValues = new List<float>();
 
-    void Awake()
-    {
-
-    }
     void Update()
     {
         for (int i = 0; i < sliders.Count; i++)
         {
-            if (sliders[i].value < correctSliderValues[i] + 0.05f &&
-                sliders[i].value > correctSliderValues[i] - 0.05f)
+            if (sliders[i].value - 0.05f < correctSliderValues[i] &&
+                sliders[i].value + 0.05f > correctSliderValues[i])
             {
-                Debug.Log("Hooray!");
+                //Debug.Log("Hooray!");
 
                 sliders[i].interactable = false;
 
@@ -32,7 +28,7 @@ public class SliderMinigame : MonoBehaviour
         }
         if (completedSliders == requiredSliders)
         {
-            this.BroadcastMessage("OnWindowComplete");
+            BroadcastMessage("OnWindowComplete");
             completedSliders = 0;
         }
     }

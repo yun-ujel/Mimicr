@@ -49,7 +49,7 @@ public class CanvasHandler : MonoBehaviour
 
             windowsCurrentlyOpen.Remove(objectToDestroy);
 
-            Destroy(objectToDestroy);
+            objectToDestroy.BroadcastMessage("OnWindowFail");
 
             currentScore -= 1;
         }
