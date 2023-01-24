@@ -5,7 +5,6 @@ public class ScoreManager : MonoBehaviour
 {
     private CanvasHandler canvasHandler;
     [SerializeField] private TextMeshProUGUI scoreText;
-    private float theCounter = 0f;
     private void Awake()
     {
         canvasHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
@@ -13,10 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = "Score: " + canvasHandler.currentScore.ToString("0") +
-            "               Time: " + theCounter;
-
-        theCounter += Time.deltaTime;
+        scoreText.text = "Score: " + canvasHandler.currentScore.ToString("0");
     }
 
 }

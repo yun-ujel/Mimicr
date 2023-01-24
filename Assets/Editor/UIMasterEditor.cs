@@ -18,7 +18,7 @@ public class UIMasterEditor : Editor
     {
         var uM = new SerializedObject(uMaster);
 
-        DrawDefaultInspector();
+        base.OnInspectorGUI();
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("References", EditorStyles.boldLabel);
