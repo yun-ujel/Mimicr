@@ -30,6 +30,7 @@ public class CanvasHandler : MonoBehaviour
         cursorRenderer = cursor.GetComponent<SpriteRenderer>();
     }
     
+
     void Start()
     {
         cursorRenderer.color = new Color
@@ -56,7 +57,7 @@ public class CanvasHandler : MonoBehaviour
 
         if (currentScore > 10f)
         {
-
+            
         }
     }
 
@@ -78,6 +79,9 @@ public class CanvasHandler : MonoBehaviour
         ));
 
         rT.anchoredPosition = randomizedPosition;
+
+        Debug.Log(rT.rect.size);
+        Debug.Log(rT.sizeDelta);
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
     }
