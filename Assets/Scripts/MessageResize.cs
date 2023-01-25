@@ -15,9 +15,11 @@ public class MessageResize : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
         TMPMesh = GetComponentInChildren<TextMeshProUGUI>();
+        Messenger mask = GetComponentInParent<Messenger>();
+        topSpacingTransform = mask.transform.Find("Top Spacing").GetComponent<RectTransform>();
     }
 
-    void Update()
+    void LateUpdate()
     {
         rectTransform.sizeDelta = new Vector2
         (
