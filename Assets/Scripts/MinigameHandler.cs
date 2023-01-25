@@ -37,11 +37,11 @@ public class MinigameHandler : MonoBehaviour
             {
                 rectTransform.sizeDelta = new Vector2
                 (
-                    Mathf.MoveTowards(rectTransform.sizeDelta.x, randWindowSize.x, 4f),
-                    Mathf.MoveTowards(rectTransform.sizeDelta.y, randWindowSize.y, 4f)
+                    Mathf.MoveTowards(rectTransform.sizeDelta.x, randWindowSize.x, 6f),
+                    Mathf.MoveTowards(rectTransform.sizeDelta.y, randWindowSize.y, 6f)
                 );
 
-                canvasGroup.alpha -= Time.deltaTime * 10f;
+                canvasGroup.alpha -= Time.deltaTime * 8f;
             }
             else
             {
@@ -56,10 +56,10 @@ public class MinigameHandler : MonoBehaviour
             {
                 rectTransform.sizeDelta = new Vector2
                 (
-                    Mathf.MoveTowards(rectTransform.sizeDelta.x, randWindowSize.x, 4f),
-                    Mathf.MoveTowards(rectTransform.sizeDelta.y, randWindowSize.y, 4f)
+                    Mathf.MoveTowards(rectTransform.sizeDelta.x, randWindowSize.x, 6f),
+                    Mathf.MoveTowards(rectTransform.sizeDelta.y, randWindowSize.y, 6f)
                 );
-                canvasGroup.alpha += Time.deltaTime * 10f;
+                canvasGroup.alpha += Time.deltaTime * 8f;
             }
             else
             {
