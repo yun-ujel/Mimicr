@@ -14,6 +14,8 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     [HideInInspector] public CanvasHandler canvasHandler;
     [HideInInspector] public GameObject windowToClose;
 
+    [HideInInspector] public string messageToSend;
+
     [Header("Functions")]
     [SerializeField] public ClickFunction functionOnClick = ClickFunction.sendToTop;
     [SerializeField] public DragFunction functionOnDrag = DragFunction.none;
@@ -28,7 +30,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         none,
         sendToTop,
         close,
-        openNewWindow
+        sendMessageToCanvas
     }
 
     private void Awake()
@@ -229,9 +231,9 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
             windowToClose.BroadcastMessage("OnWindowComplete");
         }
-        else if (functionOnClick == ClickFunction.openNewWindow)
+        else if (functionOnClick == ClickFunction.sendMessageToCanvas)
         {
-            canvasHandler.InstantiateWindow();
+            canvasHandler.BroadcastMessage(messageToSend);
         }
     }
 

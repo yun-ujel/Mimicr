@@ -6,9 +6,8 @@ using UnityEngine;
 public class UIMasterEditor : Editor
 {
     UIMaster uMaster;
-    int[] vs;
-    string[] familyGui = { "Top Left", "Top", "Top Right" , "Left", "None", "Right", "Bottom Left", "Bottom", "Bottom Right"};
-    //                      0           1      2             3       4       5        6              7         8
+    string[] resizeNames = { "Top Left", "Top", "Top Right" , "Left", "None", "Right", "Bottom Left", "Bottom", "Bottom Right"};
+    //                        0           1      2             3       4       5        6              7         8
     private void OnEnable()
     {
         uMaster = (UIMaster)target;
@@ -28,6 +27,10 @@ public class UIMasterEditor : Editor
             uM.FindProperty("windowToClose").objectReferenceValue = EditorGUILayout.ObjectField("Window To Close", uMaster.windowToClose, typeof(GameObject), allowSceneObjects: true);
         }
 
+        if (uMaster.functionOnClick == UIMaster.ClickFunction.sendMessageToCanvas)
+        {
+            uM.FindProperty("messageToSend").stringValue = EditorGUILayout.TextField("Message (to Send to Canvas)", uMaster.messageToSend);
+        }
 
         if (uMaster.rectTransform == uMaster.GetComponent<RectTransform>() || uMaster.rectTransform == null)
         {
@@ -45,19 +48,13 @@ public class UIMasterEditor : Editor
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Resize From:");
-            uM.FindProperty("anchorIndex").intValue = GUILayout.SelectionGrid(uMaster.anchorIndex, familyGui, 3, GUILayout.MaxHeight(220), GUILayout.MaxWidth(280));
+            uM.FindProperty("anchorIndex").intValue = GUILayout.SelectionGrid(uMaster.anchorIndex, resizeNames, 3, GUILayout.MaxHeight(220), GUILayout.MaxWidth(280));
         }
         else if (uMaster.functionOnClick == UIMaster.ClickFunction.sendToTop)
         {
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Send to Top)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);
         }
 
-
-
-
-
         uM.ApplyModifiedProperties();
-
-        
     }
 }

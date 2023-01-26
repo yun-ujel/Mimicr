@@ -3,6 +3,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public class Colour4
+{
+    public Color lightColour;
+    public Color darkColour;
+    public Color outlineColour;
+    public Color textColour;
+}
+
+
 public class CanvasHandler : MonoBehaviour
 {
     public float currentScore;
@@ -13,6 +22,7 @@ public class CanvasHandler : MonoBehaviour
     [Header("Windows")]
     [SerializeField] int maxWindowsOpen = 10;
     [SerializeField] List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
+    [SerializeField] private GameObject[] priorityWindows;
 
     [Header("References")]
     private GameObject cursor;
@@ -20,11 +30,14 @@ public class CanvasHandler : MonoBehaviour
     RectTransform canvasRectTransform;
     Canvas canvas;
 
-    [Header("Colour")]
+    [Header("Button Colours")]
     public ColorBlock colourBlock;
+
+    [Header("Window Colours")]
     public Color defaultLightColour;
     public Color defaultDarkColour;
     public Color outlineColour;
+    public Color textColour;
 
 
     void Awake()
@@ -61,9 +74,9 @@ public class CanvasHandler : MonoBehaviour
             currentScore -= 1;
         }
 
-        if (currentScore > 10f)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            
+            OpenPriorityWindow(0);
         }
     }
     public void InstantiateWindow()
@@ -89,6 +102,10 @@ public class CanvasHandler : MonoBehaviour
         Debug.Log(rT.sizeDelta);
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
+    }
+    public void OpenPriorityWindow(int index)
+    {
+        priorityWindows[index].BroadcastMessage("OnWindowStart");
     }
     public void OnCursorEnter(int mode) // Adds a cursor indicator, called when hovering over Resize bars
     {

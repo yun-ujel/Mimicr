@@ -20,6 +20,15 @@ public class MessageResize : MonoBehaviour
         referenceTransformWidth = parentMessenger.referenceTransformWidth;
     }
 
+    private void Start()
+    {
+        rectTransform.sizeDelta = new Vector2
+        (
+            Mathf.Min(TMPMesh.preferredWidth + bottomRightPadding.x, referenceTransformWidth.rect.width),
+            TMPMesh.preferredHeight + bottomRightPadding.y
+        );
+    }
+
     void LateUpdate()
     {
         rectTransform.sizeDelta = new Vector2

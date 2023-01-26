@@ -27,7 +27,6 @@ public class Messenger : MonoBehaviour
         TextMeshProUGUI message = messageObject.GetComponentInChildren<TextMeshProUGUI>();
         
         message.text = newText;
-        Debug.Log(message.preferredWidth);
     }
 
     private void Update()

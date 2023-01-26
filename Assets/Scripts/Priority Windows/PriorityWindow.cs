@@ -13,10 +13,14 @@ public class PriorityWindow : MonoBehaviour
     private bool isClosing = false;
     private bool isOpening = false;
 
+    [HideInInspector] public bool isOpen = true;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+
+        highWindowSize = rectTransform.sizeDelta;
     }
 
     void Update()
@@ -37,6 +41,7 @@ public class PriorityWindow : MonoBehaviour
             {
                 isClosing = false;
                 rectTransform.SetAsFirstSibling();
+                isOpen = false;
             }
         }
 
@@ -54,19 +59,25 @@ public class PriorityWindow : MonoBehaviour
             else
             {
                 isOpening = false;
+                isOpen = true;
             }
         }
     }
 
-    void OnWindowStart()
+    public void OnWindowStart()
     {
-        rectTransform.SetAsLastSibling();
-        canvasGroup.alpha = 0f;
-        isOpening = true;
+        if (!isOpen)
+        {
+            rectTransform.SetAsLastSibling();
+            canvasGroup.alpha = 0f;
+            isOpening = true;
+        }
     }
 
-    void OnWindowComplete()
+    public void OnWindowComplete()
     {
+        
+        
         highWindowSize = rectTransform.sizeDelta;
         lowWindowSize = new Vector2
         (
@@ -74,5 +85,6 @@ public class PriorityWindow : MonoBehaviour
             rectTransform.sizeDelta.y * 0.8f
         );
         isClosing = true;
+        
     }
 }

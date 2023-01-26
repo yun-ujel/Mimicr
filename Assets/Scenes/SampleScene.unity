@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &232763181 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2518572522131914352, guid: 4f6e461fb44d0ac4cbaf7e1aecf1daa7, type: 3}
+  m_PrefabInstance: {fileID: 1043419139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &482415651 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9148529856201498291, guid: 35c3bb0bb4250914bb5adee5fabbf2d1, type: 3}
@@ -371,7 +376,20 @@ MonoBehaviour:
   poemWindow: {fileID: 648952942177245943, guid: e5119b8ac9334304bac6945ef0932664, type: 3}
   maxWindowsOpen: 10
   windowsCurrentlyOpen: []
-  cursor: {fileID: 0}
+  priorityWindows:
+  - {fileID: 232763181}
+  colourBlock:
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
+    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_PressedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_SelectedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
+    m_ColorMultiplier: 0
+    m_FadeDuration: 0
+  defaultLightColour: {r: 0, g: 0, b: 0, a: 0}
+  defaultDarkColour: {r: 0, g: 0, b: 0, a: 0}
+  outlineColour: {r: 0, g: 0, b: 0, a: 0}
+  vertexColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &660004591
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +617,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 600411108}
     m_Modifications:
+    - target: {fileID: 808022764285099579, guid: 4f6e461fb44d0ac4cbaf7e1aecf1daa7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2518572522131914352, guid: 4f6e461fb44d0ac4cbaf7e1aecf1daa7, type: 3}
       propertyPath: m_Name
       value: DS - Messages
@@ -948,6 +970,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 3
   functionOnDrag: 0
 --- !u!114 &1318257762
@@ -1401,7 +1424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148529855114198994, guid: 35c3bb0bb4250914bb5adee5fabbf2d1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -460.00012
+      value: -460
       objectReference: {fileID: 0}
     - target: {fileID: 9148529855193345723, guid: 35c3bb0bb4250914bb5adee5fabbf2d1, type: 3}
       propertyPath: m_AnchorMax.x

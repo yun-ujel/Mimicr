@@ -162,6 +162,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572520529113045
@@ -254,6 +255,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572520686748498
@@ -349,6 +351,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 0
 --- !u!114 &2518572520686748501
@@ -512,6 +515,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572521161177821
@@ -604,6 +608,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572521384487875
@@ -696,6 +701,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572521400100895
@@ -788,6 +794,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572521606071415
@@ -883,6 +890,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 1
 --- !u!114 &2518572521606071417
@@ -990,6 +998,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572521687399018
@@ -1082,6 +1091,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2518572522131914352
@@ -1095,6 +1105,7 @@ GameObject:
   - component: {fileID: 2518572522131914353}
   - component: {fileID: 2518572522131914356}
   - component: {fileID: 2518572522131914355}
+  - component: {fileID: 2814965198139589925}
   - component: {fileID: 2518572522131914354}
   - component: {fileID: 1982327552342115330}
   m_Layer: 5
@@ -1164,6 +1175,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.4
+--- !u!114 &2814965198139589925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518572522131914352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15febbbd92ce6c043a47af1774ec25f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 0
 --- !u!114 &2518572522131914354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,6 +1205,7 @@ MonoBehaviour:
   minWindowSize: {x: 375, y: 475}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 0
   functionOnDrag: 0
 --- !u!225 &1982327552342115330
@@ -1208,6 +1233,7 @@ GameObject:
   - component: {fileID: 1168178720809928128}
   - component: {fileID: 8177649558764848823}
   - component: {fileID: 5551902253628108024}
+  - component: {fileID: 934796001183805236}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -1328,6 +1354,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &934796001183805236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2999415229479614247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  anchorIndex: 0
+  minWindowSize: {x: 0, y: 0}
+  canvasHandler: {fileID: 0}
+  windowToClose: {fileID: 2518572522131914352}
+  messageToSend: 
+  functionOnClick: 2
+  functionOnDrag: 0
 --- !u!1 &7567025523055982001
 GameObject:
   m_ObjectHideFlags: 0
