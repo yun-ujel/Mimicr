@@ -31,7 +31,7 @@ public class MinigameHandler : MonoBehaviour
 
     void Update()
     {
-        if (isClosing)
+        if (isClosing) // Closing Animation
         {
             if (canvasGroup.alpha > 0f)
             {
@@ -50,7 +50,7 @@ public class MinigameHandler : MonoBehaviour
             }
         }
 
-        if (isOpening)
+        if (isOpening) // Opening Animation
         {
             if (canvasGroup.alpha < 1f)
             {

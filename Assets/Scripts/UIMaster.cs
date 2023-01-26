@@ -5,11 +5,11 @@ using UnityEngine.EventSystems;
 public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("References")]
-    [HideInInspector] public RectTransform rectTransform;
+    [HideInInspector] public RectTransform rectTransform; // Auto Assigned
 
     [HideInInspector] public int anchorIndex;
     [HideInInspector] public Vector2 minWindowSize;
-    [SerializeField] private Canvas canvas;
+    [HideInInspector] private Canvas canvas; // Auto Assigned
 
     [HideInInspector] public CanvasHandler canvasHandler;
     [HideInInspector] public GameObject windowToClose;
@@ -33,7 +33,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     private void Awake()
     {
-        if (canvas == null)
+        if (canvas == null) // Auto Assign Canvas
         {
             Transform testCanvasTransform = transform.parent;
             GameObject testParentObject = this.gameObject;
@@ -54,7 +54,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 testCanvasTransform = testCanvasTransform.parent;
             }
         }
-        if (rectTransform == null)
+        if (rectTransform == null) // Auto Assign RectTransform as its own RectTransform
         {
             rectTransform = GetComponent<RectTransform>();
         }

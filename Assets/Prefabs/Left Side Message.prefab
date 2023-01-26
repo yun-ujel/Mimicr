@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topSpacingTransform: {fileID: 0}
-  bottomRightPadding: {x: 25, y: 20}
+  bottomRightPadding: {x: 25, y: 30}
 --- !u!114 &496180141998805895
 MonoBehaviour:
   m_ObjectHideFlags: 0

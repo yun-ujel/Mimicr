@@ -8,22 +8,23 @@ public class MessageResize : MonoBehaviour
 {
     private RectTransform rectTransform;
     private TextMeshProUGUI TMPMesh;
-    [SerializeField] private RectTransform topSpacingTransform;
+    private RectTransform referenceTransformWidth;
     [SerializeField] private Vector2 bottomRightPadding = new Vector2(20f, 20f);
     
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         TMPMesh = GetComponentInChildren<TextMeshProUGUI>();
-        Messenger mask = GetComponentInParent<Messenger>();
-        topSpacingTransform = mask.transform.Find("Top Spacing").GetComponent<RectTransform>();
+
+        Messenger parentMessenger = GetComponentInParent<Messenger>();
+        referenceTransformWidth = parentMessenger.referenceTransformWidth;
     }
 
     void LateUpdate()
     {
         rectTransform.sizeDelta = new Vector2
         (
-            Mathf.Min(TMPMesh.preferredWidth + bottomRightPadding.x, topSpacingTransform.rect.width),
+            Mathf.Min(TMPMesh.preferredWidth + bottomRightPadding.x, referenceTransformWidth.rect.width),
             TMPMesh.preferredHeight + bottomRightPadding.y
         );
     }

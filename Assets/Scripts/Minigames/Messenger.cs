@@ -5,17 +5,27 @@ using TMPro;
 
 public class Messenger : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private GameObject leftTextBubble;
     [SerializeField] private GameObject rightTextBubble;
+    [SerializeField] public RectTransform referenceTransformWidth;
 
+    [Header("Text")]
     [SerializeField] private string messageText;
+
+    private void Awake()
+    {
+        if (referenceTransformWidth == null)
+        {
+            referenceTransformWidth = transform.Find("Width Reference").GetComponent<RectTransform>();
+        }
+    }
+
     void InstantiateMessage(string newText, GameObject gameObject)
     {
         GameObject messageObject = Instantiate(gameObject, transform);
         TextMeshProUGUI message = messageObject.GetComponentInChildren<TextMeshProUGUI>();
-        HorizontalLayoutGroup horizontalLayoutGroup = messageObject.GetComponentInChildren<HorizontalLayoutGroup>();
-        Rect rect = messageObject.GetComponent<RectTransform>().rect;
-
+        
         message.text = newText;
         Debug.Log(message.preferredWidth);
     }
