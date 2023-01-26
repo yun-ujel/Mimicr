@@ -10,14 +10,23 @@ public class CanvasHandler : MonoBehaviour
     [SerializeField] private GameObject[] windowsToOpen;
     [SerializeField] private GameObject poemWindow;
 
+    [Header("Windows")]
     [SerializeField] int maxWindowsOpen = 10;
     [SerializeField] List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
 
-    [SerializeField] private GameObject cursor;
+    [Header("References")]
+    private GameObject cursor;
     private SpriteRenderer cursorRenderer;
-
     RectTransform canvasRectTransform;
     Canvas canvas;
+
+    [Header("Colour")]
+    public ColorBlock colourBlock;
+    public Color defaultLightColour;
+    public Color defaultDarkColour;
+    public Color outlineColour;
+
+
     void Awake()
     {
         canvas = GetComponent<Canvas>();
@@ -29,8 +38,6 @@ public class CanvasHandler : MonoBehaviour
         }
         cursorRenderer = cursor.GetComponent<SpriteRenderer>();
     }
-    
-
     void Start()
     {
         cursorRenderer.color = new Color
@@ -41,7 +48,6 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
     }
-
     void Update()
     {
         if (windowsCurrentlyOpen.Count > maxWindowsOpen)
@@ -60,7 +66,6 @@ public class CanvasHandler : MonoBehaviour
             
         }
     }
-
     public void InstantiateWindow()
     {
         // Randomly select and Instantiate window as a child of this object
@@ -85,8 +90,6 @@ public class CanvasHandler : MonoBehaviour
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
     }
-
-
     public void OnCursorEnter(int mode) // Adds a cursor indicator, called when hovering over Resize bars
     {
         cursorRenderer.color = new Color // Making the indicator visible
@@ -123,15 +126,10 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
     }
-
     public void CompleteWindow()
     {
         currentScore += 1;
     }
-
-
-
-
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
@@ -172,9 +170,10 @@ public class CanvasHandler : MonoBehaviour
 
         return rePivotPosition;
     }
-
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
     {
         return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
     }
+
+
 }
