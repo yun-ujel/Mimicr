@@ -5,10 +5,18 @@ using UnityEngine.UI;
 
 public class Colour4
 {
-    public Color lightColour;
-    public Color darkColour;
-    public Color outlineColour;
-    public Color textColour;
+    public Color lightColour { get; }
+    public Color darkColour { get; }
+    public Color outlineColour { get; }
+    public Color textColour { get; }
+
+    public Colour4(Color light, Color dark, Color outline, Color text)
+    {
+        lightColour = light;
+        darkColour = dark;
+        outlineColour = outline;
+        textColour = text;
+    }
 }
 
 
@@ -33,12 +41,11 @@ public class CanvasHandler : MonoBehaviour
     [Header("Button Colours")]
     public ColorBlock colourBlock;
 
-    [Header("Window Colours")]
-    public Color defaultLightColour;
-    public Color defaultDarkColour;
-    public Color outlineColour;
-    public Color textColour;
+    Colour4 presetDay = new Colour4
+    (new Color(1, 1, 1, 1), new Color(0.85f, 0.85f, 0.85f, 1), new Color(0.7f, 0.7f, 0.7f, 1), new Color(0.5f, 0.5f, 0.5f, 1));
 
+    Colour4 allBlack = new Colour4
+    (Color.black, Color.black, Color.black, Color.black);
 
     void Awake()
     {
@@ -60,6 +67,8 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             0f
         );
+
+        BroadcastMessage("OnColourUpdate", allBlack);
     }
     void Update()
     {
@@ -142,11 +151,11 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             0f
         );
-    }
+    } // Removes the cursor indicator
     public void CompleteWindow()
     {
         currentScore += 1;
-    }
+    } // Called when a window is completed successfully
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();

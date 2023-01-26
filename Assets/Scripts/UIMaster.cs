@@ -233,7 +233,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         else if (functionOnClick == ClickFunction.sendMessageToCanvas)
         {
-            canvasHandler.BroadcastMessage(messageToSend);
+            canvasHandler.SendMessage(messageToSend);
         }
     }
 
