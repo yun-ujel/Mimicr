@@ -3,22 +3,30 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Colour4
+[System.Serializable]
+public class Colour8
 {
-    public Color lightColour { get; }
-    public Color darkColour { get; }
-    public Color outlineColour { get; }
-    public Color textColour { get; }
+    public Color Tone0 { get; set; } // Lightest Colour
+    public Color Tone1 { get; set; } // Second Lightest Colour, closer to tone 0
+    public Color Tone2 { get; set; } // Darker Colour, closer to tone 3
+    public Color Tone3 { get; set; } // Even Darker Colour, slight increase from tone 4
+    public Color Tone4 { get; set; } // Even Darker Colour, slight decrease from tone 5
+    public Color Tone5 { get; set; } // Black / Darkest Colour
+    public Color Outline { get; set; } // Lining of windows - should be pretty dark if not pitch black
+    public Color WildCard { get; set; } // Blue, etc - not the same tone or hue as the rest
 
-    public Colour4(Color light, Color dark, Color outline, Color text)
+    public Colour8(Color newTone0, Color newTone1, Color newTone2, Color newTone3, Color newTone4, Color newTone5, Color newOutline, Color newWildCard)
     {
-        lightColour = light;
-        darkColour = dark;
-        outlineColour = outline;
-        textColour = text;
+        Tone0 = newTone0;
+        Tone1 = newTone1;
+        Tone2 = newTone2;
+        Tone3 = newTone3;
+        Tone4 = newTone4;
+        Tone5 = newTone5;
+        Outline = newOutline;
+        WildCard = newWildCard;
     }
 }
-
 
 public class CanvasHandler : MonoBehaviour
 {
@@ -41,11 +49,18 @@ public class CanvasHandler : MonoBehaviour
     [Header("Button Colours")]
     public ColorBlock colourBlock;
 
-    Colour4 presetDay = new Colour4
-    (new Color(1, 1, 1, 1), new Color(0.85f, 0.85f, 0.85f, 1), new Color(0.7f, 0.7f, 0.7f, 1), new Color(0.5f, 0.5f, 0.5f, 1));
-
-    Colour4 allBlack = new Colour4
-    (Color.black, Color.black, Color.black, Color.black);
+    [Header("Colour Themes")]
+    [HideInInspector] public Colour8 lightTheme = new Colour8
+    (
+        new Color(0.1411765f, 0.1607843f, 0.1803922f, 1f), // Tone 0
+        new Color(0.4156863f, 0.4509804f, 0.4901961f, 1f), // Tone 1
+        new Color(0.8823529f, 0.8941177f, 0.9098039f, 1f), // Tone 2
+        new Color(0.9215686f, 0.9333333f, 0.945098f, 1f),  // Tone 3
+        new Color(0.9647059f, 0.972549f, 0.9803922f, 1f),  // Tone 4
+        new Color(1f, 1f, 1f, 1f),                         // Tone 5
+        new Color(0f, 0f, 0f, 1f),                         // Outline
+        new Color(0f, 0.4588235f, 1f, 1f)                  // WildCard
+    );
 
     void Awake()
     {
@@ -68,7 +83,7 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
 
-        BroadcastMessage("OnColourUpdate", allBlack);
+        BroadcastMessage("OnColourUpdate", lightTheme);
     }
     void Update()
     {
@@ -111,6 +126,7 @@ public class CanvasHandler : MonoBehaviour
         Debug.Log(rT.sizeDelta);
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
+        BroadcastMessage("OnColourUpdate", lightTheme);
     }
     public void OpenPriorityWindow(int index)
     {
@@ -142,7 +158,7 @@ public class CanvasHandler : MonoBehaviour
             cursor.transform.rotation = Quaternion.Euler(0f, 0f, 45);    // Angled Indicator
         }
     }
-    public void OnCursorExit()
+    public void OnCursorExit() // Removes the cursor indicator
     {
         cursorRenderer.color = new Color
         (
@@ -151,11 +167,11 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             0f
         );
-    } // Removes the cursor indicator
-    public void CompleteWindow()
+    } 
+    public void CompleteWindow() // Called when a window is completed successfully
     {
         currentScore += 1;
-    } // Called when a window is completed successfully
+    } 
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();

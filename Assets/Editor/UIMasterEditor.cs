@@ -2,12 +2,11 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(UIMaster))]
-//[InitializeOnLoad]
 public class UIMasterEditor : Editor
 {
     UIMaster uMaster;
     string[] resizeNames = { "Top Left", "Top", "Top Right" , "Left", "None", "Right", "Bottom Left", "Bottom", "Bottom Right"};
-    //                        0           1      2             3       4       5        6              7         8
+    // index:                 0           1      2             3       4       5        6              7         8
     private void OnEnable()
     {
         uMaster = (UIMaster)target;

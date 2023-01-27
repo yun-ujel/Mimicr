@@ -143,6 +143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 169083285907486794}
+  - component: {fileID: 906722686728504475}
   - component: {fileID: 169083285907486788}
   - component: {fileID: 169083285907486795}
   m_Layer: 5
@@ -171,6 +172,24 @@ RectTransform:
   m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &906722686728504475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169083285907486793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourType: 0
+  outlineType: 6
+  outline: {fileID: 0}
+  image: {fileID: 0}
+  rawImage: {fileID: 0}
+  text: {fileID: 169083285907486795}
 --- !u!222 &169083285907486788
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -356,9 +375,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 6
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102859512187241
@@ -449,9 +468,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 2
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102860477600055
@@ -542,9 +561,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 1
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102860665198399
@@ -635,9 +654,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 7
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102860726191587
@@ -649,9 +668,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102860726191588}
+  - component: {fileID: 2605102860726191591}
   - component: {fileID: 2605102860726191590}
   - component: {fileID: 2605102860726191589}
-  - component: {fileID: 2605102860726191591}
   - component: {fileID: 2605102860726191580}
   m_Layer: 5
   m_Name: DS - AccountManager
@@ -682,6 +701,26 @@ RectTransform:
   m_AnchoredPosition: {x: -300, y: -200}
   m_SizeDelta: {x: 360, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2605102860726191591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102860726191587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  anchorIndex: 0
+  minWindowSize: {x: 340, y: 140}
+  canvasHandler: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  functionOnClick: 0
+  functionOnDrag: 0
 --- !u!222 &2605102860726191590
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -720,26 +759,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.4
---- !u!114 &2605102860726191591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102860726191587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 0}
-  anchorIndex: 0
-  minWindowSize: {x: 340, y: 140}
-  canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  functionOnClick: 0
-  functionOnDrag: 0
 --- !u!114 &2605102860726191580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,9 +860,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 5
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102861139502575
@@ -934,9 +953,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102861142527174
@@ -1070,9 +1089,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 3
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &2605102861341174185
@@ -1163,9 +1182,9 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 8
   minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
   canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
   functionOnDrag: 2
 --- !u!1 &5559218920694830561
@@ -1177,9 +1196,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5559218920694830560}
+  - component: {fileID: 4766220276601441495}
+  - component: {fileID: 5559218920694830563}
   - component: {fileID: 5559218920694830565}
   - component: {fileID: 5559218920694830562}
-  - component: {fileID: 5559218920694830563}
   - component: {fileID: 5559218920694830564}
   m_Layer: 5
   m_Name: Top
@@ -1208,6 +1228,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: -40, y: 40}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &4766220276601441495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559218920694830561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourType: 2
+  outlineType: 6
+  outline: {fileID: 5559218920694830564}
+  image: {fileID: 0}
+  rawImage: {fileID: 5559218920694830562}
+  text: {fileID: 0}
+--- !u!114 &5559218920694830563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559218920694830561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 0
+  minWindowSize: {x: 0, y: 0}
+  canvasHandler: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  functionOnClick: 1
+  functionOnDrag: 1
 --- !u!222 &5559218920694830565
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1243,26 +1301,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &5559218920694830563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5559218920694830561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 0
-  minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  functionOnClick: 1
-  functionOnDrag: 1
 --- !u!114 &5559218920694830564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1287,9 +1325,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5559218920882527500}
+  - component: {fileID: 287857447823865026}
+  - component: {fileID: 5559218920882527503}
   - component: {fileID: 5559218920882527601}
   - component: {fileID: 5559218920882527502}
-  - component: {fileID: 5559218920882527503}
   - component: {fileID: 5559218920882527488}
   - component: {fileID: 5559218920882527489}
   m_Layer: 5
@@ -1319,6 +1358,44 @@ RectTransform:
   m_AnchoredPosition: {x: 20, y: -65}
   m_SizeDelta: {x: -40, y: -85}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &287857447823865026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559218920882527501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourType: 5
+  outlineType: 6
+  outline: {fileID: 5559218920882527488}
+  image: {fileID: 0}
+  rawImage: {fileID: 5559218920882527502}
+  text: {fileID: 0}
+--- !u!114 &5559218920882527503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559218920882527501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 0
+  minWindowSize: {x: 0, y: 0}
+  canvasHandler: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  functionOnClick: 1
+  functionOnDrag: 0
 --- !u!222 &5559218920882527601
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1354,26 +1431,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &5559218920882527503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5559218920882527501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 0
-  minWindowSize: {x: 0, y: 0}
-  canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  functionOnClick: 1
-  functionOnDrag: 0
 --- !u!114 &5559218920882527488
 MonoBehaviour:
   m_ObjectHideFlags: 0
