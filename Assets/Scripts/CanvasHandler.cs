@@ -3,17 +3,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 [System.Serializable]
 public class Colour8
 {
-    public Color Tone0 { get; set; } // Lightest Colour
-    public Color Tone1 { get; set; } // Second Lightest Colour, closer to tone 0
-    public Color Tone2 { get; set; } // Darker Colour, closer to tone 3
-    public Color Tone3 { get; set; } // Even Darker Colour, slight increase from tone 4
-    public Color Tone4 { get; set; } // Even Darker Colour, slight decrease from tone 5
-    public Color Tone5 { get; set; } // Black / Darkest Colour
-    public Color Outline { get; set; } // Lining of windows - should be pretty dark if not pitch black
-    public Color WildCard { get; set; } // Blue, etc - not the same tone or hue as the rest
+    public Color Tone0; // Lightest Colour
+    public Color Tone1; // Second Lightest Colour, closer to tone 0
+    public Color Tone2; // Darker Colour, closer to tone 3
+    public Color Tone3; // Even Darker Colour, slight increase from tone 4
+    public Color Tone4; // Even Darker Colour, slight decrease from tone 5
+    public Color Tone5; // Black / Darkest Colour
+    public Color Outline; // Lining of windows - should be pretty dark if not pitch black
+    public Color WildCard; // Blue, etc - not the same tone or hue as the rest
 
     public Colour8(Color newTone0, Color newTone1, Color newTone2, Color newTone3, Color newTone4, Color newTone5, Color newOutline, Color newWildCard)
     {
@@ -46,9 +47,6 @@ public class CanvasHandler : MonoBehaviour
     RectTransform canvasRectTransform;
     Canvas canvas;
 
-    [Header("Button Colours")]
-    public ColorBlock colourBlock;
-
     [Header("Colour Themes")]
     [HideInInspector] public Colour8 lightTheme = new Colour8
     (
@@ -61,6 +59,8 @@ public class CanvasHandler : MonoBehaviour
         new Color(0f, 0f, 0f, 1f),                         // Outline
         new Color(0f, 0.4588235f, 1f, 1f)                  // WildCard
     );
+
+    public Colour8[] palettes;
 
     void Awake()
     {
@@ -83,7 +83,7 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
 
-        BroadcastMessage("OnColourUpdate", lightTheme);
+        BroadcastMessage("OnColourUpdate", palettes[0]);
     }
     void Update()
     {
@@ -126,7 +126,7 @@ public class CanvasHandler : MonoBehaviour
         Debug.Log(rT.sizeDelta);
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
-        BroadcastMessage("OnColourUpdate", lightTheme);
+        BroadcastMessage("OnColourUpdate", palettes[0]);
     }
     public void OpenPriorityWindow(int index)
     {
