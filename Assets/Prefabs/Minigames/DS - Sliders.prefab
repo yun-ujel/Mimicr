@@ -2764,6 +2764,14 @@ MonoBehaviour:
   - {fileID: 5472082189224275780}
   - {fileID: 2122025692346702480}
   - {fileID: 4978443704415876730}
+  imageReference: {fileID: 8095853153835524470}
+  potentialTextures:
+  - {fileID: 2800000, guid: 05e2434e842c83a40bf05e2b49ba34d7, type: 3}
+  - {fileID: 2800000, guid: 79d32db3539369f498c3990ae8507cee, type: 3}
+  - {fileID: 2800000, guid: ed5bbdcf54b653547a2e8b46637b0d96, type: 3}
+  - {fileID: 2800000, guid: 2142171a9f306d5439e5e6d07387c3d4, type: 3}
+  - {fileID: 2800000, guid: 554016303d558244585dea1ed85e9ecf, type: 3}
+  gSliders: []
 --- !u!114 &5472082189793802701
 MonoBehaviour:
   m_ObjectHideFlags: 0
