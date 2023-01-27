@@ -29,16 +29,23 @@ public class Colour8
     }
 }
 
+[System.Serializable]
+public class ScoreThreshold
+{
+    public float requiredScore;
+    public float timeBetweenSpawns;
+}
+
 public class CanvasHandler : MonoBehaviour
 {
     public float currentScore;
 
+    [Header("Windows")]
     [SerializeField] private GameObject[] windowsToOpen;
     [SerializeField] private GameObject poemWindow;
-
-    [Header("Windows")]
     [SerializeField] int maxWindowsOpen = 10;
-    [SerializeField] List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
+    private List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
+
     [SerializeField] private GameObject[] priorityWindows;
 
     [Header("References")]
@@ -48,19 +55,15 @@ public class CanvasHandler : MonoBehaviour
     Canvas canvas;
 
     [Header("Colour Themes")]
-    [HideInInspector] public Colour8 lightTheme = new Colour8
-    (
-        new Color(0.1411765f, 0.1607843f, 0.1803922f, 1f), // Tone 0
-        new Color(0.4156863f, 0.4509804f, 0.4901961f, 1f), // Tone 1
-        new Color(0.8823529f, 0.8941177f, 0.9098039f, 1f), // Tone 2
-        new Color(0.9215686f, 0.9333333f, 0.945098f, 1f),  // Tone 3
-        new Color(0.9647059f, 0.972549f, 0.9803922f, 1f),  // Tone 4
-        new Color(1f, 1f, 1f, 1f),                         // Tone 5
-        new Color(0f, 0f, 0f, 1f),                         // Outline
-        new Color(0f, 0.4588235f, 1f, 1f)                  // WildCard
-    );
-
     public Colour8[] palettes;
+    [SerializeField] private int currentPalette;
+
+
+    [Header("Rules")]
+    float timeSinceLastSpawn;
+    float timeToNextSpawn;
+    [SerializeField] private ScoreThreshold[] scoreThresholds;
+    private ScoreThreshold nextThreshold;
 
     void Awake()
     {
@@ -84,6 +87,15 @@ public class CanvasHandler : MonoBehaviour
         );
 
         BroadcastMessage("OnColourUpdate", palettes[0]);
+
+        for (int i = 0; i < scoreThresholds.Length; i++)
+        {
+            if (currentScore < scoreThresholds[i].requiredScore)
+            {
+                nextThreshold = scoreThresholds[i];
+                timeToNextSpawn = nextThreshold.timeBetweenSpawns;
+            }
+        }
     }
     void Update()
     {
@@ -102,6 +114,8 @@ public class CanvasHandler : MonoBehaviour
         {
             OpenPriorityWindow(0);
         }
+
+        HandleAutoSpawning();
     }
     public void InstantiateWindow()
     {
@@ -218,4 +232,37 @@ public class CanvasHandler : MonoBehaviour
     }
 
 
+
+    private void HandleAutoSpawning()
+    {
+        // Spawn windows once timer has run out
+        if (timeSinceLastSpawn > timeToNextSpawn)
+        {
+            InstantiateWindow();
+            timeSinceLastSpawn = 0f;
+        }
+        else
+        {
+            timeSinceLastSpawn += Time.deltaTime;
+        }
+
+        // Scale timeToNextSpawn with Score
+
+        if (currentScore > nextThreshold.requiredScore &&
+            nextThreshold != scoreThresholds[scoreThresholds.Length]) // If you've passed a score threshold and it wasn't the last:
+        {
+            for (int i = 0; i < scoreThresholds.Length; i++)
+            {
+                if (currentScore < scoreThresholds[i].requiredScore)
+                {
+                    nextThreshold = scoreThresholds[i];
+                    timeToNextSpawn = nextThreshold.timeBetweenSpawns;
+                }
+            }
+        }
+        else if (nextThreshold != scoreThresholds[scoreThresholds.Length]) // if it is the last threshold:
+        {
+            Debug.Log("Last Threshold Reached");
+        }
+    }
 }
