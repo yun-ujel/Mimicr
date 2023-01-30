@@ -7,17 +7,24 @@ using TMPro;
 public class ColourControllerEditor : Editor
 {
     ColourController cController;
+    CanvasHandler cHandler;
 
     private void OnEnable()
     {
         cController = (ColourController)target;
+        cHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
     }
 
     public override void OnInspectorGUI()
     {
-        var cC = new SerializedObject(cController);
+        EditorGUILayout.LabelField("Colours", EditorStyles.boldLabel);
 
+        var cC = new SerializedObject(cController);
         base.OnInspectorGUI();
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Graphics", EditorStyles.centeredGreyMiniLabel);
 
         if (cController.image == null && cController.rawImage == null && cController.text == null)
         {
@@ -52,5 +59,11 @@ public class ColourControllerEditor : Editor
         }
 
         cC.ApplyModifiedProperties();
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Canvas Handler", EditorStyles.centeredGreyMiniLabel);
+        EditorGUILayout.ObjectField(cHandler, typeof(CanvasHandler), true);
     }
 }
