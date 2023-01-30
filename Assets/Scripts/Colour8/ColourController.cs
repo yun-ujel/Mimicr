@@ -138,7 +138,5 @@ public class ColourController : MonoBehaviour
         {
             outline.effectColor = colour8.WildCard;
         }
-
-        Debug.Log("Changed Outline Colour");
     }
 }

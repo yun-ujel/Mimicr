@@ -380,10 +380,10 @@ MonoBehaviour:
     timeBetweenSpawns: 120
   - requiredScore: 10
     timeBetweenSpawns: 5
-  - requiredScore: 10
-    timeBetweenSpawns: 5
-  - requiredScore: 10
-    timeBetweenSpawns: 5
+  - requiredScore: 15
+    timeBetweenSpawns: 10
+  - requiredScore: 20
+    timeBetweenSpawns: 20
 --- !u!1 &660004591
 GameObject:
   m_ObjectHideFlags: 0

@@ -87,15 +87,9 @@ public class CanvasHandler : MonoBehaviour
         );
 
         BroadcastMessage("OnColourUpdate", palettes[0]);
+        CheckForNextThreshold();
 
-        for (int i = 0; i < scoreThresholds.Length; i++)
-        {
-            if (currentScore < scoreThresholds[i].requiredScore)
-            {
-                nextThreshold = scoreThresholds[i];
-                timeToNextSpawn = nextThreshold.timeBetweenSpawns;
-            }
-        }
+        Debug.Log("End Start() method");
     }
     void Update()
     {
@@ -135,9 +129,6 @@ public class CanvasHandler : MonoBehaviour
         ));
 
         rT.anchoredPosition = randomizedPosition;
-
-        Debug.Log(rT.rect.size);
-        Debug.Log(rT.sizeDelta);
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
         BroadcastMessage("OnColourUpdate", palettes[0]);
@@ -235,6 +226,7 @@ public class CanvasHandler : MonoBehaviour
 
     private void HandleAutoSpawning()
     {
+        Debug.Log("Time Between Spawns: " + timeToNextSpawn);
         // Spawn windows once timer has run out
         if (timeSinceLastSpawn > timeToNextSpawn)
         {
@@ -248,21 +240,28 @@ public class CanvasHandler : MonoBehaviour
 
         // Scale timeToNextSpawn with Score
 
-        if (currentScore > nextThreshold.requiredScore &&
-            nextThreshold != scoreThresholds[scoreThresholds.Length]) // If you've passed a score threshold and it wasn't the last:
+        if (currentScore > nextThreshold.requiredScore) // If you've passed a score threshold and it wasn't the last:
         {
-            for (int i = 0; i < scoreThresholds.Length; i++)
-            {
-                if (currentScore < scoreThresholds[i].requiredScore)
-                {
-                    nextThreshold = scoreThresholds[i];
-                    timeToNextSpawn = nextThreshold.timeBetweenSpawns;
-                }
-            }
+            CheckForNextThreshold();
         }
-        else if (nextThreshold != scoreThresholds[scoreThresholds.Length]) // if it is the last threshold:
+    }
+
+
+    void CheckForNextThreshold()
+    {
+        for (int i = 0; i < scoreThresholds.Length - 1; i++)
         {
-            Debug.Log("Last Threshold Reached");
+            if (currentScore < scoreThresholds[i].requiredScore)
+            {
+                Debug.Log("Current Score: " + currentScore);
+                nextThreshold = scoreThresholds[i];
+
+                Debug.Log("Next Threshold: " + i);
+                Debug.Log("Required Score: " + nextThreshold.requiredScore);
+
+                timeToNextSpawn = nextThreshold.timeBetweenSpawns;
+                break;
+            }
         }
     }
 }
