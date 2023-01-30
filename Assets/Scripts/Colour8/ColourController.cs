@@ -39,7 +39,7 @@ public class ColourController : MonoBehaviour
         none
     }
 
-    void OnColourUpdate(Colour8 colour8)
+    public void OnColourUpdate(Colour8 colour8)
     {
         if (colourType != ColourType.none)
         {

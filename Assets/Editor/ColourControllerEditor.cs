@@ -24,7 +24,7 @@ public class ColourControllerEditor : Editor
 
         EditorGUILayout.Space();
 
-        EditorGUILayout.LabelField("Graphics", EditorStyles.centeredGreyMiniLabel);
+        EditorGUILayout.LabelField("Graphics", EditorStyles.boldLabel);
 
         if (cController.image == null && cController.rawImage == null && cController.text == null)
         {
@@ -63,7 +63,11 @@ public class ColourControllerEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
-        EditorGUILayout.LabelField("Canvas Handler", EditorStyles.centeredGreyMiniLabel);
+        EditorGUILayout.LabelField("Canvas Handler", EditorStyles.boldLabel);
         EditorGUILayout.ObjectField(cHandler, typeof(CanvasHandler), true);
+
+
+
+        //cController.OnColourUpdate(cHandler.palettes[cHandler.currentPalette]);
     }
 }

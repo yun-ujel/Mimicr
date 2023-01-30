@@ -44,7 +44,7 @@ public class CanvasHandler : MonoBehaviour
     [SerializeField] private GameObject[] windowsToOpen;
     [SerializeField] private GameObject poemWindow;
     [SerializeField] int maxWindowsOpen = 10;
-    private List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
+    [SerializeField] private List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
 
     [SerializeField] private GameObject[] priorityWindows;
 
@@ -56,14 +56,14 @@ public class CanvasHandler : MonoBehaviour
 
     [Header("Colour Themes")]
     public Colour8[] palettes;
-    [SerializeField] private int currentPalette;
+    [SerializeField] public int currentPalette;
 
 
     [Header("Rules")]
     float timeSinceLastSpawn;
     float timeToNextSpawn;
     [SerializeField] private ScoreThreshold[] scoreThresholds;
-    private ScoreThreshold nextThreshold;
+    private int thresholdIndex;
 
     void Awake()
     {
@@ -86,7 +86,7 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
 
-        BroadcastMessage("OnColourUpdate", palettes[0]);
+        BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
         CheckForNextThreshold();
 
         Debug.Log("End Start() method");
@@ -131,7 +131,7 @@ public class CanvasHandler : MonoBehaviour
         rT.anchoredPosition = randomizedPosition;
 
         rT.gameObject.BroadcastMessage("OnWindowStart");
-        BroadcastMessage("OnColourUpdate", palettes[0]);
+        BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
     }
     public void OpenPriorityWindow(int index)
     {
@@ -173,10 +173,54 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
     } 
-    public void CompleteWindow() // Called when a window is completed successfully
+    public void CompleteWindow(GameObject window) // Called when a window is completed successfully
     {
+        windowsCurrentlyOpen.Remove(window);
         currentScore += 1;
     } 
+
+    private void HandleAutoSpawning()
+    {
+        Debug.Log("Time Between Spawns: " + timeToNextSpawn);
+        // Spawn windows once timer has run out
+        if (timeSinceLastSpawn > timeToNextSpawn)
+        {
+            InstantiateWindow();
+            timeSinceLastSpawn = 0f;
+        }
+        else
+        {
+            timeSinceLastSpawn += Time.deltaTime;
+        }
+
+        // Scale timeToNextSpawn with Score
+
+        if (currentScore > scoreThresholds[thresholdIndex].requiredScore) // If you've passed a score threshold and it wasn't the last:
+        {
+            CheckForNextThreshold();
+        }
+    }
+
+    void CheckForNextThreshold()
+    {
+        for (int i = 0; i < scoreThresholds.Length - 1; i++)
+        {
+            if (currentScore < scoreThresholds[i].requiredScore)
+            {
+                Debug.Log("Current Score: " + currentScore);
+                thresholdIndex = i;
+
+                Debug.Log("Next Threshold: " + i);
+                Debug.Log("Required Score: " + scoreThresholds[thresholdIndex].requiredScore);
+
+                timeToNextSpawn = scoreThresholds[thresholdIndex].timeBetweenSpawns;
+                break;
+            }
+        }
+    }
+
+
+
     public Vector2 UnanchorPosition(RectTransform rectTransform)
     {
         RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
@@ -223,45 +267,4 @@ public class CanvasHandler : MonoBehaviour
     }
 
 
-
-    private void HandleAutoSpawning()
-    {
-        Debug.Log("Time Between Spawns: " + timeToNextSpawn);
-        // Spawn windows once timer has run out
-        if (timeSinceLastSpawn > timeToNextSpawn)
-        {
-            InstantiateWindow();
-            timeSinceLastSpawn = 0f;
-        }
-        else
-        {
-            timeSinceLastSpawn += Time.deltaTime;
-        }
-
-        // Scale timeToNextSpawn with Score
-
-        if (currentScore > nextThreshold.requiredScore) // If you've passed a score threshold and it wasn't the last:
-        {
-            CheckForNextThreshold();
-        }
-    }
-
-
-    void CheckForNextThreshold()
-    {
-        for (int i = 0; i < scoreThresholds.Length - 1; i++)
-        {
-            if (currentScore < scoreThresholds[i].requiredScore)
-            {
-                Debug.Log("Current Score: " + currentScore);
-                nextThreshold = scoreThresholds[i];
-
-                Debug.Log("Next Threshold: " + i);
-                Debug.Log("Required Score: " + nextThreshold.requiredScore);
-
-                timeToNextSpawn = nextThreshold.timeBetweenSpawns;
-                break;
-            }
-        }
-    }
 }

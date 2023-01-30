@@ -10,14 +10,12 @@ public class MinigameHandler : MonoBehaviour
     private CanvasGroup canvasGroup;
 
     [Header("Sizes")]
-    private Vector2 minWindowSize;
-    [SerializeField] private Vector2 maxWindowSize;
-    private Vector2 randWindowSize;
+    private Vector2 minWindowSize;                 // Randomized window size - minimum X and Y values
+    [SerializeField] private Vector2 maxWindowSize;// Randomized window size - maximum X and Y values
+    private Vector2 randWindowSize;                // Size for object to transition to when in closing or opening animation
 
     private bool isClosing = false;
     private bool isOpening = false;
-
-    private float closingWindowCounter;
 
     void Awake()
     {
@@ -84,15 +82,17 @@ public class MinigameHandler : MonoBehaviour
 
     void OnWindowComplete()
     {
-        isClosing = true;
+        randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
 
-        canvasHandler.CompleteWindow();
+        isClosing = true; // Starts closing animation, will destroy object once finished
+
+        canvasHandler.CompleteWindow(gameObject); // Removes object from CanvasHandler.windowsCurrentlyOpen
     }
 
     void OnWindowFail()
     {
-        isClosing = true;
-
         randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
+
+        isClosing = true; // Starts closing animation, will destroy object once finished
     }
 }

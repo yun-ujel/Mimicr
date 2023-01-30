@@ -363,6 +363,7 @@ MonoBehaviour:
   - {fileID: 5472082189793802703, guid: b2ba31f35d0e4014c959e7a7460c2d29, type: 3}
   poemWindow: {fileID: 648952942177245943, guid: e5119b8ac9334304bac6945ef0932664, type: 3}
   maxWindowsOpen: 10
+  windowsCurrentlyOpen: []
   priorityWindows:
   - {fileID: 0}
   palettes:
@@ -374,16 +375,24 @@ MonoBehaviour:
     Tone5: {r: 1, g: 1, b: 1, a: 1}
     Outline: {r: 0.41568628, g: 0.4509804, b: 0.49019608, a: 1}
     WildCard: {r: 0.95294124, g: 0.3647059, b: 0.46274513, a: 1}
+  - Tone0: {r: 0.81960785, g: 0.8352941, b: 0.85490197, a: 1}
+    Tone1: {r: 0.58431375, g: 0.6156863, b: 0.64705884, a: 1}
+    Tone2: {r: 0.26666668, g: 0.3019608, b: 0.3372549, a: 1}
+    Tone3: {r: 0.18431373, g: 0.21176471, b: 0.23921569, a: 1}
+    Tone4: {r: 0.14117648, g: 0.16078432, b: 0.18039216, a: 1}
+    Tone5: {r: 0.11372549, g: 0.12941177, b: 0.14509805, a: 1}
+    Outline: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
+    WildCard: {r: 1, g: 0.6, b: 0.6666668, a: 1}
   currentPalette: 0
   scoreThresholds:
   - requiredScore: -1
     timeBetweenSpawns: 120
-  - requiredScore: 10
+  - requiredScore: 5
     timeBetweenSpawns: 5
-  - requiredScore: 15
-    timeBetweenSpawns: 10
+  - requiredScore: 10
+    timeBetweenSpawns: 3
   - requiredScore: 20
-    timeBetweenSpawns: 20
+    timeBetweenSpawns: 2
 --- !u!1 &660004591
 GameObject:
   m_ObjectHideFlags: 0
