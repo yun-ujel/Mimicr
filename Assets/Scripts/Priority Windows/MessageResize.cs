@@ -9,7 +9,7 @@ public class MessageResize : MonoBehaviour
     private RectTransform rectTransform;
     private TextMeshProUGUI TMPMesh;
     private RectTransform referenceTransformWidth;
-    [SerializeField] private Vector2 bottomRightPadding = new Vector2(20f, 20f);
+    [SerializeField] public Vector2 bottomRightPadding = new Vector2(20f, 20f);
     
     void Awake()
     {

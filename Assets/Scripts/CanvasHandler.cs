@@ -38,7 +38,7 @@ public class ScoreThreshold
 
 public class CanvasHandler : MonoBehaviour
 {
-    public float currentScore;
+    [HideInInspector] public float currentScore;
 
     [Header("Windows")]
     [SerializeField] private GameObject[] windowsToOpen;
@@ -60,9 +60,9 @@ public class CanvasHandler : MonoBehaviour
 
 
     [Header("Rules")]
+    [SerializeField] private ScoreThreshold[] scoreThresholds;
     float timeSinceLastSpawn;
     float timeToNextSpawn;
-    [SerializeField] private ScoreThreshold[] scoreThresholds;
     private int thresholdIndex;
 
     void Awake()
@@ -89,7 +89,7 @@ public class CanvasHandler : MonoBehaviour
         BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
         CheckForNextThreshold();
 
-        Debug.Log("End Start() method");
+        //Debug.Log("End Start() method");
     }
     void Update()
     {
@@ -181,7 +181,6 @@ public class CanvasHandler : MonoBehaviour
 
     private void HandleAutoSpawning()
     {
-        Debug.Log("Time Between Spawns: " + timeToNextSpawn);
         // Spawn windows once timer has run out
         if (timeSinceLastSpawn > timeToNextSpawn)
         {
@@ -207,11 +206,11 @@ public class CanvasHandler : MonoBehaviour
         {
             if (currentScore < scoreThresholds[i].requiredScore)
             {
-                Debug.Log("Current Score: " + currentScore);
+                //Debug.Log("Current Score: " + currentScore);
                 thresholdIndex = i;
 
-                Debug.Log("Next Threshold: " + i);
-                Debug.Log("Required Score: " + scoreThresholds[thresholdIndex].requiredScore);
+                //Debug.Log("Next Threshold: " + i);
+                //Debug.Log("Required Score: " + scoreThresholds[thresholdIndex].requiredScore);
 
                 timeToNextSpawn = scoreThresholds[thresholdIndex].timeBetweenSpawns;
                 break;

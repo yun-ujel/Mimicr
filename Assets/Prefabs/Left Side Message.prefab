@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55769bae8c5ee664aba82762d76276b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpacingTransform: {fileID: 0}
   bottomRightPadding: {x: 25, y: 30}
 --- !u!114 &496180141998805895
 MonoBehaviour:
@@ -126,7 +125,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: -25, y: -20}
+  m_SizeDelta: {x: -25, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &496180142348932204
 CanvasRenderer:

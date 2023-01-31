@@ -10,8 +10,12 @@ public class Messenger : MonoBehaviour
     [SerializeField] private GameObject rightTextBubble;
     [SerializeField] public RectTransform referenceTransformWidth;
 
-    [Header("Text")]
+    [Header("Text Options")]
     [SerializeField] private string messageText;
+    [SerializeField] private Vector2 bottomRightPadding = new Vector2(25, 30);
+    [SerializeField] private float fontSize = 28;
+    [SerializeField] private float pixelsPerUnitMultiplier = 30;
+
 
     private void Awake()
     {
@@ -24,9 +28,13 @@ public class Messenger : MonoBehaviour
     void InstantiateMessage(string newText, GameObject gameObject)
     {
         GameObject messageObject = Instantiate(gameObject, transform);
-        TextMeshProUGUI message = messageObject.GetComponentInChildren<TextMeshProUGUI>();
-        
-        message.text = newText;
+        TextMeshProUGUI messageContent = messageObject.GetComponentInChildren<TextMeshProUGUI>();
+        MessageResize messageResize = messageObject.GetComponentInChildren<MessageResize>();
+    
+        messageContent.text = messageText;
+        messageResize.bottomRightPadding = bottomRightPadding;
+        messageContent.fontSize = fontSize;
+        messageObject.GetComponentInChildren<Image>().pixelsPerUnitMultiplier = pixelsPerUnitMultiplier;
     }
 
     private void Update()
