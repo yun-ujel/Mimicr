@@ -35,60 +35,60 @@ public class UIMovementWithCollision : MonoBehaviour, IDragHandler
 
         if (functionOnDrag == DragFunction.move)
         {
-            Vector2 anchoredPos = rectTransform.anchoredPosition;
+            float anchoredPosX = rectTransform.anchoredPosition.x;
+            float anchoredPosY = rectTransform.anchoredPosition.y;
 
             // Upward Movement
             if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
-            {// if mouse is moving upwards && object isn't touching the top of the Bounds
-                anchoredPos = new Vector2
-                (
-                    anchoredPos.x,
-                    anchoredPos.y + Mathf.Min((eventData.delta.y / canvas.scaleFactor), maxDistance.y)
-                ); // Move the object upwards, choosing the minimum distance between: 
-                   // the distance the mouse has travelled, and the distance between the object and the top of the bounds
-                   // This way the object can't move out of bounds
+            {   // if mouse is moving upwards && object isn't touching the top of the Bounds
+
+                anchoredPosY += Mathf.Min((eventData.delta.y / canvas.scaleFactor), maxDistance.y);
+
+                // Move the object upwards, choosing the minimum distance between: 
+                // the distance the mouse has travelled, and the distance between the object and the top of the bounds
+                // This way the object can't move out of bounds
             }
             // Downward Movement
             else if (eventData.delta.y < 0 && minPosition.y > 0)
-            {// if mouse is moving downwards && object isn't touching the bottom of the bounds
-                anchoredPos = new Vector2
-                (
-                    anchoredPos.x,
-                    anchoredPos.y + Mathf.Max((eventData.delta.y / canvas.scaleFactor), minDistance.y)
-                ); // Move the object downwards, choosing the minimum distance between: 
-                   // the distance the mouse has travelled, and the distance between the object and the bottom of the bounds
-                   // This way the object can't move out of bounds
+            {   // if mouse is moving downwards && object isn't touching the bottom of the bounds
+
+                anchoredPosY += Mathf.Max((eventData.delta.y / canvas.scaleFactor), minDistance.y);
+
+                // Move the object downwards, choosing the minimum distance between: 
+                // the distance the mouse has travelled, and the distance between the object and the bottom of the bounds
+                // This way the object can't move out of bounds
             }
 
             // Right Movement
             if (eventData.delta.x > 0 && maxPosition.x < boundsRectTransform.rect.width)
-            {// if the mouse is moving right && object isn't touching the right side of the bounds
-                anchoredPos = new Vector2
-                (
-                    anchoredPos.x + Mathf.Min((eventData.delta.x / canvas.scaleFactor), maxDistance.x),
-                    anchoredPos.y
-                ); // Move the object right, choosing the minimum distance between: 
-                   // the distance the mouse has travelled, and the distance between the object and the right side of the bounds
-                   // This way the object can't move out of bounds
+            {   // if the mouse is moving right && object isn't touching the right side of the bounds
+                
+                anchoredPosX += Mathf.Min((eventData.delta.x / canvas.scaleFactor), maxDistance.x);
+
+                // Move the object right, choosing the minimum distance between: 
+                // the distance the mouse has travelled, and the distance between the object and the right side of the bounds
+                // This way the object can't move out of bounds
             }
             // Left Movement
             else if (eventData.delta.x < 0 && minPosition.x > 0)
-            {// if the mouse is moving left && object isn't touching the left side of the bounds
-                anchoredPos = new Vector2
-                (
-                    anchoredPos.x + Mathf.Max((eventData.delta.x / canvas.scaleFactor), minDistance.x),
-                    anchoredPos.y
-                ); // Move the object left, choosing the minimum distance between: 
-                   // the distance the mouse has travelled, and the distance between the object and the left side of the bounds
-                   // This way the object can't move out of bounds
+            {   // if the mouse is moving left && object isn't touching the left side of the bounds
+                
+                anchoredPosX += Mathf.Max((eventData.delta.x / canvas.scaleFactor), minDistance.x);
+
+                // Move the object left, choosing the minimum distance between: 
+                // the distance the mouse has travelled, and the distance between the object and the left side of the bounds
+                // This way the object can't move out of bounds
             }
 
-            rectTransform.anchoredPosition = anchoredPos;
+            rectTransform.anchoredPosition = new Vector2(anchoredPosX, anchoredPosY);
         }
         else if (functionOnDrag == DragFunction.resize)
         {
             Vector2 offsetMin = rectTransform.offsetMin;
             Vector2 offsetMax = rectTransform.offsetMax;
+
+            float offsetMinX = rectTransform.offsetMin.x;
+            float offsetMinY = rectTransform.offsetMin.y;
 
             // Upward Upsizing
             if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
