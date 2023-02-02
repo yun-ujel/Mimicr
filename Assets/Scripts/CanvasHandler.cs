@@ -52,7 +52,6 @@ public class CanvasHandler : MonoBehaviour
     private GameObject cursor;
     private SpriteRenderer cursorRenderer;
     RectTransform canvasRectTransform;
-    Canvas canvas;
 
     [Header("Colour Themes")]
     public Colour8[] palettes;
@@ -67,7 +66,6 @@ public class CanvasHandler : MonoBehaviour
 
     void Awake()
     {
-        canvas = GetComponent<Canvas>();
         canvasRectTransform = GetComponent<RectTransform>();
 
         if (cursor == null)
@@ -93,6 +91,8 @@ public class CanvasHandler : MonoBehaviour
     }
     void Update()
     {
+        LogPositions();
+
         if (windowsCurrentlyOpen.Count > maxWindowsOpen)
         {
             GameObject objectToDestroy = windowsCurrentlyOpen[0];
@@ -122,7 +122,7 @@ public class CanvasHandler : MonoBehaviour
 
         // Randomize position of the object
         RectTransform rT = newWindow.GetComponent<RectTransform>();
-        Vector2 randomizedPosition = ReanchorPosition(rT, new Vector2
+        Vector2 randomizedPosition = rT.ReanchorPosition(new Vector2
         (
             Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
             Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
@@ -206,12 +206,7 @@ public class CanvasHandler : MonoBehaviour
         {
             if (currentScore < scoreThresholds[i].requiredScore)
             {
-                //Debug.Log("Current Score: " + currentScore);
                 thresholdIndex = i;
-
-                //Debug.Log("Next Threshold: " + i);
-                //Debug.Log("Required Score: " + scoreThresholds[thresholdIndex].requiredScore);
-
                 timeToNextSpawn = scoreThresholds[thresholdIndex].timeBetweenSpawns;
                 break;
             }
@@ -220,50 +215,18 @@ public class CanvasHandler : MonoBehaviour
 
 
 
-    public Vector2 UnanchorPosition(RectTransform rectTransform)
-    {
-        RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
-        Vector2 transformSize = rectTransform.rect.size;
-        Vector2 parentTransformSize = parentTransform.rect.size;
-
-        Vector2 basePivotPosition = new Vector2
-            (
-                rectTransform.anchoredPosition.x - (transformSize.x * rectTransform.pivot.x),
-                rectTransform.anchoredPosition.y - (transformSize.y * rectTransform.pivot.y)
-            );
-
-        Vector2 baseAnchorPosition = new Vector2
-        (
-            basePivotPosition.x + (parentTransformSize.x * ((rectTransform.anchorMax.x + rectTransform.anchorMin.x) / 2f)),
-            basePivotPosition.y + (parentTransformSize.y * ((rectTransform.anchorMax.y + rectTransform.anchorMin.y) / 2f))
-        );
-
-        return baseAnchorPosition;
-    }
-    public Vector2 ReanchorPosition(RectTransform rectTransform, Vector2 unanchoredPosition)
-    {
-        Vector2 transformSize = rectTransform.rect.size;
-        RectTransform parentTransform = rectTransform.parent.GetComponent<RectTransform>();
-        // Method will only work if direct parent has an unstretched size
-
-        Vector2 reAnchorPosition = new Vector2
-        (
-            unanchoredPosition.x - (parentTransform.sizeDelta.x * ((rectTransform.anchorMax.x + rectTransform.anchorMin.x) / 2f)),
-            unanchoredPosition.y - (parentTransform.sizeDelta.y * ((rectTransform.anchorMax.y + rectTransform.anchorMin.y) / 2f))
-        );
-
-        Vector2 rePivotPosition = new Vector2
-        (
-            reAnchorPosition.x + (transformSize.x * rectTransform.pivot.x),
-            reAnchorPosition.y + (transformSize.y * rectTransform.pivot.y)
-        );
-
-        return rePivotPosition;
-    }
+    
     private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
     {
         return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
     }
 
-
+    [SerializeField] private RectTransform[] windowsToLog;
+    void LogPositions()
+    {
+        foreach (RectTransform window in windowsToLog)
+        {
+            Debug.Log(window.name + " position: " + window.rect.position);
+        }
+    }
 }
