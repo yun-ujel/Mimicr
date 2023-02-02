@@ -1,209 +1,139 @@
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class UIMovementWithCollision : MonoBehaviour, IDragHandler
+public class UIMovementWithCollision : MonoBehaviour, IDragHandler  
 {
-    public RectTransform rectTransform;
-    public RectTransform boundsRectTransform;
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private RectTransform boundsRectTransform;
+    [SerializeField] private Canvas canvas;
 
-    public Canvas canvas;
-    public int anchorIndex;
-    public Vector2 minSize;
-    [SerializeField] private Vector2 maxBounds;
-    [SerializeField] private Vector2 minBounds;
+    private Vector2 minPosition; // The position of the object from the bottom left
+    private Vector2 maxPosition; // The position of the object from the top right
 
-    // Setup: Create 8 'Resize Bars', one for each index. Make them all resize the same object
-    // Then Make another object that will always be bigger (usually a parent) and set it to be the Bounds.
+    private Vector2 minDistance; // The distance between the object and the bottom left of the bounds
+    private Vector2 maxDistance; // The distance between the object and the top right of the bounds
 
-    void CalculateBounds()
+    [SerializeField] public DragFunction functionOnDrag = DragFunction.none;
+    public enum DragFunction
     {
-        minBounds = boundsRectTransform.rect.min;
-        maxBounds = new Vector2(minBounds.x + boundsRectTransform.rect.size.x, minBounds.y + boundsRectTransform.rect.size.y);
+        none,
+        move,
+        resize
     }
 
-
-    // If the mouse is moving left and is not past the left side of the bounds, or is moving right and the width is above minimum
-    public void OnDrag(PointerEventData eventData)
-    {
-        CalculateBounds();
-
-        // Top Left
-        if (anchorIndex == 0)
-        {
-            if ((eventData.delta.x < 0 && eventData.position.x > minBounds.x)   // If the mouse is moving left && is not past the left side of the bounds
-                ||                                                              // OR
-               (eventData.delta.x > 0 && rectTransform.rect.size.x > minSize.x))// If the mouse is moving right && the width is above minimum
-            {
-                rectTransform.offsetMin = new Vector2
-                (
-                    rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor,
-                    rectTransform.offsetMin.y
-                );
-            }
-            if ((eventData.delta.y > 0 && eventData.position.y < maxBounds.y)   // If the mouse is moving up && is below the top side of the bounds
-                ||                                                              // OR
-               (eventData.delta.y < 0 && rectTransform.rect.size.y > minSize.y))// If the mouse is moving down && the height is above minimum
-            {
-                rectTransform.offsetMax = new Vector2
-                (
-                    rectTransform.offsetMax.x,
-                    rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor
-                );
-            }
-        }
-
-        // Top
-        else if (anchorIndex == 1)
-        {
-            if ((eventData.delta.y > 0 && eventData.position.y < maxBounds.y)   // If the mouse is moving up && is below the top side of the bounds
-                ||                                                              // OR
-               (eventData.delta.y < 0 && rectTransform.rect.size.y > minSize.y))// If the mouse is moving down && the height is above minimum
-            {
-                rectTransform.offsetMax = new Vector2
-                (
-                    rectTransform.offsetMax.x,
-                    rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor
-                );
-            }
-        }
-
-        // Top Right
-        else if (anchorIndex == 2)
-        {
-            if ((eventData.delta.x > 0 && eventData.position.x < maxBounds.x)   // If the mouse is moving right && is not past the right side of the bounds
-                ||                                                              // OR
-               (eventData.delta.x < 0 && rectTransform.rect.size.x > minSize.x))// If the mouse is moving left && the width is above minimum
-            {
-                rectTransform.offsetMax = new Vector2
-                (
-                    rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor,
-                    rectTransform.offsetMax.y
-                );
-            }
-            if ((eventData.delta.y > 0 && eventData.position.y < maxBounds.y)   // If the mouse is moving up && is below the top side of the bounds
-                ||                                                              // OR
-               (eventData.delta.y < 0 && rectTransform.rect.size.y > minSize.y))// If the mouse is moving down && the height is above minimum
-            {
-                rectTransform.offsetMax = new Vector2
-                (
-                    rectTransform.offsetMax.x,
-                    rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor
-                );
-            }
-        }
-
-        // Left
-        else if (anchorIndex == 3)
-        {
-            if ((eventData.delta.x < 0 && eventData.position.x > minBounds.x)   // If the mouse is moving left && is not past the left side of the bounds
-                ||                                                              // OR
-               (eventData.delta.x > 0 && rectTransform.rect.size.x > minSize.x))// If the mouse is moving right && the width is above minimum
-            {
-                rectTransform.offsetMin = new Vector2
-                (
-                    rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor,
-                    rectTransform.offsetMin.y
-                );
-            }
-        }
-
-        // Right
-        else if (anchorIndex == 5)
-        {
-            if ((eventData.delta.x > 0 && eventData.position.x < maxBounds.x)   // If the mouse is moving right && is not past the right side of the bounds
-                ||                                                              // OR
-               (eventData.delta.x < 0 && rectTransform.rect.size.x > minSize.x))// If the mouse is moving left && the width is above minimum
-            {
-                rectTransform.offsetMax = new Vector2
-                (
-                    rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor,
-                    rectTransform.offsetMax.y
-                );
-            }
-        }
-
-        // Bottom Left
-        else if (anchorIndex == 6)
-        {
-            if ((eventData.delta.x < 0 && eventData.position.x > minBounds.x)   // If the mouse is moving left && is not past the left side of the bounds
-                ||                                                              // OR
-               (eventData.delta.x > 0 && rectTransform.rect.size.x > minSize.x))// If the mouse is moving right && the width is above minimum
-            {
-                rectTransform.offsetMin = new Vector2
-                (
-                    rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor,
-                    rectTransform.offsetMin.y
-                );
-            }
-            if ((eventData.delta.y < 0 && eventData.position.y > minBounds.y)   // If the mouse is moving down && is above the bottom side of the bounds
-                ||                                                              // OR
-               (eventData.delta.y > 0 && rectTransform.rect.size.y > minSize.y))// If the mouse is moving up && is the height is above minimum
-            {
-                rectTransform.offsetMin = new Vector2
-                (
-                    rectTransform.offsetMin.x,
-                    rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor
-                );
-            }
-        }
-
-        // Bottom
-        else if (anchorIndex == 7)
-        {
-            if ((eventData.delta.y < 0 && eventData.position.y > minBounds.y)   // If the mouse is moving down && is above the bottom side of the bounds
-                ||                                                              // OR
-               (eventData.delta.y > 0 && rectTransform.rect.size.y > minSize.y))// If the mouse is moving up && is the height is above minimum
-            {
-                rectTransform.offsetMin = new Vector2
-                (
-                    rectTransform.offsetMin.x,
-                    rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor
-                );
-            }
-        }
-
-        // Bottom Right
-        else if (anchorIndex == 8)
-        {
-            if ((eventData.delta.x > 0 && eventData.position.x < maxBounds.x)   // If the mouse is moving right && is not past the right side of the bounds
-                ||                                                              // OR
-               (eventData.delta.x < 0 && rectTransform.rect.size.x > minSize.x))// If the mouse is moving left && the width is above minimum
-            {
-                rectTransform.offsetMax = new Vector2
-                (
-                    rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor,
-                    rectTransform.offsetMax.y
-                );
-            }
-            if ((eventData.delta.y < 0 && eventData.position.y > minBounds.y)   // If the mouse is moving down && is above the bottom side of the bounds
-                ||                                                              // OR
-               (eventData.delta.y > 0 && rectTransform.rect.size.y > minSize.y))// If the mouse is moving up && is the height is above minimum
-            {
-                rectTransform.offsetMin = new Vector2
-                (
-                    rectTransform.offsetMin.x,
-                    rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor
-                );
-            }
-        }
-    }
+    [SerializeField] private int anchorIndex;
 
     private void Awake()
     {
-        if (canvas == null) // Auto Assign Canvas
-        {
-            Transform testCanvasTransform = transform.parent;
+        
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        CalculateBounds();
+        CalculateDistance();
 
-            // Repeatedly run through parents until there's either no parent above it, or if the Canvas is found
-            while (testCanvasTransform != null)
-            {
-                canvas = testCanvasTransform.GetComponent<Canvas>();
-                if (canvas != null)
-                {
-                    break;
-                }
-                testCanvasTransform = testCanvasTransform.parent;
+        if (functionOnDrag == DragFunction.move)
+        {
+            Vector2 anchoredPos = rectTransform.anchoredPosition;
+
+            // Upward Movement
+            if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
+            {// if mouse is moving upwards && object isn't touching the top of the Bounds
+                anchoredPos = new Vector2
+                (
+                    anchoredPos.x,
+                    anchoredPos.y + Mathf.Min((eventData.delta.y / canvas.scaleFactor), maxDistance.y)
+                ); // Move the object upwards, choosing the minimum distance between: 
+                   // the distance the mouse has travelled, and the distance between the object and the top of the bounds
+                   // This way the object can't move out of bounds
             }
+            // Downward Movement
+            else if (eventData.delta.y < 0 && minPosition.y > 0)
+            {// if mouse is moving downwards && object isn't touching the bottom of the bounds
+                anchoredPos = new Vector2
+                (
+                    anchoredPos.x,
+                    anchoredPos.y + Mathf.Max((eventData.delta.y / canvas.scaleFactor), minDistance.y)
+                ); // Move the object downwards, choosing the minimum distance between: 
+                   // the distance the mouse has travelled, and the distance between the object and the bottom of the bounds
+                   // This way the object can't move out of bounds
+            }
+
+            // Right Movement
+            if (eventData.delta.x > 0 && maxPosition.x < boundsRectTransform.rect.width)
+            {// if the mouse is moving right && object isn't touching the right side of the bounds
+                anchoredPos = new Vector2
+                (
+                    anchoredPos.x + Mathf.Min((eventData.delta.x / canvas.scaleFactor), maxDistance.x),
+                    anchoredPos.y
+                ); // Move the object right, choosing the minimum distance between: 
+                   // the distance the mouse has travelled, and the distance between the object and the right side of the bounds
+                   // This way the object can't move out of bounds
+            }
+            // Left Movement
+            else if (eventData.delta.x < 0 && minPosition.x > 0)
+            {// if the mouse is moving left && object isn't touching the left side of the bounds
+                anchoredPos = new Vector2
+                (
+                    anchoredPos.x + Mathf.Max((eventData.delta.x / canvas.scaleFactor), minDistance.x),
+                    anchoredPos.y
+                ); // Move the object left, choosing the minimum distance between: 
+                   // the distance the mouse has travelled, and the distance between the object and the left side of the bounds
+                   // This way the object can't move out of bounds
+            }
+
+            rectTransform.anchoredPosition = anchoredPos;
         }
+        else if (functionOnDrag == DragFunction.resize)
+        {
+            Vector2 offsetMin = rectTransform.offsetMin;
+            Vector2 offsetMax = rectTransform.offsetMax;
+
+            // Upward Upsizing
+            if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
+            {// if mouse is moving upwards && object isn't touching the top of the Bounds
+                offsetMax = new Vector2
+                (
+                    offsetMax.x,
+                    offsetMax.y + Mathf.Min((eventData.delta.y / canvas.scaleFactor), maxDistance.y)
+                ); // Upsize the object upwards, adding the minimum height between: 
+                   // the distance the mouse has travelled, and the distance between the object and the top of the bounds
+                   // This way the object can't stretch out of bounds
+            }
+
+
+            // Left Upsizing
+            if (eventData.delta.x < 0 && minPosition.x > 0)
+            {// if the mouse is moving left && object isn't touching the left side of the bounds
+                offsetMin = new Vector2
+                (
+                    offsetMin.x + Mathf.Max((eventData.delta.x / canvas.scaleFactor), minDistance.x),
+                    offsetMin.y
+                ); // Upsize the object left, adding the minimum length between: 
+                   // the distance the mouse has travelled, and the distance between the object and the left side of the bounds
+                   // This way the object can't stretch out of bounds
+            }
+            
+
+            rectTransform.offsetMin = offsetMin;
+            rectTransform.offsetMax = offsetMax;
+        }
+    }
+
+    private void CalculateBounds()
+    {
+        minPosition = rectTransform.UnanchorPosition();
+        maxPosition = new Vector2
+        (
+            minPosition.x + rectTransform.rect.width,
+            minPosition.y + rectTransform.rect.height
+        );
+    }
+
+    private void CalculateDistance()
+    {
+        minDistance = -minPosition;
+        maxDistance = boundsRectTransform.rect.size - maxPosition;
     }
 }

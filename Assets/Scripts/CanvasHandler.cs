@@ -15,8 +15,9 @@ public class Colour8
     public Color Tone5; // Black / Darkest Colour
     public Color Outline; // Lining of windows - should be pretty dark if not pitch black
     public Color WildCard; // Blue, etc - not the same tone or hue as the rest
+    public int index; // Index of the colour palette for use of overrides + extras
 
-    public Colour8(Color newTone0, Color newTone1, Color newTone2, Color newTone3, Color newTone4, Color newTone5, Color newOutline, Color newWildCard)
+    public Colour8(Color newTone0, Color newTone1, Color newTone2, Color newTone3, Color newTone4, Color newTone5, Color newOutline, Color newWildCard, int dex)
     {
         Tone0 = newTone0;
         Tone1 = newTone1;
@@ -26,6 +27,7 @@ public class Colour8
         Tone5 = newTone5;
         Outline = newOutline;
         WildCard = newWildCard;
+        index = dex;
     }
 }
 
