@@ -1603,7 +1603,9 @@ MonoBehaviour:
   rectTransform: {fileID: 1884295981}
   boundsRectTransform: {fileID: 384561756254587419}
   canvas: {fileID: 600411107}
+  minSize: {x: 50, y: 50}
   functionOnDrag: 1
+  anchorIndex: 0
 --- !u!1 &1934434576
 GameObject:
   m_ObjectHideFlags: 0
