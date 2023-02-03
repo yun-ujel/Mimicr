@@ -21,22 +21,25 @@ public class UIMasterEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("References", EditorStyles.boldLabel);
 
+        // Window to Close Field
         if (uMaster.functionOnClick == UIMaster.ClickFunction.close)
         {
             uM.FindProperty("windowToClose").objectReferenceValue = EditorGUILayout.ObjectField("Window To Close", uMaster.windowToClose, typeof(GameObject), allowSceneObjects: true);
         }
 
+        // Message to Send Field
         if (uMaster.functionOnClick == UIMaster.ClickFunction.sendMessageToCanvas)
         {
             uM.FindProperty("messageToSend").stringValue = EditorGUILayout.TextField("Message (to Send to Canvas)", uMaster.messageToSend);
         }
 
+        // Minimum Window Size Field
         if (uMaster.rectTransform == uMaster.GetComponent<RectTransform>() || uMaster.rectTransform == null)
         {
             uM.FindProperty("minWindowSize").vector2Value = EditorGUILayout.Vector2Field("Minimum Window Size", uMaster.minWindowSize);
         }
 
-
+        // RectTransform Field
         if (uMaster.functionOnDrag == UIMaster.DragFunction.move)
         {
             uM.FindProperty("rectTransform").objectReferenceValue = EditorGUILayout.ObjectField("RectTransform (to Move)", uMaster.rectTransform, typeof(RectTransform), allowSceneObjects: true);

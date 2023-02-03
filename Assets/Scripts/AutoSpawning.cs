@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoSpawning : MonoBehaviour
@@ -6,7 +7,7 @@ public class AutoSpawning : MonoBehaviour
     [SerializeField] private GameObject[] stackWindows; // Windows built for the "Stack", the main gameplay loop
     // These are specific minigames that will usually be more difficult, and will be placed in a specific order
 
-    [SerializeField] private GameObject[] popUpWindows; // Windows built for pop-ups, will spawn at random intervals
+    [SerializeField] private List<GameObject> popUpWindows = new List<GameObject>(); // Windows built for pop-ups, will spawn at random intervals
     // These should be less difficult
 
     [SerializeField] private GameObject[] priorityWindows; // Windows that stay throughout the whole game, and can be closed/reopened
@@ -47,6 +48,12 @@ public class AutoSpawning : MonoBehaviour
         }
     }
 
+    void SpawnPopUp()
+    {
+        int selection = Random.Range(0, stackWindows.Length - 1);
+        InstantiateWindow(popUpWindows.ToArray());
+    }
+
     void CompleteStackWindow(GameObject stackWindow)
     {
         stackWindowOpen = false;
@@ -60,7 +67,7 @@ public class AutoSpawning : MonoBehaviour
 
         if (timeSinceLastPopUp > timeToNextPopUp)
         {
-            InstantiateWindow(popUpWindows);
+            SpawnPopUp();
             timeSinceLastPopUp = 0f;
         }
         else

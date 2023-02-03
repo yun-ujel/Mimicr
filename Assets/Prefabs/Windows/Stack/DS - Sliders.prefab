@@ -1127,7 +1127,7 @@ MonoBehaviour:
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
   windowToClose: {fileID: 5472082189793802703}
-  messageToSend: 
+  messageToSend: CompleteStackWindow
   functionOnClick: 2
   functionOnDrag: 0
 --- !u!222 &7586740979741002454

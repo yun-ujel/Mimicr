@@ -1263,7 +1263,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9148529855087485766}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.30833334
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 9148529855629970286}
   - component: {fileID: 9148529855629970285}
   m_Layer: 5
-  m_Name: Agree
+  m_Name: Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
