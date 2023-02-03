@@ -1,12 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MinigameHandler : MonoBehaviour
+// StackHandler should be a newer form of MinigameHandler built as a base for windows in the Stack.
+public class StackHandler : WindowHandler
 {
-    private UIMaster topUIMaster;
+    [Header("References")]
     private RectTransform rectTransform;
-    private CanvasHandler canvasHandler;
+    private Canvas canvas;
     private CanvasGroup canvasGroup;
 
     [Header("Sizes")]
@@ -19,12 +20,9 @@ public class MinigameHandler : MonoBehaviour
 
     void Awake()
     {
-        topUIMaster = GetComponent<UIMaster>();
         rectTransform = GetComponent<RectTransform>();
-        canvasHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
-
-        minWindowSize = topUIMaster.minWindowSize;
     }
 
     void Update()
@@ -66,8 +64,27 @@ public class MinigameHandler : MonoBehaviour
         }
     }
 
-    void OnWindowStart()
+    public override void OnWindowComplete()
     {
+        randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
+
+        isClosing = true; // Starts closing animation, will destroy object once finished
+
+        canvas.SendMessage("CompleteWindow", gameObject); // Removes object from CanvasHandler.windowsCurrentlyOpen
+        canvas.SendMessage("CompleteStackWindow", gameObject);
+    }
+
+    public override void OnWindowFail()
+    {
+        randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
+
+        isClosing = true; // Starts closing animation, will destroy object once finished
+    }
+
+    public override void OnWindowStart()
+    {
+        minWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
+
         canvasGroup.alpha = 0f;
 
         randWindowSize = new Vector2
@@ -78,21 +95,5 @@ public class MinigameHandler : MonoBehaviour
 
         rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
         isOpening = true;
-    }
-
-    void OnWindowComplete()
-    {
-        randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
-
-        isClosing = true; // Starts closing animation, will destroy object once finished
-
-        canvasHandler.CompleteWindow(gameObject); // Removes object from CanvasHandler.windowsCurrentlyOpen
-    }
-
-    void OnWindowFail()
-    {
-        randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
-
-        isClosing = true; // Starts closing animation, will destroy object once finished
     }
 }

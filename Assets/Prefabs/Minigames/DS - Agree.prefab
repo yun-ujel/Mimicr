@@ -151,7 +151,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 3
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -354,7 +353,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 7
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -643,7 +641,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -1006,7 +1003,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 6
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -1989,7 +1985,6 @@ MonoBehaviour:
   rectTransform: {fileID: 0}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 2
@@ -2164,7 +2159,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -2257,7 +2251,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 8
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -2336,7 +2329,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -2402,10 +2394,10 @@ GameObject:
   - component: {fileID: 9148529856201498291}
   - component: {fileID: 9148529856201498295}
   - component: {fileID: 9148529856201498294}
-  - component: {fileID: 9148529856201498293}
   - component: {fileID: 9148529856201498297}
   - component: {fileID: 9148529856201498296}
   - component: {fileID: 9148529856201498292}
+  - component: {fileID: -6301849718595352293}
   m_Layer: 5
   m_Name: DS - Agree
   m_TagString: Untagged
@@ -2450,7 +2442,6 @@ MonoBehaviour:
   rectTransform: {fileID: 0}
   anchorIndex: 0
   minWindowSize: {x: 400, y: 300}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 0
@@ -2471,19 +2462,6 @@ MonoBehaviour:
   contentTransform: {fileID: 9148529855114198994}
   fontSizeRange: {x: 24, y: 36}
   contentSizeRange: {x: 560, y: 1800}
---- !u!114 &9148529856201498293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9148529856201498290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 329443da0bd0b1348abf5e5f09f83994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxWindowSize: {x: 800, y: 400}
 --- !u!222 &9148529856201498297
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2534,6 +2512,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-6301849718595352293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9148529856201498290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 433f86c96919a1f4c8364c97352b77a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWindowSize: {x: 800, y: 400}
 --- !u!1 &9148529856350315783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,7 +2613,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 1
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -2751,7 +2741,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 2
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
@@ -2844,7 +2833,6 @@ MonoBehaviour:
   rectTransform: {fileID: 9148529856201498291}
   anchorIndex: 5
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1

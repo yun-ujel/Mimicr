@@ -93,17 +93,17 @@ public class SliderMinigame : MonoBehaviour
             if (gSliders[i].ColorMode == GameSlider.HSVMode.hue)
             {
                 gSliders[i].slider.value = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue);
-                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue); // Hue value can be anything
+                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue); // Correct Hue value can be anything
             }
             else if (gSliders[i].ColorMode == GameSlider.HSVMode.value)
             {
-                gSliders[i].slider.value = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue);
-                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.maxValue * 0.75f, gSliders[i].slider.maxValue); // Value value can be anything above 0.75
+                gSliders[i].slider.value = Random.Range(gSliders[i].slider.maxValue * 0.2f, gSliders[i].slider.maxValue); // Starting value can be anything above 0.2
+                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.maxValue * 0.75f, gSliders[i].slider.maxValue); // Correct Value value can be anything above 0.75
             }
             else
             {
                 gSliders[i].slider.value = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue);
-                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue * 0.8f); // Sat value can be anything below 0.8
+                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue * 0.8f); // Correct Sat value can be anything below 0.8
             }
         }
 

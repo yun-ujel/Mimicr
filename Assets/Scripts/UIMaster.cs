@@ -19,7 +19,6 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     // (Essentially, it only appears if this object is the one that'll be moved or resized)
 
     [HideInInspector] private Canvas canvas;              // Auto Assigned, hidden always
-    [HideInInspector] public CanvasHandler canvasHandler; // Auto Assigned, hidden always
 
     [HideInInspector] public GameObject windowToClose;
     // This is hidden by default and appears when functionOnClick is set to close
@@ -75,7 +74,6 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         {
             rectTransform = GetComponent<RectTransform>();
         }
-        canvasHandler = canvas.gameObject.GetComponent<CanvasHandler>();
     }
 
     void Start()
@@ -248,7 +246,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
         }
         else if (functionOnClick == ClickFunction.sendMessageToCanvas)
         {
-            canvasHandler.SendMessage(messageToSend);
+            canvas.SendMessage(messageToSend);
         }
     }
 
@@ -256,15 +254,14 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     {
         if (functionOnDrag == DragFunction.resize) // Used for resize indicator
         {
-            canvasHandler.OnCursorEnter(anchorIndex); // Tell Canvas to show resize indicator
+            canvas.SendMessage("OnCursorEnter", anchorIndex); // Tell Canvas to show resize indicator
         }
     }
 
     public void OnPointerExit(PointerEventData eventData) // When Object stops being hovered over
     {
-        if (!eventData.dragging) 
-        {
-            canvasHandler.OnCursorExit(); // Hide resize indicator
-        }
+        
+        canvas.SendMessage("OnCursorExit"); // Hide resize indicator
+        
     }
 }

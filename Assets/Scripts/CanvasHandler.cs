@@ -110,8 +110,6 @@ public class CanvasHandler : MonoBehaviour
         {
             OpenPriorityWindow(0);
         }
-
-        HandleAutoSpawning();
     }
     public void InstantiateWindow()
     {
