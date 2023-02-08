@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("References")]
     [HideInInspector] public RectTransform rectTransform; // RectTransform used to move, resize or send to top. Usually a direct child of the canvas/very high in the hierarchy
@@ -18,7 +18,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     // This is hidden by default and appears when the rectTransform variable is set to the object's own (or left empty)
     // (Essentially, it only appears if this object is the one that'll be moved or resized)
 
-    [HideInInspector] private Canvas canvas;              // Auto Assigned, hidden always
+    [HideInInspector] public Canvas canvas;              // Auto Assigned, hidden always
 
     [HideInInspector] public GameObject windowToClose;
     // This is hidden by default and appears when functionOnClick is set to close
@@ -28,22 +28,20 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     [HideInInspector] public string messageToSend;
     // This is hidden by default and appears when functionOnClick is set to sendMessageToCanvas
 
+    [Space]
+    public Padding padding;
+
     [Header("Functions")]
-    [SerializeField] public ClickFunction functionOnClick = ClickFunction.sendToTop;
-    [SerializeField] public DragFunction functionOnDrag = DragFunction.none;
-    public enum DragFunction
-    {
-        none,
-        move,
-        resize
-    }
-    public enum ClickFunction
+    public FunctionOnClick functionOnClick = FunctionOnClick.sendToTop;
+    public enum FunctionOnClick
     {
         none,
         sendToTop,
         close,
         sendMessageToCanvas
     }
+
+    [HideInInspector] public DragFunction dragFunction;
 
     private void Awake()
     {
@@ -58,7 +56,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 canvas = testCanvasTransform.GetComponent<Canvas>();
                 if (canvas != null)
                 {
-                    if (windowToClose == null && functionOnClick == ClickFunction.close) // Auto Assign windowToClose
+                    if (windowToClose == null && functionOnClick == FunctionOnClick.close) // Auto Assign windowToClose
                     {
                         windowToClose = testParentObject;
                     }
@@ -78,173 +76,30 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     void Start()
     {
-        if (functionOnDrag == DragFunction.resize)
+        if (rectTransform != GetComponent<RectTransform>() && dragFunction != null)
         {
-                                                                                      
-            if (rectTransform != GetComponent<RectTransform>())                       
-            {
-                minWindowSize = rectTransform.GetComponent<UIMaster>().minWindowSize; // Auto-assign the minimum size of the window to the size stated on the object to resize
-            }
+            UIMaster parentUIMaster = rectTransform.GetComponent<UIMaster>();
+            minWindowSize = parentUIMaster.minWindowSize; // Auto-assign the minimum size of the window to the size stated on the object to resize
+            padding = parentUIMaster.padding;
         }
-    }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (functionOnDrag == DragFunction.move)
-        {            
-            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;            
-        }
-        else if (functionOnDrag == DragFunction.resize)
+        if (dragFunction != null)
         {
-            // Top Left
-            if (anchorIndex == 0)
-            {
-                if (eventData.delta.x < 0 || rectTransform.sizeDelta.x > minWindowSize.x) // If the mouse is moving left or if the width is above minimum
-                {
-                    rectTransform.offsetMin = new Vector2
-                    (
-                        rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor, // left
-                        rectTransform.offsetMin.y
-                    );
-                }
-                if (eventData.delta.y > 0 || rectTransform.sizeDelta.y > minWindowSize.y) // If the mouse is moving up or if the height is above minimum
-                {
-                    rectTransform.offsetMax = new Vector2
-                    (
-                        rectTransform.offsetMax.x,
-                        rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor  // top
-                    );
-                }
-            }
-
-            // Top
-            else if (anchorIndex == 1)
-            {
-                if (eventData.delta.y > 0 || rectTransform.sizeDelta.y > minWindowSize.y) // If the mouse is moving up or the height is above minimum
-                {
-                    rectTransform.offsetMax = new Vector2
-                    (
-                        rectTransform.offsetMax.x,
-                        rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor  // top
-                    );
-                }
-            }
-
-            // Top Right
-            else if (anchorIndex == 2)
-            {
-                if (eventData.delta.x > 0 || rectTransform.sizeDelta.x > minWindowSize.x) // If the mouse is moving right or if the width is above minimum
-                {
-                    rectTransform.offsetMax = new Vector2
-                    (
-                        rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor, // right
-                        rectTransform.offsetMax.y
-                    );
-                }
-                if (eventData.delta.y > 0 || rectTransform.sizeDelta.y > minWindowSize.y) // If the mouse is moving up or if the height is above minimum
-                {
-                    rectTransform.offsetMax = new Vector2
-                    (
-                        rectTransform.offsetMax.x,
-                        rectTransform.offsetMax.y + eventData.delta.y / canvas.scaleFactor  // top
-                    );
-                }
-            }
-
-            // Left
-            else if (anchorIndex == 3)
-            {
-                if (eventData.delta.x < 0 || rectTransform.sizeDelta.x > minWindowSize.x) // If the mouse is moving left or if the width is above minimum
-                {
-                    rectTransform.offsetMin = new Vector2
-                    (
-                        rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor, // left
-                        rectTransform.offsetMin.y
-                    );
-                }
-            }
-
-            // Right
-            else if (anchorIndex == 5)
-            {
-                if (eventData.delta.x > 0 || rectTransform.sizeDelta.x > minWindowSize.x) // If the mouse is moving right or if the width is above minimum
-                {
-                    rectTransform.offsetMax = new Vector2
-                    (
-                        rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor, // right
-                        rectTransform.offsetMax.y
-                    );
-                }
-            }
-
-            // Bottom Left
-            else if (anchorIndex == 6)
-            {
-                if (eventData.delta.x < 0 || rectTransform.sizeDelta.x > minWindowSize.x) // If the mouse is moving left or if the width is above minimum
-                {
-                    rectTransform.offsetMin = new Vector2
-                    (
-                        rectTransform.offsetMin.x + eventData.delta.x / canvas.scaleFactor, // left
-                        rectTransform.offsetMin.y
-                    );
-                }
-                if (eventData.delta.y < 0 || rectTransform.sizeDelta.y > minWindowSize.y) // If the mouse is moving down or if the height is above minimum
-                {
-                    rectTransform.offsetMin = new Vector2
-                    (
-                        rectTransform.offsetMin.x,
-                        rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor // bottom
-                    );
-                }
-            }
-
-            // Bottom
-            else if (anchorIndex == 7)
-            {
-                if (eventData.delta.y < 0 || rectTransform.sizeDelta.y > minWindowSize.y) // If the mouse is moving down or if the height is above minimum
-                {
-                    rectTransform.offsetMin = new Vector2
-                    (
-                        rectTransform.offsetMin.x,
-                        rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor // bottom
-                    );
-                }
-            }
-
-            // Bottom Right
-            else if (anchorIndex == 8)
-            {
-                if (eventData.delta.x > 0 || rectTransform.sizeDelta.x > minWindowSize.x) // If the mouse is moving right or if the width is above minimum
-                {
-                    rectTransform.offsetMax = new Vector2
-                    (
-                        rectTransform.offsetMax.x + eventData.delta.x / canvas.scaleFactor, // right
-                        rectTransform.offsetMax.y
-                    );
-                }
-                if (eventData.delta.y < 0 || rectTransform.sizeDelta.y > minWindowSize.y) // If the mouse is moving down or if the height is above minimum
-                {
-                    rectTransform.offsetMin = new Vector2
-                    (
-                        rectTransform.offsetMin.x,
-                        rectTransform.offsetMin.y + eventData.delta.y / canvas.scaleFactor // bottom
-                    );
-                }
-            }
+            dragFunction.GetInfo(this);
         }
     }
 
     public void OnPointerDown(PointerEventData eventData) // When Object is Clicked
     {
-        if (functionOnClick == ClickFunction.sendToTop)
+        if (functionOnClick == FunctionOnClick.sendToTop)
         {
             rectTransform.SetAsLastSibling(); // Send to Top
         }
-        else if (functionOnClick == ClickFunction.close) // ClickFunction.close is used only for Window Completions (victories), not failures
+        else if (functionOnClick == FunctionOnClick.close) // ClickFunction.close is used only for Window Completions (victories), not failures
         {
             windowToClose.BroadcastMessage("OnWindowComplete");
         }
-        else if (functionOnClick == ClickFunction.sendMessageToCanvas)
+        else if (functionOnClick == FunctionOnClick.sendMessageToCanvas)
         {
             canvas.SendMessage(messageToSend);
         }
@@ -252,7 +107,7 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData) // When Object is hovered over
     {
-        if (functionOnDrag == DragFunction.resize) // Used for resize indicator
+        if (dragFunction != null)
         {
             canvas.SendMessage("OnCursorEnter", anchorIndex); // Tell Canvas to show resize indicator
         }
@@ -260,8 +115,9 @@ public class UIMaster : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
 
     public void OnPointerExit(PointerEventData eventData) // When Object stops being hovered over
     {
-        
-        canvas.SendMessage("OnCursorExit"); // Hide resize indicator
-        
+        if (dragFunction != null)
+        {
+            canvas.SendMessage("OnCursorExit"); // Hide resize indicator
+        }
     }
 }

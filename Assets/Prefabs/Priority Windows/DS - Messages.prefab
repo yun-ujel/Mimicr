@@ -179,11 +179,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 8
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572520529113045
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,11 +272,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 2
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572520686748498
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,11 +387,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!114 &2518572520686748501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,11 +551,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572521161177821
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,11 +644,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 5
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572521384487875
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,11 +737,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 6
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572521400100895
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,11 +830,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 1
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572521606071415
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,11 +945,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 1
+  dragFunction: {fileID: 0}
 --- !u!114 &2518572521606071417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,11 +1053,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 3
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572521687399018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,11 +1146,11 @@ MonoBehaviour:
   rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 7
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &2518572522131914352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,11 +1260,11 @@ MonoBehaviour:
   rectTransform: {fileID: 0}
   anchorIndex: 0
   minWindowSize: {x: 375, y: 475}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
   functionOnClick: 0
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!225 &1982327552342115330
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1445,11 +1445,11 @@ MonoBehaviour:
   rectTransform: {fileID: 0}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 2518572522131914352}
   messageToSend: 
   functionOnClick: 2
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!1 &7567025523055982001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,6 +1986,9 @@ MonoBehaviour:
   rightTextBubble: {fileID: 5588205457395536875, guid: 08623d1c9bbd30a4ab01660d8d68a06a, type: 3}
   referenceTransformWidth: {fileID: 7567025523878266907}
   messageText: aregaureigenaqrogbaeigeruabgoa
+  bottomRightPadding: {x: 25, y: 30}
+  fontSize: 28
+  pixelsPerUnitMultiplier: 30
 --- !u!1 &7567025523846845954
 GameObject:
   m_ObjectHideFlags: 0

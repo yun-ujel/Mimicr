@@ -89,10 +89,10 @@ MonoBehaviour:
   anchorIndex: 5
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952941516552955
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,10 +182,10 @@ MonoBehaviour:
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952941521802194
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,10 +318,10 @@ MonoBehaviour:
   anchorIndex: 3
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952941717436093
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,10 +411,10 @@ MonoBehaviour:
   anchorIndex: 8
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952941760473208
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,10 +638,10 @@ MonoBehaviour:
   anchorIndex: 1
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952941997534735
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,10 +821,10 @@ MonoBehaviour:
   anchorIndex: 7
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952942177245943
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,10 +920,10 @@ MonoBehaviour:
   anchorIndex: 0
   minWindowSize: {x: 340, y: 140}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 0
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!1 &648952942852293152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,10 +1013,10 @@ MonoBehaviour:
   anchorIndex: 6
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &648952943110723197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,10 +1106,10 @@ MonoBehaviour:
   anchorIndex: 2
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 2
+  dragFunction: {fileID: 0}
 --- !u!1 &730319827019543996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,10 +1342,10 @@ MonoBehaviour:
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 1
+  dragFunction: {fileID: 0}
 --- !u!114 &6917797701035641584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1453,10 +1453,10 @@ MonoBehaviour:
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
-  canvasHandler: {fileID: 0}
   windowToClose: {fileID: 0}
+  messageToSend: 
   functionOnClick: 1
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!114 &6917797701154128404
 MonoBehaviour:
   m_ObjectHideFlags: 0

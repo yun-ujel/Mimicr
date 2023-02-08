@@ -186,8 +186,8 @@ RectTransform:
   m_Father: {fileID: 5559218920694830560}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0, y: 0.5}
@@ -315,9 +315,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102859238038837}
+  - component: {fileID: 2605102859238038838}
+  - component: {fileID: 8085481711584989932}
   - component: {fileID: 2605102859238038824}
   - component: {fileID: 2605102859238038839}
-  - component: {fileID: 2605102859238038838}
   m_Layer: 5
   m_Name: Bottom Left Resize
   m_TagString: Untagged
@@ -344,6 +345,43 @@ RectTransform:
   m_AnchoredPosition: {x: -10, y: -10}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2605102859238038838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102859238038836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 6
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 8085481711584989932}
+--- !u!114 &8085481711584989932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102859238038836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102859238038824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -379,26 +417,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102859238038838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102859238038836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 6
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102859512187241
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,9 +426,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102859512187242}
+  - component: {fileID: 2605102859512187243}
+  - component: {fileID: 4127153759675764475}
   - component: {fileID: 2605102859512187245}
   - component: {fileID: 2605102859512187244}
-  - component: {fileID: 2605102859512187243}
   m_Layer: 5
   m_Name: Top Right Resize
   m_TagString: Untagged
@@ -437,6 +456,43 @@ RectTransform:
   m_AnchoredPosition: {x: 10, y: 10}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &2605102859512187243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102859512187241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 2
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 4127153759675764475}
+--- !u!114 &4127153759675764475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102859512187241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102859512187245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -472,26 +528,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102859512187243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102859512187241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 2
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102860477600055
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,9 +537,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102860477600040}
+  - component: {fileID: 2605102860477600041}
+  - component: {fileID: 8829472728871185577}
   - component: {fileID: 2605102860477600043}
   - component: {fileID: 2605102860477600042}
-  - component: {fileID: 2605102860477600041}
   m_Layer: 5
   m_Name: Top Resize Bar
   m_TagString: Untagged
@@ -530,6 +567,43 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 10}
   m_SizeDelta: {x: -60, y: 30}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &2605102860477600041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102860477600055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 1
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 8829472728871185577}
+--- !u!114 &8829472728871185577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102860477600055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102860477600043
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -565,26 +639,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102860477600041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102860477600055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 1
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102860665198399
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,9 +648,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102860665198384}
+  - component: {fileID: 2605102860665198385}
+  - component: {fileID: 6051245585395740385}
   - component: {fileID: 2605102860665198387}
   - component: {fileID: 2605102860665198386}
-  - component: {fileID: 2605102860665198385}
   m_Layer: 5
   m_Name: Bottom Resize Bar
   m_TagString: Untagged
@@ -623,6 +678,43 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: -60, y: 30}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &2605102860665198385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102860665198399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 7
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 6051245585395740385}
+--- !u!114 &6051245585395740385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102860665198399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102860665198387
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -658,26 +750,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102860665198385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102860665198399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 7
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102860726191587
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,11 +807,16 @@ MonoBehaviour:
   rectTransform: {fileID: 0}
   anchorIndex: 0
   minWindowSize: {x: 340, y: 140}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
+  padding:
+    left: -20
+    right: -20
+    top: -20
+    bottom: -20
   functionOnClick: 0
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!222 &2605102860726191590
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -800,9 +877,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102861016851980}
+  - component: {fileID: 2605102861016851981}
+  - component: {fileID: 4046195356554298356}
   - component: {fileID: 2605102861016851983}
   - component: {fileID: 2605102861016851982}
-  - component: {fileID: 2605102861016851981}
   m_Layer: 5
   m_Name: Right Resize Bar
   m_TagString: Untagged
@@ -829,6 +907,43 @@ RectTransform:
   m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 30, y: -60}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &2605102861016851981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861016851979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 5
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 4046195356554298356}
+--- !u!114 &4046195356554298356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861016851979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102861016851983
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -864,26 +979,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102861016851981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102861016851979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 5
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102861139502575
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,9 +988,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102861139502560}
+  - component: {fileID: 2605102861139502561}
+  - component: {fileID: 2479879448760325731}
   - component: {fileID: 2605102861139502563}
   - component: {fileID: 2605102861139502562}
-  - component: {fileID: 2605102861139502561}
   m_Layer: 5
   m_Name: Top Left Resize
   m_TagString: Untagged
@@ -922,6 +1018,43 @@ RectTransform:
   m_AnchoredPosition: {x: -10, y: 10}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &2605102861139502561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861139502575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 0
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 2479879448760325731}
+--- !u!114 &2479879448760325731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861139502575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102861139502563
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -957,26 +1090,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102861139502561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102861139502575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 0
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102861142527174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,9 +1142,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102861282006274}
+  - component: {fileID: 2605102861282006275}
+  - component: {fileID: 8661737515445737826}
   - component: {fileID: 2605102861282006277}
   - component: {fileID: 2605102861282006276}
-  - component: {fileID: 2605102861282006275}
   m_Layer: 5
   m_Name: Left Resize Bar
   m_TagString: Untagged
@@ -1058,6 +1172,43 @@ RectTransform:
   m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: 30, y: -60}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &2605102861282006275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861282006273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 3
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 8661737515445737826}
+--- !u!114 &8661737515445737826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861282006273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102861282006277
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1093,26 +1244,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102861282006275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102861282006273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 3
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &2605102861341174185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,9 +1253,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605102861341174186}
+  - component: {fileID: 2605102861341174187}
+  - component: {fileID: 8849203308527035492}
   - component: {fileID: 2605102861341174189}
   - component: {fileID: 2605102861341174188}
-  - component: {fileID: 2605102861341174187}
   m_Layer: 5
   m_Name: Bottom Right Resize
   m_TagString: Untagged
@@ -1151,6 +1283,43 @@ RectTransform:
   m_AnchoredPosition: {x: 10, y: -10}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 1, y: 0}
+--- !u!114 &2605102861341174187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861341174185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 2605102860726191588}
+  anchorIndex: 8
+  minWindowSize: {x: 0, y: 0}
+  canvas: {fileID: 0}
+  windowToClose: {fileID: 0}
+  messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+  functionOnClick: 1
+  dragFunction: {fileID: 8849203308527035492}
+--- !u!114 &8849203308527035492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605102861341174185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c5500c5aa36234b9b8836aad05d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &2605102861341174189
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1186,26 +1355,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2605102861341174187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605102861341174185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 8
-  minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
-  windowToClose: {fileID: 0}
-  messageToSend: 
-  functionOnClick: 1
-  functionOnDrag: 2
 --- !u!1 &5559218920694830561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1366,7 @@ GameObject:
   - component: {fileID: 5559218920694830560}
   - component: {fileID: 4766220276601441495}
   - component: {fileID: 5559218920694830563}
+  - component: {fileID: 1774809180566207258}
   - component: {fileID: 5559218920694830565}
   - component: {fileID: 5559218920694830562}
   - component: {fileID: 5559218920694830564}
@@ -1278,13 +1428,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 2605102860726191588}
-  anchorIndex: 0
+  anchorIndex: 4
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
   functionOnClick: 1
-  functionOnDrag: 1
+  dragFunction: {fileID: 1774809180566207258}
+--- !u!114 &1774809180566207258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559218920694830561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80af3a08d0c955448a752c2f57020f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &5559218920694830565
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1410,11 +1577,16 @@ MonoBehaviour:
   rectTransform: {fileID: 2605102860726191588}
   anchorIndex: 0
   minWindowSize: {x: 0, y: 0}
-  canvasHandler: {fileID: 0}
+  canvas: {fileID: 0}
   windowToClose: {fileID: 0}
   messageToSend: 
+  padding:
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
   functionOnClick: 1
-  functionOnDrag: 0
+  dragFunction: {fileID: 0}
 --- !u!222 &5559218920882527601
 CanvasRenderer:
   m_ObjectHideFlags: 0

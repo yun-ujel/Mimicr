@@ -1,23 +1,41 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ResizeWithCollision : ResizeType
+public class ResizeCollision : DragFunction
 {
-    private float min;
+    private RectTransform rectTransform;
+    private RectTransform boundsRectTransform;
+    private int anchorIndex;
+    private Vector2 minWindowSize;
 
-    public override RectTransform ResizeAll(RectTransform rectTransform, int anchorIndex, PointerEventData eventData, float canvasScaleFactor, Vector2 boundsSize, Vector2 minSize)
+    private float canvasScaleFactor;
+
+    private Vector2 minPosition; // The position of the object from the bottom left
+    private Vector2 maxPosition; // The position of the object from the top right
+
+    private Vector2 minDistance; // The distance between the object and the bottom left of the bounds (negative)
+    private Vector2 maxDistance; // The distance between the object and the top right of the bounds   (positive)
+
+    float min; // The negative value representing the difference between current and minimum size
+
+    Padding padding; // Padding for the parent bounds to slightly adjust their size
+    public override void GetInfo(UIMaster uIMaster)
     {
-        // Calculate Bounds
-        Vector2 minPosition = rectTransform.UnanchorPosition();
-        Vector2 maxPosition = new Vector2
-        (
-            minPosition.x + rectTransform.rect.width,
-            minPosition.y + rectTransform.rect.height
-        );
+        rectTransform = uIMaster.rectTransform;
+        minWindowSize = uIMaster.minWindowSize;
 
-        // Calculate Distance
-        Vector2 minDistance = -minPosition;
-        Vector2 maxDistance = boundsSize - maxPosition;
+        canvasScaleFactor = uIMaster.canvas.scaleFactor;
+        anchorIndex = uIMaster.anchorIndex;
+
+        padding = uIMaster.padding;
+
+        boundsRectTransform = rectTransform.parent.GetComponent<RectTransform>();
+    }
+
+    public override void OnDrag(PointerEventData eventData)
+    {
+        CalculateBounds();
+        CalculateDistance();
 
         float offsetMinX = rectTransform.offsetMin.x;
         float offsetMinY = rectTransform.offsetMin.y;
@@ -29,7 +47,7 @@ public class ResizeWithCollision : ResizeType
         if (anchorIndex == 0)
         {
             // Upward Upsizing (moving top of the object up)
-            if (eventData.delta.y > 0 && maxPosition.y < boundsSize.y)
+            if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
             {   // if mouse is moving upwards && object isn't touching the top of the Bounds
 
                 offsetMaxY += Mathf.Min((eventData.delta.y / canvasScaleFactor), maxDistance.y);
@@ -39,10 +57,10 @@ public class ResizeWithCollision : ResizeType
                 // This way the object can't stretch out of bounds
             }
             // Downward Downsizing (moving top of the object down)
-            else if (eventData.delta.y < 0 && rectTransform.rect.height > minSize.y)
+            else if (eventData.delta.y < 0 && rectTransform.rect.height > minWindowSize.y)
             {   // if mouse is moving downwards && object is above the minimum height
 
-                min = minSize.y - rectTransform.rect.height;
+                min = minWindowSize.y - rectTransform.rect.height;
                 // The negative value representing the difference between current and minimum height
 
                 offsetMaxY += Mathf.Max((eventData.delta.y / canvasScaleFactor), min);
@@ -62,10 +80,10 @@ public class ResizeWithCollision : ResizeType
                 // This way the object can't stretch out of bounds
             }
             // Right Downsizing (moving left of the object right)
-            else if (eventData.delta.x > 0 && rectTransform.rect.width > minSize.y)
+            else if (eventData.delta.x > 0 && rectTransform.rect.width > minWindowSize.y)
             {   // if mouse is moving right && object is above the minimum width
 
-                min = rectTransform.rect.width - minSize.x;
+                min = rectTransform.rect.width - minWindowSize.x;
                 // The positive value representing the difference between current and minimum width
 
                 offsetMinX += Mathf.Min((eventData.delta.x / canvasScaleFactor), min);
@@ -89,10 +107,10 @@ public class ResizeWithCollision : ResizeType
                 // This way the object can't stretch out of bounds
             }
             // Upward Downsizing (moving bottom of the object up)
-            else if (eventData.delta.y > 0 && rectTransform.rect.height > minSize.y)
+            else if (eventData.delta.y > 0 && rectTransform.rect.height > minWindowSize.y)
             {   // If mouse is moving upwards && object is above minimum height
 
-                min = rectTransform.rect.height - minSize.y;
+                min = rectTransform.rect.height - minWindowSize.y;
                 // The positive value representing the difference between current and minimum height
 
                 offsetMinY += Mathf.Min((eventData.delta.y / canvasScaleFactor), min);
@@ -102,7 +120,7 @@ public class ResizeWithCollision : ResizeType
             }
 
             // Right Upsizing (moving right of the object right)
-            if (eventData.delta.x > 0 && maxPosition.x < boundsSize.x)
+            if (eventData.delta.x > 0 && maxPosition.x < boundsRectTransform.rect.width)
             {   // If mouse is moving right && object isn't touching the right side of the bounds
 
                 offsetMaxX += Mathf.Min((eventData.delta.x / canvasScaleFactor), maxDistance.x);
@@ -112,10 +130,10 @@ public class ResizeWithCollision : ResizeType
                 // This way the object can't stretch out of bounds
             }
             // Left Downsizing (moving right of the object left)
-            else if (eventData.delta.x < 0 && rectTransform.rect.width > minSize.x)
+            else if (eventData.delta.x < 0 && rectTransform.rect.width > minWindowSize.x)
             {   // If mouse is moving left && object is above minimum width
 
-                min = minSize.x - rectTransform.rect.width;
+                min = minWindowSize.x - rectTransform.rect.width;
                 // The negative value representing the difference between current and minimum width
 
                 offsetMaxX += Mathf.Max((eventData.delta.x / canvasScaleFactor), min);
@@ -130,14 +148,14 @@ public class ResizeWithCollision : ResizeType
         if (anchorIndex == 1)
         {
             // Upward Upsizing
-            if (eventData.delta.y > 0 && maxPosition.y < boundsSize.y)
+            if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
             {
                 offsetMaxY += Mathf.Min((eventData.delta.y / canvasScaleFactor), maxDistance.y);
             }
             // Downward Downsizing
-            else if (eventData.delta.y < 0 && rectTransform.rect.height > minSize.y)
+            else if (eventData.delta.y < 0 && rectTransform.rect.height > minWindowSize.y)
             {
-                min = minSize.y - rectTransform.rect.height;
+                min = minWindowSize.y - rectTransform.rect.height;
                 offsetMaxY += Mathf.Max((eventData.delta.y / canvasScaleFactor), min);
             }
         }
@@ -146,26 +164,26 @@ public class ResizeWithCollision : ResizeType
         if (anchorIndex == 2)
         {
             // Upward Upsizing
-            if (eventData.delta.y > 0 && maxPosition.y < boundsSize.y)
+            if (eventData.delta.y > 0 && maxPosition.y < boundsRectTransform.rect.height)
             {
                 offsetMaxY += Mathf.Min((eventData.delta.y / canvasScaleFactor), maxDistance.y);
             }
             // Downward Downsizing
-            else if (eventData.delta.y < 0 && rectTransform.rect.height > minSize.y)
+            else if (eventData.delta.y < 0 && rectTransform.rect.height > minWindowSize.y)
             {
-                min = minSize.y - rectTransform.rect.height;
+                min = minWindowSize.y - rectTransform.rect.height;
                 offsetMaxY += Mathf.Max((eventData.delta.y / canvasScaleFactor), min);
             }
 
             // Right Upsizing
-            if (eventData.delta.x > 0 && maxPosition.x < boundsSize.x)
+            if (eventData.delta.x > 0 && maxPosition.x < boundsRectTransform.rect.width)
             {
                 offsetMaxX += Mathf.Min((eventData.delta.x / canvasScaleFactor), maxDistance.x);
             }
             // Left Downsizing
-            else if (eventData.delta.x < 0 && rectTransform.rect.width > minSize.x)
+            else if (eventData.delta.x < 0 && rectTransform.rect.width > minWindowSize.x)
             {
-                min = minSize.x - rectTransform.rect.width;
+                min = minWindowSize.x - rectTransform.rect.width;
                 offsetMaxX += Mathf.Max((eventData.delta.x / canvasScaleFactor), min);
             }
         }
@@ -179,9 +197,9 @@ public class ResizeWithCollision : ResizeType
                 offsetMinX += Mathf.Max((eventData.delta.x / canvasScaleFactor), minDistance.x);
             }
             // Right Downsizing
-            else if (eventData.delta.x > 0 && rectTransform.rect.width > minSize.y)
+            else if (eventData.delta.x > 0 && rectTransform.rect.width > minWindowSize.y)
             {
-                min = rectTransform.rect.width - minSize.x;
+                min = rectTransform.rect.width - minWindowSize.x;
                 offsetMinX += Mathf.Min((eventData.delta.x / canvasScaleFactor), min);
             }
         }
@@ -190,14 +208,14 @@ public class ResizeWithCollision : ResizeType
         if (anchorIndex == 5)
         {
             // Right Upsizing
-            if (eventData.delta.x > 0 && maxPosition.x < boundsSize.x)
+            if (eventData.delta.x > 0 && maxPosition.x < boundsRectTransform.rect.width)
             {
                 offsetMaxX += Mathf.Min((eventData.delta.x / canvasScaleFactor), maxDistance.x);
             }
             // Left Downsizing
-            else if (eventData.delta.x < 0 && rectTransform.rect.width > minSize.x)
+            else if (eventData.delta.x < 0 && rectTransform.rect.width > minWindowSize.x)
             {
-                min = minSize.x - rectTransform.rect.width;
+                min = minWindowSize.x - rectTransform.rect.width;
                 offsetMaxX += Mathf.Max((eventData.delta.x / canvasScaleFactor), min);
             }
         }
@@ -211,9 +229,9 @@ public class ResizeWithCollision : ResizeType
                 offsetMinY += Mathf.Max((eventData.delta.y / canvasScaleFactor), minDistance.y);
             }
             // Upward Downsizing
-            else if (eventData.delta.y > 0 && rectTransform.rect.height > minSize.y)
+            else if (eventData.delta.y > 0 && rectTransform.rect.height > minWindowSize.y)
             {
-                min = rectTransform.rect.height - minSize.y;
+                min = rectTransform.rect.height - minWindowSize.y;
                 offsetMinY += Mathf.Min((eventData.delta.y / canvasScaleFactor), min);
             }
 
@@ -223,9 +241,9 @@ public class ResizeWithCollision : ResizeType
                 offsetMinX += Mathf.Max((eventData.delta.x / canvasScaleFactor), minDistance.x);
             }
             // Right Downsizing
-            else if (eventData.delta.x > 0 && rectTransform.rect.width > minSize.y)
+            else if (eventData.delta.x > 0 && rectTransform.rect.width > minWindowSize.y)
             {
-                min = rectTransform.rect.width - minSize.x;
+                min = rectTransform.rect.width - minWindowSize.x;
                 offsetMinX += Mathf.Min((eventData.delta.x / canvasScaleFactor), min);
             }
         }
@@ -239,17 +257,49 @@ public class ResizeWithCollision : ResizeType
                 offsetMinY += Mathf.Max((eventData.delta.y / canvasScaleFactor), minDistance.y);
             }
             // Upward Downsizing
-            else if (eventData.delta.y > 0 && rectTransform.rect.height > minSize.y)
+            else if (eventData.delta.y > 0 && rectTransform.rect.height > minWindowSize.y)
             {
-                min = rectTransform.rect.height - minSize.y;
+                min = rectTransform.rect.height - minWindowSize.y;
                 offsetMinY += Mathf.Min((eventData.delta.y / canvasScaleFactor), min);
             }
         }
 
         rectTransform.offsetMin = new Vector2(offsetMinX, offsetMinY);
         rectTransform.offsetMax = new Vector2(offsetMaxX, offsetMaxY);
+    }
 
-        return rectTransform;
+
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+
+    }
+
+    private void CalculateBounds()
+    {
+        Vector2 unanchoredPosition = rectTransform.UnanchorPosition();
+
+        minPosition = new Vector2
+        (
+            unanchoredPosition.x - padding.left,
+            unanchoredPosition.y - padding.bottom
+        );
+
+        maxPosition = new Vector2
+        (
+            unanchoredPosition.x + rectTransform.rect.width + padding.right,
+            unanchoredPosition.y + rectTransform.rect.height + padding.top
+        );
+    }
+
+    private void CalculateDistance()
+    {
+        minDistance = -minPosition;
+        maxDistance = boundsRectTransform.rect.size - maxPosition;
     }
 }
-

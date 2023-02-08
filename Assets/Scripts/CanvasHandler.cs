@@ -139,28 +139,41 @@ public class CanvasHandler : MonoBehaviour
     }
     public void OnCursorEnter(int mode) // Adds a cursor indicator, called when hovering over Resize bars
     {
-        cursorRenderer.color = new Color // Making the indicator visible
-        (
-            cursorRenderer.color.r,
-            cursorRenderer.color.g,
-            cursorRenderer.color.b,
-            1f
-        );
-        if (mode == 3 || mode == 5)                                      // Left or Right (resizing width)
+        if (mode != 4) // If Anchor Index isn't set to None/No effect
         {
-            cursor.transform.rotation = Quaternion.identity;             // Indicator pointed upwards
+            cursorRenderer.color = new Color // Making the indicator visible
+            (
+                cursorRenderer.color.r,
+                cursorRenderer.color.g,
+                cursorRenderer.color.b,
+                1f
+            );
+            if (mode == 3 || mode == 5)                                      // Left or Right (resizing width)
+            {
+                cursor.transform.rotation = Quaternion.identity;             // Indicator pointed upwards
+            }
+            if (mode == 0 || mode == 8)                                      // Top Left or Bottom Right (resizing width and height)
+            {
+                cursor.transform.rotation = Quaternion.Euler(0f, 0f, 135);   // Angled Indicator
+            }
+            if (mode == 1 || mode == 7)                                      // Top or Bottom (resizing height)
+            {
+                cursor.transform.rotation = Quaternion.Euler(0f, 0f, 90);    // Indicator pointed upwards
+            }
+            if (mode == 2 || mode == 6)                                      // Top Right or Bottom Left (resizing width and height)
+            {
+                cursor.transform.rotation = Quaternion.Euler(0f, 0f, 45);    // Angled Indicator
+            }
         }
-        if (mode == 0 || mode == 8)                                      // Top Left or Bottom Right (resizing width and height)
+        else
         {
-            cursor.transform.rotation = Quaternion.Euler(0f, 0f, 135);   // Angled Indicator
-        }
-        if (mode == 1 || mode == 7)                                      // Top or Bottom (resizing height)
-        {
-            cursor.transform.rotation = Quaternion.Euler(0f, 0f, 90);    // Indicator pointed upwards
-        }
-        if (mode == 2 || mode == 6)                                      // Top Right or Bottom Left (resizing width and height)
-        {
-            cursor.transform.rotation = Quaternion.Euler(0f, 0f, 45);    // Angled Indicator
+            cursorRenderer.color = new Color
+            (
+                cursorRenderer.color.r,
+                cursorRenderer.color.g,
+                cursorRenderer.color.b,
+                0f
+            );
         }
     }
     public void OnCursorExit() // Removes the cursor indicator
