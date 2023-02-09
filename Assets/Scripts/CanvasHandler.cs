@@ -226,14 +226,6 @@ public class CanvasHandler : MonoBehaviour
         }
     }
 
-
-
-    
-    private float Remap(float inputValue, float inMin, float inMax, float outMin, float outMax)
-    {
-        return (inputValue - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
-    }
-
     [SerializeField] private RectTransform[] windowsToLog;
     void LogPositions()
     {
@@ -242,4 +234,5 @@ public class CanvasHandler : MonoBehaviour
             Debug.Log(window.name + " position: " + window.rect.position);
         }
     }
+
 }

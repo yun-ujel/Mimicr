@@ -33,8 +33,9 @@ public class AutoSpawning : MonoBehaviour
             // May be worth eventually changing selection to an index that counts up, so that stack moves in a specific order
             int selection = Random.Range(0, stackWindows.Length - 1);
             GameObject newWindow = Instantiate(stackWindows[selection], transform);
-            RectTransform rT = newWindow.GetComponent<RectTransform>();
 
+            // Set Stack Window Position to where the last Stack Window was
+            RectTransform rT = newWindow.GetComponent<RectTransform>();
             rT.anchoredPosition = rT.ReanchorPosition(new Vector2
             (
                 lastStackPosition.x,
@@ -48,10 +49,25 @@ public class AutoSpawning : MonoBehaviour
         }
     }
 
-    void SpawnPopUp()
+    public void SpawnPopUp()
     {
-        int selection = Random.Range(0, stackWindows.Length - 1);
-        InstantiateWindow(popUpWindows.ToArray());
+        int selection = Random.Range(0, popUpWindows.Count);
+        GameObject newWindow = Instantiate(popUpWindows[selection], transform);
+
+        // Randomize position of the object
+        RectTransform rT = newWindow.GetComponent<RectTransform>();
+        Vector2 randomizedPosition = rT.ReanchorPosition(new Vector2
+        (
+            Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
+            Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
+        ));
+
+        rT.anchoredPosition = randomizedPosition;
+
+        newWindow.BroadcastMessage("OnWindowStart");
+        newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
+
+        popUpsOpen += 1;
     }
 
     void CompleteStackWindow(GameObject stackWindow)
@@ -76,21 +92,6 @@ public class AutoSpawning : MonoBehaviour
         }
     }
 
-    void InstantiateWindow(GameObject[] windowSelection)
-    {
-        int selection = Random.Range(0, windowSelection.Length - 1);
-
-        GameObject newWindow = Instantiate(windowSelection[selection], transform);
-
-        if (newWindow.GetComponent<StackHandler>() != null)
-        {
-            stackWindowOpen = true;
-        }
-        else if (newWindow.GetComponent<PopUpHandler>() != null)
-        {
-            popUpsOpen += 1;
-        }
-    }
 
     private bool StackSpawnViable()
     {

@@ -10,6 +10,7 @@ public class PopUpHandler : WindowHandler
     private Canvas canvas;
     private CanvasGroup canvasGroup;
 
+    [SerializeField] bool randomizeSizeOnSpawn;
     [Header("Sizes")]
     private Vector2 minWindowSize;                 // Randomized window size - minimum X and Y values
     [SerializeField] private Vector2 maxWindowSize;// Randomized window size - maximum X and Y values
@@ -82,17 +83,29 @@ public class PopUpHandler : WindowHandler
 
     public override void OnWindowStart()
     {
-        minWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
+        if (randomizeSizeOnSpawn)
+        {
+            minWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
 
-        canvasGroup.alpha = 0f;
+            canvasGroup.alpha = 0f;
 
-        randWindowSize = new Vector2
-        (
-            Random.Range(minWindowSize.x, maxWindowSize.x),
-            Random.Range(minWindowSize.y, maxWindowSize.y)
-        );
+            randWindowSize = new Vector2
+            (
+                Random.Range(minWindowSize.x, maxWindowSize.x),
+                Random.Range(minWindowSize.y, maxWindowSize.y)
+            );
 
-        rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
-        isOpening = true;
+            rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+            isOpening = true;
+        }
+        else
+        {
+            canvasGroup.alpha = 0f;
+
+            randWindowSize = rectTransform.sizeDelta;
+
+            rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+            isOpening = true;
+        }
     }
 }

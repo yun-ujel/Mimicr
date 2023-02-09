@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup))]
 // WindowHandler should be a newer form of MinigameHandler built as a base for all window types.
 public abstract class WindowHandler : MonoBehaviour
 {

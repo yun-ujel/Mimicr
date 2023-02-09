@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CursorHandler : MonoBehaviour
 {
-    public Vector3 screenPosition;
-    public Vector3 worldPosition;
-    public Camera orthographicCamera;
-    public bool hideCursorOnStart;
-    public float zPosition;
+    private Vector3 screenPosition;
+    private Vector3 worldPosition;
+    [SerializeField] private Camera cursorCamera;
+    [SerializeField] private bool hideCursorOnStart;
+    [SerializeField] private float zPosition;
     void Start()
     {
         if (hideCursorOnStart)
@@ -21,7 +21,7 @@ public class CursorHandler : MonoBehaviour
         //screenPosition.z = orthographicCamera.nearClipPlane + 1;
         screenPosition.z = zPosition;
 
-        worldPosition = orthographicCamera.ScreenToWorldPoint(screenPosition);
+        worldPosition = cursorCamera.ScreenToWorldPoint(screenPosition);
 
         transform.position = worldPosition;
     }
