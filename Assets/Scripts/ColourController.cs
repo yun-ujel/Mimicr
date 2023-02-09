@@ -1,11 +1,23 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+public enum ColourType
+{
+    tone0,
+    tone1,
+    tone2,
+    tone3,
+    tone4,
+    bright,
+    outline,
+    wildCard,
+    none
+}
 
 public class ColourController : MonoBehaviour
 {
-    [SerializeField] private ColourType colourType;
-    [SerializeField] private ColourType outlineType;
+    public ColourType colourType;
+    public ColourType outlineType;
 
     [HideInInspector] public Outline outline;
     [HideInInspector] public Image image;
@@ -25,18 +37,6 @@ public class ColourController : MonoBehaviour
             TryGetComponent(out rawImage);
             TryGetComponent(out text);
         }
-    }
-    private enum ColourType
-    {
-        tone0,
-        tone1,
-        tone2,
-        tone3,
-        tone4,
-        tone5,
-        outline,
-        wildCard,
-        none
     }
 
     public void OnColourUpdate(Colour8 colour8)
@@ -90,9 +90,9 @@ public class ColourController : MonoBehaviour
         {
             ChangeGraphic(colour8.Tone4);
         }
-        else if (colourType == ColourType.tone5)
+        else if (colourType == ColourType.bright)
         {
-            ChangeGraphic(colour8.Tone5);
+            ChangeGraphic(colour8.Bright);
         }
         else if (colourType == ColourType.outline)
         {
@@ -126,9 +126,9 @@ public class ColourController : MonoBehaviour
         {
             outline.effectColor = colour8.Tone4;
         }
-        else if (outlineType == ColourType.tone5)
+        else if (outlineType == ColourType.bright)
         {
-            outline.effectColor = colour8.Tone5;
+            outline.effectColor = colour8.Bright;
         }
         else if (outlineType == ColourType.outline)
         {

@@ -65,6 +65,7 @@ public class AutoSpawning : MonoBehaviour
         rT.anchoredPosition = randomizedPosition;
 
         newWindow.BroadcastMessage("OnWindowStart");
+        newWindow.SendMessage("TriggerShake", new Vector2(0.25f, 10f), SendMessageOptions.DontRequireReceiver);
         newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
 
         popUpsOpen += 1;

@@ -11,42 +11,29 @@ public class Colour8
     public Color Tone1; // Second Lightest Colour, closer to tone 0
     public Color Tone2; // Darker Colour, closer to tone 3
     public Color Tone3; // Even Darker Colour, slight increase from tone 4
-    public Color Tone4; // Even Darker Colour, slight decrease from tone 5
-    public Color Tone5; // Black / Darkest Colour
+    public Color Tone4; // Black / Darkest Colour
+    public Color Bright; // White - should stay as such, or at least stay bright
     public Color Outline; // Lining of windows - should be pretty dark if not pitch black
     public Color WildCard; // Blue, etc - not the same tone or hue as the rest
     public int index; // Index of the colour palette for use of overrides + extras
 
-    public Colour8(Color newTone0, Color newTone1, Color newTone2, Color newTone3, Color newTone4, Color newTone5, Color newOutline, Color newWildCard, int dex)
+    public Colour8(Color newTone0, Color newTone1, Color newTone2, Color newTone3, Color newTone4, Color newBright, Color newOutline, Color newWildCard, int dex)
     {
         Tone0 = newTone0;
         Tone1 = newTone1;
         Tone2 = newTone2;
         Tone3 = newTone3;
         Tone4 = newTone4;
-        Tone5 = newTone5;
+        Bright = newBright;
         Outline = newOutline;
         WildCard = newWildCard;
         index = dex;
     }
 }
 
-[System.Serializable]
-public class ScoreThreshold
-{
-    public float requiredScore;
-    public float timeBetweenSpawns;
-}
-
 public class CanvasHandler : MonoBehaviour
 {
     [HideInInspector] public float currentScore;
-
-    [Header("Windows")]
-    [SerializeField] private GameObject[] windowsToOpen;
-    [SerializeField] private GameObject poemWindow;
-    [SerializeField] int maxWindowsOpen = 10;
-    [SerializeField] private List<GameObject> windowsCurrentlyOpen = new List<GameObject>();
 
     [SerializeField] private GameObject[] priorityWindows;
 
@@ -58,13 +45,6 @@ public class CanvasHandler : MonoBehaviour
     [Header("Colour Themes")]
     public Colour8[] palettes;
     [SerializeField] public int currentPalette;
-
-
-    [Header("Rules")]
-    [SerializeField] private ScoreThreshold[] scoreThresholds;
-    float timeSinceLastSpawn;
-    float timeToNextSpawn;
-    private int thresholdIndex;
 
     void Awake()
     {
@@ -87,7 +67,6 @@ public class CanvasHandler : MonoBehaviour
         );
 
         BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
-        CheckForNextThreshold();
 
         //Debug.Log("End Start() method");
     }
@@ -95,44 +74,12 @@ public class CanvasHandler : MonoBehaviour
     {
         LogPositions();
 
-        if (windowsCurrentlyOpen.Count > maxWindowsOpen)
-        {
-            GameObject objectToDestroy = windowsCurrentlyOpen[0];
-
-            windowsCurrentlyOpen.Remove(objectToDestroy);
-
-            objectToDestroy.BroadcastMessage("OnWindowFail");
-
-            currentScore -= 1;
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             OpenPriorityWindow(0);
         }
     }
-    public void InstantiateWindow()
-    {
-        // Randomly select and Instantiate window as a child of this object
-        int selection = Random.Range(0, windowsToOpen.Length);
-        GameObject windowToInstantiate = windowsToOpen[selection];
 
-        GameObject newWindow = Instantiate(windowToInstantiate, transform);
-        windowsCurrentlyOpen.Add(newWindow);
-
-        // Randomize position of the object
-        RectTransform rT = newWindow.GetComponent<RectTransform>();
-        Vector2 randomizedPosition = rT.ReanchorPosition(new Vector2
-        (
-            Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
-            Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
-        ));
-
-        rT.anchoredPosition = randomizedPosition;
-
-        rT.gameObject.BroadcastMessage("OnWindowStart");
-        BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
-    }
     public void OpenPriorityWindow(int index)
     {
         priorityWindows[index].BroadcastMessage("OnWindowStart");
@@ -186,45 +133,7 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
     } 
-    public void CompleteWindow(GameObject window) // Called when a window is completed successfully
-    {
-        windowsCurrentlyOpen.Remove(window);
-        currentScore += 1;
-    } 
-
-    private void HandleAutoSpawning()
-    {
-        // Spawn windows once timer has run out
-        if (timeSinceLastSpawn > timeToNextSpawn)
-        {
-            InstantiateWindow();
-            timeSinceLastSpawn = 0f;
-        }
-        else
-        {
-            timeSinceLastSpawn += Time.deltaTime;
-        }
-
-        // Scale timeToNextSpawn with Score
-
-        if (currentScore > scoreThresholds[thresholdIndex].requiredScore) // If you've passed a score threshold and it wasn't the last:
-        {
-            CheckForNextThreshold();
-        }
-    }
-
-    void CheckForNextThreshold()
-    {
-        for (int i = 0; i < scoreThresholds.Length - 1; i++)
-        {
-            if (currentScore < scoreThresholds[i].requiredScore)
-            {
-                thresholdIndex = i;
-                timeToNextSpawn = scoreThresholds[thresholdIndex].timeBetweenSpawns;
-                break;
-            }
-        }
-    }
+    
 
     [SerializeField] private RectTransform[] windowsToLog;
     void LogPositions()
