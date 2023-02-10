@@ -35,8 +35,6 @@ public class CanvasHandler : MonoBehaviour
 {
     [HideInInspector] public float currentScore;
 
-    [SerializeField] private GameObject[] priorityWindows;
-
     [Header("References")]
     private GameObject cursor;
     private SpriteRenderer cursorRenderer;
@@ -73,17 +71,8 @@ public class CanvasHandler : MonoBehaviour
     void Update()
     {
         LogPositions();
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            OpenPriorityWindow(0);
-        }
     }
 
-    public void OpenPriorityWindow(int index)
-    {
-        priorityWindows[index].BroadcastMessage("OnWindowStart");
-    }
     public void OnCursorEnter(int mode) // Adds a cursor indicator, called when hovering over Resize bars
     {
         if (mode != 4) // If Anchor Index isn't set to None/No effect

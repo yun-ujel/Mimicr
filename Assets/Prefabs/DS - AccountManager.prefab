@@ -93,8 +93,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281215268
-  m_fontColor: {r: 0.14117648, g: 0.16078432, b: 0.18039216, a: 1}
+    rgba: 4292531665
+  m_fontColor: {r: 0.81960785, g: 0.8352941, b: 0.85490197, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -246,8 +246,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2013265920
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.47058824}
+    rgba: 4292531665
+  m_fontColor: {r: 0.81960785, g: 0.8352941, b: 0.85490197, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1473,7 +1473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
+  m_Color: {r: 0.26666668, g: 0.3019608, b: 0.3372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  m_EffectColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!1 &5559218920882527501
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourType: 5
+  colourType: 4
   outlineType: 6
   outline: {fileID: 5559218920882527488}
   image: {fileID: 0}
@@ -1608,7 +1608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.14117648, g: 0.16078432, b: 0.18039216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  m_EffectColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!114 &5559218920882527489

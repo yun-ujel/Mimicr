@@ -16,7 +16,7 @@ public class MessageResize : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         TMPMesh = GetComponentInChildren<TextMeshProUGUI>();
 
-        Messenger parentMessenger = GetComponentInParent<Messenger>();
+        MessageDisplay parentMessenger = GetComponentInParent<MessageDisplay>();
         referenceTransformWidth = parentMessenger.referenceTransformWidth;
     }
 

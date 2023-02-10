@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourType: 5
+  colourType: 8
   outlineType: 6
   outline: {fileID: 0}
   image: {fileID: 0}
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourType: 5
+  colourType: 4
   outlineType: 6
   outline: {fileID: 2518572520686748501}
   image: {fileID: 0}
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.14117648, g: 0.16078432, b: 0.18039216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.41568628, g: 0.4509804, b: 0.49019608, a: 1}
+  m_EffectColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!114 &2518572520686748500
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.88235295, g: 0.89411765, b: 0.9098039, a: 1}
+  m_Color: {r: 0.26666668, g: 0.3019608, b: 0.3372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.41568628, g: 0.4509804, b: 0.49019608, a: 1}
+  m_EffectColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!1 &2518572521670573244
@@ -1329,9 +1329,10 @@ GameObject:
   - component: {fileID: 2518572522131914353}
   - component: {fileID: 2518572522131914356}
   - component: {fileID: 2518572522131914355}
-  - component: {fileID: 2814965198139589925}
+  - component: {fileID: 5420202338510305538}
   - component: {fileID: 2518572522131914354}
   - component: {fileID: 1982327552342115330}
+  - component: {fileID: 4839411336263648580}
   m_Layer: 5
   m_Name: DS - Messages
   m_TagString: Untagged
@@ -1399,7 +1400,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.4
---- !u!114 &2814965198139589925
+--- !u!114 &5420202338510305538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1408,10 +1409,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2518572522131914352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15febbbd92ce6c043a47af1774ec25f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 2080e54a8225be0429b37607b26cd78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOpen: 0
+  randomizeSizeOnSpawn: 1
+  maxWindowSize: {x: 0, y: 0}
 --- !u!114 &2518572522131914354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1431,10 +1433,10 @@ MonoBehaviour:
   windowToClose: {fileID: 0}
   messageToSend: 
   padding:
-    left: 0
-    right: 0
-    top: 0
-    bottom: 0
+    left: -20
+    right: -20
+    top: -20
+    bottom: -20
   functionOnClick: 0
   dragFunction: {fileID: 0}
 --- !u!225 &1982327552342115330
@@ -1449,6 +1451,26 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4839411336263648580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518572522131914352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af7952153a660c4da5abad78637df1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftTextBubble: {fileID: 2944373957507245445, guid: 22e521943a7e5e14b814e8508e9fcf87, type: 3}
+  rightTextBubble: {fileID: 5588205457395536875, guid: 08623d1c9bbd30a4ab01660d8d68a06a, type: 3}
+  referenceTransformWidth: {fileID: 7567025523878266907}
+  viewport: {fileID: 7567025523742300093}
+  messageText: aregaureigenaqrogbaeigeruabgoa
+  bottomRightPadding: {x: 25, y: 30}
+  fontSize: 28
+  pixelsPerUnitMultiplier: 30
 --- !u!1 &2999415229479614247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,7 +1552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.95294124, g: 0.3647059, b: 0.46274513, a: 1}
+  m_Color: {r: 1, g: 0.6, b: 0.6666668, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1688,7 +1710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourType: 5
+  colourType: 4
   outlineType: 8
   outline: {fileID: 0}
   image: {fileID: 7567025523055982012}
@@ -1707,7 +1729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.14117648, g: 0.16078432, b: 0.18039216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1847,8 +1869,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281215268
-  m_fontColor: {r: 0.14117648, g: 0.16078432, b: 0.18039216, a: 1}
+    rgba: 4292531665
+  m_fontColor: {r: 0.81960785, g: 0.8352941, b: 0.85490197, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1987,7 +2009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.88235295, g: 0.89411765, b: 0.9098039, a: 1}
+  m_Color: {r: 0.26666668, g: 0.3019608, b: 0.3372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2065,7 +2087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.41568628, g: 0.4509804, b: 0.49019608, a: 1}
+  m_EffectColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!1 &7567025523742300092
@@ -2079,9 +2101,8 @@ GameObject:
   - component: {fileID: 7567025523742300093}
   - component: {fileID: 7567025523742300088}
   - component: {fileID: 7567025523742300095}
-  - component: {fileID: 7567025523742300094}
   m_Layer: 5
-  m_Name: Messenger
+  m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2147,25 +2168,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &7567025523742300094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7567025523742300092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af7952153a660c4da5abad78637df1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftTextBubble: {fileID: 2944373957507245445, guid: 22e521943a7e5e14b814e8508e9fcf87, type: 3}
-  rightTextBubble: {fileID: 5588205457395536875, guid: 08623d1c9bbd30a4ab01660d8d68a06a, type: 3}
-  referenceTransformWidth: {fileID: 7567025523878266907}
-  messageText: aregaureigenaqrogbaeigeruabgoa
-  bottomRightPadding: {x: 25, y: 30}
-  fontSize: 28
-  pixelsPerUnitMultiplier: 30
 --- !u!1 &7567025523846845954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.81960785, g: 0.8352941, b: 0.85490197, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2344,6 +2346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.41568628, g: 0.4509804, b: 0.49019608, a: 1}
+  m_EffectColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1

@@ -1,15 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-// StackHandler should be a newer form of MinigameHandler built as a base for windows in the Stack.
-public class StackHandler : WindowHandler
+public class PriorityWindowHandler : WindowHandler
 {
     [Header("References")]
     private RectTransform rectTransform;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
 
+    [SerializeField] bool randomizeSizeOnSpawn;
     [Header("Sizes")]
     private Vector2 minWindowSize;                 // Randomized window size - minimum X and Y values
     [SerializeField] private Vector2 maxWindowSize;// Randomized window size - maximum X and Y values
@@ -69,8 +69,6 @@ public class StackHandler : WindowHandler
         randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
 
         isClosing = true; // Starts closing animation, will destroy object once finished
-
-        canvas.SendMessage("CompleteStackWindow", gameObject);
     }
 
     public override void OnWindowFail()
@@ -82,17 +80,29 @@ public class StackHandler : WindowHandler
 
     public override void OnWindowStart()
     {
-        minWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
+        if (randomizeSizeOnSpawn)
+        {
+            minWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
 
-        canvasGroup.alpha = 0f;
+            canvasGroup.alpha = 0f;
 
-        randWindowSize = new Vector2
-        (
-            Random.Range(minWindowSize.x, maxWindowSize.x),
-            Random.Range(minWindowSize.y, maxWindowSize.y)
-        );
+            randWindowSize = new Vector2
+            (
+                Random.Range(minWindowSize.x, maxWindowSize.x),
+                Random.Range(minWindowSize.y, maxWindowSize.y)
+            );
 
-        rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
-        isOpening = true;
+            rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+            isOpening = true;
+        }
+        else
+        {
+            canvasGroup.alpha = 0f;
+
+            randWindowSize = rectTransform.sizeDelta;
+
+            rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+            isOpening = true;
+        }
     }
 }

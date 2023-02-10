@@ -81,32 +81,34 @@ public class ColourControllerEditor : Editor
 
     void ApplyColour()
     {
-        if (cController.image != null)
+        if (cController.colourType != ColourType.none)
         {
-            var graphic = new SerializedObject(cController.image);
+            if (cController.image != null)
+            {
+                var graphic = new SerializedObject(cController.image);
 
-            graphic.FindProperty("m_Color").colorValue = FindBaseColor();
+                graphic.FindProperty("m_Color").colorValue = FindBaseColor();
 
-            graphic.ApplyModifiedProperties();
+                graphic.ApplyModifiedProperties();
+            }
+            else if (cController.rawImage != null)
+            {
+                var graphic = new SerializedObject(cController.rawImage);
+
+                graphic.FindProperty("m_Color").colorValue = FindBaseColor();
+
+                graphic.ApplyModifiedProperties();
+            }
+            else if (cController.text != null)
+            {
+                var graphic = new SerializedObject(cController.text);
+
+                graphic.FindProperty("m_fontColor").colorValue = FindBaseColor();
+
+                graphic.ApplyModifiedProperties();
+            }
         }
-        else if (cController.rawImage != null)
-        {
-            var graphic = new SerializedObject(cController.rawImage);
-
-            graphic.FindProperty("m_Color").colorValue = FindBaseColor();
-
-            graphic.ApplyModifiedProperties();
-        }
-        else if (cController.text != null)
-        {
-            var graphic = new SerializedObject(cController.text);
-
-            graphic.FindProperty("m_fontColor").colorValue = FindBaseColor();
-
-            graphic.ApplyModifiedProperties();
-        }
-
-        if (cController.outline != null)
+        if (cController.outline != null && cController.outlineType != ColourType.none)
         {
             var outline = new SerializedObject(cController.outline);
 

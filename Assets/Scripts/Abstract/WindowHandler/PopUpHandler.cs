@@ -70,8 +70,6 @@ public class PopUpHandler : WindowHandler
         randWindowSize = new Vector2(rectTransform.sizeDelta.x * 0.8f, rectTransform.sizeDelta.y * 0.8f);
 
         isClosing = true; // Starts closing animation, will destroy object once finished
-
-        canvas.SendMessage("CompleteWindow", gameObject); // Removes object from CanvasHandler.windowsCurrentlyOpen
     }
 
     public override void OnWindowFail()
