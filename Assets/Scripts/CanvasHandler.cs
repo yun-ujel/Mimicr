@@ -36,18 +36,21 @@ public class CanvasHandler : MonoBehaviour
     [HideInInspector] public float currentScore;
 
     [Header("References")]
+    [SerializeField] private RawImage stage1Wallpaper;
+    [SerializeField] private RawImage stage2Wallpaper;
+    [SerializeField] private Image notificationBackground;
+
     private GameObject cursor;
     private SpriteRenderer cursorRenderer;
-    RectTransform canvasRectTransform;
 
     [Header("Colour Themes")]
     public Colour8[] palettes;
     [SerializeField] public int currentPalette;
 
+    
+
     void Awake()
     {
-        canvasRectTransform = GetComponent<RectTransform>();
-
         if (cursor == null)
         {
             cursor = GameObject.FindGameObjectWithTag("IsCursorObject");
@@ -123,7 +126,10 @@ public class CanvasHandler : MonoBehaviour
         );
     } 
     
+    
 
+
+    [Header("Debug")]
     [SerializeField] private RectTransform[] windowsToLog;
     void LogPositions()
     {

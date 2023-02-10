@@ -43,4 +43,15 @@ public static class CanvasMethods
 
         return rePivotPosition;
     }
+
+    public static int[] GetDigits(this int number)
+    {
+        string temp = number.ToString();
+        int[] rtn = new int[temp.Length];
+        for (int i = 0; i < rtn.Length; i++)
+        {
+            rtn[i] = int.Parse(temp[i].ToString());
+        }
+        return rtn;
+    }
 }

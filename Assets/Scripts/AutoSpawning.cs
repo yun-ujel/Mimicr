@@ -16,14 +16,19 @@ public class AutoSpawning : MonoBehaviour
     [SerializeField] RectTransform canvasRectTransform; // The RectTransform of the canvas. Used for random spawning.
     [SerializeField] CanvasHandler canvasHandler; // The CanvasHandler. Used to reference palettes.
 
-    [Header("Rules")]
+    [Header("Stack Properties")]
     bool stackWindowOpen;
+    Vector2 lastStackPosition;
+    float stackScore;
+
+
+
     int popUpsOpen;
 
     float timeSinceLastPopUp;
     public float timeToNextPopUp;
 
-    Vector2 lastStackPosition;
+    
 
     void SpawnStack()
     {
@@ -76,11 +81,19 @@ public class AutoSpawning : MonoBehaviour
         stackWindowOpen = false;
 
         lastStackPosition = stackWindow.GetComponent<RectTransform>().UnanchorPosition();
+        stackScore += 1;
     }
 
     private void Update()
     {
-        SpawnStack();
+        if (stackScore < 10)
+        {
+            SpawnStack();
+        }
+        else
+        {
+
+        }
 
         if (timeSinceLastPopUp > timeToNextPopUp)
         {

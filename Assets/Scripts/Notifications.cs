@@ -6,6 +6,7 @@ public class Notifications : MonoBehaviour
 {
     [SerializeField] private TextMessage[] messages;
     [SerializeField] private GameObject messageWindow;
+    [SerializeField] private CanvasHandler canvasHandler;
 
     bool isWindowOpen;
 
@@ -33,6 +34,7 @@ public class Notifications : MonoBehaviour
     {
         GameObject newWindow = Instantiate(messageWindow, transform.parent);
 
+        newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
         newWindow.SendMessage("GetNotifications", this);
 
         if (messages != null)

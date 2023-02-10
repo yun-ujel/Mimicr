@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3dcaaab0462d24ea7f406d12f4dfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourType: 5
+  colourType: 8
   outlineType: 6
   outline: {fileID: 0}
   image: {fileID: 0}

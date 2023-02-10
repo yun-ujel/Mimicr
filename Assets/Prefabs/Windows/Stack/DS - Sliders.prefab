@@ -3258,6 +3258,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ed5bbdcf54b653547a2e8b46637b0d96, type: 3}
   - {fileID: 2800000, guid: 2142171a9f306d5439e5e6d07387c3d4, type: 3}
   - {fileID: 2800000, guid: 554016303d558244585dea1ed85e9ecf, type: 3}
+  - {fileID: 2800000, guid: 58c859929fd15354d9e647a24ce7c6de, type: 3}
+  - {fileID: 2800000, guid: 2f7aa921161a05b4792fcaff1af2d6a8, type: 3}
   gSliders:
   - slider: {fileID: 5472082189224275780}
     ColorMode: 2
