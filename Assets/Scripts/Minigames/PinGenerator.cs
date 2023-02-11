@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Random6 : MonoBehaviour
+public class PinGenerator : MonoBehaviour
 {
-    int GeneratePasscode()
+    public int GeneratePasscode()
     {
         List<int> numbers = new List<int>
         {
@@ -20,21 +19,16 @@ public class Random6 : MonoBehaviour
             9
         };
 
-        float code = 0;
+        string code = "";
         for (int i = 0; i < 6; i++)
         {
             int selection = Random.Range(0, numbers.Count);
 
-            code += (numbers[selection] * Mathf.Pow(10, i));
+            code += numbers[selection].ToString();
 
             numbers.Remove(numbers[selection]);
         }
 
-        return Mathf.RoundToInt(code);
-    }
-
-    private void Start()
-    {
-
+        return int.Parse(code);
     }
 }

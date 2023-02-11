@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public static class CanvasMethods
+public static class ExtensionMethods
 {
     public static Vector2 UnanchorPosition(this RectTransform rectTransform) // Calculate the position of the object as if the pivot and anchor was at the bottom left
     {
@@ -53,5 +54,19 @@ public static class CanvasMethods
             rtn[i] = int.Parse(temp[i].ToString());
         }
         return rtn;
+    }
+
+    public static List<T> Shuffle<T>(this List<T> list)
+    {
+        List<T> returnedList = new List<T>();
+        int count = list.Count;
+
+        for (int i = 0; i < count; i++)
+        {
+            int selection = Random.Range(0, list.Count);
+            returnedList.Add(list[selection]);
+            list.Remove(list[selection]);
+        }
+        return returnedList;
     }
 }
