@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9148529855087485766}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0
+  m_Size: 0.30833334
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2620,8 +2620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433f86c96919a1f4c8364c97352b77a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeSizeOnSpawn: 1
-  maxWindowSize: {x: 800, y: 400}
+  maxRandomWindowSize: {x: 800, y: 400}
+  randomizeSize: 1
 --- !u!222 &9148529856201498297
 CanvasRenderer:
   m_ObjectHideFlags: 0

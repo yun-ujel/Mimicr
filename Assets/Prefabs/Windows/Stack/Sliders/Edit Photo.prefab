@@ -3624,8 +3624,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6370967c706f3da45b317c089c8502b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: {fileID: 8885331815473403177}
   maxRandomWindowSize: {x: 600, y: 800}
+  randomizeSize: 1
+  header: {fileID: 8885331815473403177}
 --- !u!222 &5472082189793802699
 CanvasRenderer:
   m_ObjectHideFlags: 0
