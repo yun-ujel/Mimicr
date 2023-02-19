@@ -6,6 +6,7 @@ TagManager:
   tags:
   - IsCursorObject
   - Canvas
+  - PriorityWindow
   layers:
   - Default
   - TransparentFX

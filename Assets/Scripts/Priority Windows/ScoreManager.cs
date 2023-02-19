@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        scoreText.text = "Score: " + canvasHandler.currentScore.ToString("0");
+        //scoreText.text = "Score: " + canvasHandler.currentScore.ToString("0");
     }
 
 }

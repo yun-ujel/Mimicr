@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9148529855087485766}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.30833334
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1582,13 +1582,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.1
+  m_fontSize: 29.7
   m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -2373,7 +2373,7 @@ GameObject:
   - component: {fileID: 9148529856106544730}
   - component: {fileID: 8512499271024079489}
   - component: {fileID: 9148529856106544732}
-  - component: {fileID: 1466413151975520788}
+  - component: {fileID: 3017988933941633023}
   - component: {fileID: 9148529856106544734}
   - component: {fileID: 9148529856106544733}
   - component: {fileID: 9148529856106544731}
@@ -2446,8 +2446,8 @@ MonoBehaviour:
     top: 0
     bottom: 0
   functionOnClick: 1
-  dragFunction: {fileID: 1466413151975520788}
---- !u!114 &1466413151975520788
+  dragFunction: {fileID: 3017988933941633023}
+--- !u!114 &3017988933941633023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2456,9 +2456,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9148529856106544729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80af3a08d0c955448a752c2f57020f7c, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e351a9e245c1740a495cf853a8a837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drag: 4
 --- !u!222 &9148529856106544734
 CanvasRenderer:
   m_ObjectHideFlags: 0

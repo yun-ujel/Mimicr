@@ -959,7 +959,7 @@ GameObject:
   - component: {fileID: 2518572521606071416}
   - component: {fileID: 5532712163020305457}
   - component: {fileID: 2518572521606071418}
-  - component: {fileID: 8358654649101866781}
+  - component: {fileID: 2385375405854340088}
   - component: {fileID: 2518572521606071420}
   - component: {fileID: 2518572521606071419}
   - component: {fileID: 2518572521606071417}
@@ -1033,8 +1033,8 @@ MonoBehaviour:
     top: 0
     bottom: 0
   functionOnClick: 1
-  dragFunction: {fileID: 8358654649101866781}
---- !u!114 &8358654649101866781
+  dragFunction: {fileID: 2385375405854340088}
+--- !u!114 &2385375405854340088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1043,9 +1043,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2518572521606071415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80af3a08d0c955448a752c2f57020f7c, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e351a9e245c1740a495cf853a8a837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drag: 4
 --- !u!222 &2518572521606071420
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1412,7 +1413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2080e54a8225be0429b37607b26cd78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeSizeOnSpawn: 1
+  randomizeSizeOnSpawn: 0
   maxWindowSize: {x: 0, y: 0}
 --- !u!114 &2518572522131914354
 MonoBehaviour:
@@ -1468,9 +1469,6 @@ MonoBehaviour:
   referenceTransformWidth: {fileID: 7567025523878266907}
   viewport: {fileID: 7567025523742300093}
   messageText: aregaureigenaqrogbaeigeruabgoa
-  bottomRightPadding: {x: 25, y: 30}
-  fontSize: 28
-  pixelsPerUnitMultiplier: 30
 --- !u!1 &2999415229479614247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2067,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7567025524344135893}
   m_HandleRect: {fileID: 7567025524344135892}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2123,10 +2121,10 @@ RectTransform:
   m_Father: {fileID: 7567025523055982002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -0.00012207031}
-  m_SizeDelta: {x: -60, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &7567025523742300088
 MonoBehaviour:

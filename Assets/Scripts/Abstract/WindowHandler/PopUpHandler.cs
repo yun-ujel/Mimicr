@@ -93,7 +93,10 @@ public class PopUpHandler : WindowHandler
                 Random.Range(minWindowSize.y, maxWindowSize.y)
             );
 
-            rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+            rectTransform.sizeDelta = new Vector2(randWindowSize.x, randWindowSize.y);
+
+            randWindowSize *= 1.2f;
+
             isOpening = true;
         }
         else

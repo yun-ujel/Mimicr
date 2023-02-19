@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 7649831751350528300}
   - component: {fileID: 7289917414453686299}
   - component: {fileID: 7649831751350528303}
-  - component: {fileID: 7649831751350528291}
+  - component: {fileID: 1421781861434286146}
   - component: {fileID: 7649831751350528297}
   - component: {fileID: 7649831751350528302}
   - component: {fileID: 7649831751350528296}
@@ -651,8 +651,8 @@ MonoBehaviour:
     top: 0
     bottom: 0
   functionOnClick: 1
-  dragFunction: {fileID: 7649831751350528291}
---- !u!114 &7649831751350528291
+  dragFunction: {fileID: 1421781861434286146}
+--- !u!114 &1421781861434286146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -661,9 +661,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7649831751350528301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80af3a08d0c955448a752c2f57020f7c, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e351a9e245c1740a495cf853a8a837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drag: 4
 --- !u!222 &7649831751350528297
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -791,7 +792,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
   windowToClose: {fileID: 0}
-  messageToSend: SpawnPopUp
+  messageToSend: SpawnAd
   padding:
     left: 0
     right: 0

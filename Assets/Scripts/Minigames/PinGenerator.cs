@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PinGenerator : MonoBehaviour
+[CreateAssetMenu(fileName = "PinGenerator", menuName = "PinGenerator")]
+public class PinGenerator : ScriptableObject
 {
-    public int GeneratePasscode()
+    public int GeneratePin()
     {
         List<int> numbers = new List<int>
         {
@@ -20,9 +21,17 @@ public class PinGenerator : MonoBehaviour
         };
 
         string code = "";
-        for (int i = 0; i < 6; i++)
+
+        // Run Loop Once without 0, so that first digit in code is never 0
+        // There was an issue where the code would be 5 digits instead of 6 if the first digit was 0, and int.Parse() would remove it
+
+        int selection = Random.Range(1, numbers.Count);
+        code += numbers[selection].ToString();
+        numbers.Remove(numbers[selection]);
+
+        for (int i = 0; i < 5; i++)
         {
-            int selection = Random.Range(0, numbers.Count);
+            selection = Random.Range(0, numbers.Count);
 
             code += numbers[selection].ToString();
 

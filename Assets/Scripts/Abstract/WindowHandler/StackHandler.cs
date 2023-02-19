@@ -1,25 +1,29 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 // StackHandler should be a newer form of MinigameHandler built as a base for windows in the Stack.
 public class StackHandler : WindowHandler
 {
     [Header("References")]
+    [SerializeField] private TextMeshProUGUI header;
     private RectTransform rectTransform;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
+    private AccountInfo accountInfo;
+
 
     [Header("Sizes")]
-    private Vector2 minWindowSize;                 // Randomized window size - minimum X and Y values
-    [SerializeField] private Vector2 maxWindowSize;// Randomized window size - maximum X and Y values
-    private Vector2 randWindowSize;                // Size for object to transition to when in closing or opening animation
+    private Vector2 minRandomWindowSize;                 // Randomized window size - minimum X and Y values
+    [SerializeField] private Vector2 maxRandomWindowSize;// Randomized window size - maximum X and Y values
+    private Vector2 randWindowSize;                      // Size for object to transition to when in closing or opening animation
 
     private bool isClosing = false;
     private bool isOpening = false;
 
     void Awake()
     {
+        minRandomWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -70,7 +74,7 @@ public class StackHandler : WindowHandler
 
         isClosing = true; // Starts closing animation, will destroy object once finished
 
-        canvas.SendMessage("CompleteStackWindow", gameObject);
+        canvas.SendMessage("CompleteStackWindow", accountInfo);
     }
 
     public override void OnWindowFail()
@@ -82,17 +86,31 @@ public class StackHandler : WindowHandler
 
     public override void OnWindowStart()
     {
-        minWindowSize = GetComponent<UIMaster>().minWindowSize; // Auto-set the minimum window size to the size set on UIMaster
+        if (maxRandomWindowSize.x + maxRandomWindowSize.y < minRandomWindowSize.x + minRandomWindowSize.y)
+        {
+            Debug.Log("Max Random Size of " + gameObject.name + " is below Min Random size, spawn size will be fixed at minimum");
+            maxRandomWindowSize = minRandomWindowSize;
+        }
 
         canvasGroup.alpha = 0f;
 
         randWindowSize = new Vector2
         (
-            Random.Range(minWindowSize.x, maxWindowSize.x),
-            Random.Range(minWindowSize.y, maxWindowSize.y)
+            Random.Range(minRandomWindowSize.x, maxRandomWindowSize.x),
+            Random.Range(minRandomWindowSize.y, maxRandomWindowSize.y)
         );
 
-        rectTransform.sizeDelta = new Vector2(randWindowSize.x * 0.8f, randWindowSize.y * 0.8f);
+        rectTransform.sizeDelta = new Vector2(randWindowSize.x, randWindowSize.y);
+
+        randWindowSize *= 1.2f;
+
         isOpening = true;
+    }
+
+    void OnStackStart(AccountInfo inAccountInfo)
+    {
+        inAccountInfo.windows[inAccountInfo.CurrentWindowIndex] = gameObject;
+        accountInfo = inAccountInfo;
+        header.text = gameObject.name + " - " + "Account #" + (accountInfo.accountIndex + 1).ToString();
     }
 }

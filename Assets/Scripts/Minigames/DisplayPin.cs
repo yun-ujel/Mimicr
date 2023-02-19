@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class DisplayPin : MonoBehaviour
 {
     [Header("PIN")]
-    [SerializeField] private PinGenerator pinGenerator;
     [SerializeField] private TextMeshProUGUI text;
     [Header("Buttons")]
     [SerializeField] private GameObject buttonsLocation;
@@ -16,9 +15,11 @@ public class DisplayPin : MonoBehaviour
     private string typedPin = string.Empty;
     private string targetPin = string.Empty;
 
-    private void Start()
+    private List<GameObject> currentButtons;
+
+    private void OnStackStart(AccountInfo accountInfo)
     {
-        SetPin(pinGenerator.GeneratePasscode());
+        ResetPin(accountInfo.PIN);
     }
 
     private void Update()
@@ -27,17 +28,18 @@ public class DisplayPin : MonoBehaviour
 
         if (typedPin == targetPin && typedPin != string.Empty && targetPin != string.Empty)
         {
-            Debug.Log("PIN Correct - Hooray!");
+            gameObject.BroadcastMessage("OnWindowComplete");
+            typedPin = string.Empty;
         }
-
-        if (typedPin.Length <= 6)
-        {
-            text.text = typedPin;
-        }
-        else
+        else if (typedPin.Length > 5)
         {
             ClearType();
         }
+
+        
+        text.text = typedPin;
+        
+        
     }
 
     public void AddToType(int input)
@@ -55,6 +57,7 @@ public class DisplayPin : MonoBehaviour
     {
         GameObject button = Instantiate(buttons[index], buttonsLocation.transform);
         button.GetComponent<PinButton>().GetDisplay(this, index);
+        currentButtons.Add(button);
     }
 
     void SetPin(int sixDigitPin)
@@ -66,10 +69,27 @@ public class DisplayPin : MonoBehaviour
         List<int> pin = new List<int>(sixDigitPin.GetDigits());
         int[] shuffledPin = pin.Shuffle<int>().ToArray();
 
+        currentButtons = new List<GameObject>();
+
         for (int i = 0; i < shuffledPin.Length; i++)
         {
             AddButton(shuffledPin[i]);
         }
+    }
+
+    public void ResetPin(int sixDigitPin)
+    {
+        typedPin = string.Empty;
+        if (currentButtons != null)
+        {
+            int count = currentButtons.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Destroy(currentButtons[i]);
+            }
+        }
+
+        SetPin(sixDigitPin);
     }
 
     void GetNumInputs()

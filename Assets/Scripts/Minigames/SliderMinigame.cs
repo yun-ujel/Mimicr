@@ -23,14 +23,14 @@ public class GameSlider
 
 public class SliderMinigame : MonoBehaviour
 {
-    private int completedSliders = 0;
+    [SerializeField] private int completedSliders = 0;
     private int requiredSliders = 1;
 
     [Header("References")]
     [SerializeField] private RawImage imageReference;
     [SerializeField] private CanvasGroup completionGroup; // This is the post button that appears after the filters are correctly adjusted
-    [SerializeField] private Texture[] potentialTextures;
-    [SerializeField] private GameSlider[] gSliders = new GameSlider[3];
+    [SerializeField] private GameSlider[] sliders = new GameSlider[3];
+    private CanvasHandler cHandler;
 
     [Header("Rules")]
     [SerializeField] private float marginOfError = 0.02f;
@@ -39,39 +39,47 @@ public class SliderMinigame : MonoBehaviour
     private float sValue;
     private float vValue;
 
+    private void Awake()
+    {
+        cHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+    }
+
     void Update()
     {
-        for (int i = 0; i < gSliders.Length; i++) // check each GameSlider in gSliders
+        for (int i = 0; i < sliders.Length; i++) // check each GameSlider in gSliders
         {
-            if (!gSliders[i].IsComplete)                                           // if Slider hasn't already been completed
-            {
-                if (gSliders[i].slider.value - marginOfError < gSliders[i].CorrectValue && // if Slider is in range of correct value
-                gSliders[i].slider.value + marginOfError > gSliders[i].CorrectValue)
-                {
-                    gSliders[i].slider.interactable = false; // disable the slider
-                    gSliders[i].IsComplete = true;
-
-                    completedSliders += 1;
-                }
-            }
-            else if (completedSliders == requiredSliders)
+            if (completedSliders == requiredSliders)
             {
                 break;
             }
+            else if (sliders[i].slider.value - marginOfError < sliders[i].CorrectValue && // if Slider is in range of correct value
+                sliders[i].slider.value + marginOfError > sliders[i].CorrectValue)
+            {
+                ChangeSliderColour(sliders[i].slider, ColourType.wildCard, ColourType.bright);
+                sliders[i].IsComplete = true;
 
-            if (gSliders[i].ColorMode == GameSlider.HSVMode.hue)
-            {
-                hValue = gSliders[i].slider.value;
+                completedSliders += 1;
             }
-            else if (gSliders[i].ColorMode == GameSlider.HSVMode.saturation)
+            else
             {
-                sValue = gSliders[i].slider.value;
+                sliders[i].IsComplete = false;
+                ChangeSliderColour(sliders[i].slider, ColourType.bright, ColourType.outline);
             }
-            else if (gSliders[i].ColorMode == GameSlider.HSVMode.value)
+
+            if (sliders[i].ColorMode == GameSlider.HSVMode.hue)
             {
-                vValue = gSliders[i].slider.value;
+                hValue = sliders[i].slider.value;
+            }
+            else if (sliders[i].ColorMode == GameSlider.HSVMode.saturation)
+            {
+                sValue = sliders[i].slider.value;
+            }
+            else if (sliders[i].ColorMode == GameSlider.HSVMode.value)
+            {
+                vValue = sliders[i].slider.value;
             }
         }
+
         if (completedSliders == requiredSliders)
         {
             GameComplete();
@@ -80,35 +88,45 @@ public class SliderMinigame : MonoBehaviour
         {
             imageReference.color = Color.HSVToRGB(hValue, sValue, vValue);
         }
-        
+        completedSliders = 0;
     }
 
-    void OnWindowStart()
+    void OnStackStart(AccountInfo accountInfo)
     {
-        int imageSelection = Random.Range(0, potentialTextures.Length); // Randomize displayed image
-        imageReference.texture = potentialTextures[imageSelection];
-
-        for (int i = 0; i < gSliders.Length; i++) // Randomize slider values
+        if (accountInfo.CurrentPostIndex < accountInfo.Posts.Length)
         {
-            if (gSliders[i].ColorMode == GameSlider.HSVMode.hue)
+            imageReference.texture = accountInfo.Posts[accountInfo.CurrentPostIndex];
+        }
+        else
+        {
+            accountInfo.CurrentPostIndex = 0;
+            imageReference.texture = accountInfo.Posts[accountInfo.CurrentPostIndex];
+        }
+        
+
+        for (int i = 0; i < sliders.Length; i++) // Randomize slider values
+        {
+            if (sliders[i].ColorMode == GameSlider.HSVMode.hue)
             {
-                gSliders[i].slider.value = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue);
-                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue); // Correct Hue value can be anything
+                sliders[i].CorrectValue = Random.Range(sliders[i].slider.minValue, sliders[i].slider.maxValue - (marginOfError * 2f)); // Correct Hue value can be anything
+                sliders[i].slider.value = RandomNewValue(sliders[i].CorrectValue, sliders[i].slider.minValue, sliders[i].slider.maxValue);
             }
-            else if (gSliders[i].ColorMode == GameSlider.HSVMode.value)
+            else if (sliders[i].ColorMode == GameSlider.HSVMode.saturation)
             {
-                gSliders[i].slider.value = Random.Range(gSliders[i].slider.maxValue * 0.2f, gSliders[i].slider.maxValue); // Starting value can be anything above 0.2
-                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.maxValue * 0.75f, gSliders[i].slider.maxValue); // Correct Value value can be anything above 0.75
+                sliders[i].CorrectValue = Random.Range(sliders[i].slider.minValue, sliders[i].slider.maxValue * 0.8f); // Correct Sat value can be anything below 0.8
+                sliders[i].slider.value = RandomNewValue(sliders[i].CorrectValue, sliders[i].slider.minValue, sliders[i].slider.maxValue);
             }
-            else
+            else // if ColorMode == HSVMode.value
             {
-                gSliders[i].slider.value = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue);
-                gSliders[i].CorrectValue = Random.Range(gSliders[i].slider.minValue, gSliders[i].slider.maxValue * 0.8f); // Correct Sat value can be anything below 0.8
+                sliders[i].CorrectValue = Random.Range(sliders[i].slider.maxValue * 0.75f, sliders[i].slider.maxValue); // Correct Value value can be anything above 0.75
+                sliders[i].slider.value = RandomNewValue(sliders[i].CorrectValue, sliders[i].slider.maxValue * 0.4f, sliders[i].slider.maxValue);
+                // Starting value can be anything above 0.4
             }
+
         }
 
         completedSliders = 0;
-        requiredSliders = gSliders.Length;
+        requiredSliders = sliders.Length;
 
         completionGroup.alpha = 0f;
         completionGroup.interactable = false;
@@ -116,6 +134,12 @@ public class SliderMinigame : MonoBehaviour
 
     void GameComplete()
     {
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            ChangeSliderColour(sliders[i].slider, ColourType.bright, ColourType.bright);
+            sliders[i].slider.interactable = false;
+        }
+
         if (completionGroup.alpha < 1f)
         {
             completionGroup.alpha += Time.deltaTime * 4f;
@@ -130,5 +154,34 @@ public class SliderMinigame : MonoBehaviour
 
         completionGroup.interactable = true;
     }
-    // The completion group should include a button that closes the window
+    // The completion group should include a button that closes the window,
+    // A.K.A. triggering method "OnWindowComplete" on StackHandler
+
+
+    float RandomNewValue(float correctValue, float minValue, float maxValue)
+    { // Returns a random value that is significantly different from the correctValue
+        float distanceFromMax = maxValue - correctValue;
+        float distanceFromMin = correctValue - minValue;
+
+        float coinFlip = Random.Range(minValue, maxValue);
+        
+        if (coinFlip >= correctValue)
+        {
+            return correctValue + Random.Range(marginOfError * 2f, distanceFromMax);
+        }
+        else
+        {
+            return minValue + Random.Range(0f, distanceFromMin - (marginOfError * 2f));
+        }
+    }
+
+    void ChangeSliderColour(Slider slider, ColourType baseColour, ColourType outlineColour)
+    {
+        if (slider.targetGraphic.gameObject.TryGetComponent(out ColourController colourController))
+        {
+            colourController.colourType = baseColour;
+            colourController.outlineType = outlineColour;
+            colourController.SendMessage("OnColourUpdate", cHandler.palettes[cHandler.currentPalette]);
+        }
+    }
 }

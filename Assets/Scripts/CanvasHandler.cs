@@ -33,8 +33,6 @@ public class Colour8
 
 public class CanvasHandler : MonoBehaviour
 {
-    [HideInInspector] public float currentScore;
-
     [Header("References")]
     [SerializeField] private RawImage stage1Wallpaper;
     [SerializeField] private RawImage stage2Wallpaper;
@@ -67,7 +65,8 @@ public class CanvasHandler : MonoBehaviour
             0f
         );
 
-        BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
+        BroadcastMessage("OnColourUpdate", palettes[currentPalette], SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("SetDrag", 6f);
 
         //Debug.Log("End Start() method");
     }

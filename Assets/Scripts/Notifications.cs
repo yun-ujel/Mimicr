@@ -50,6 +50,6 @@ public class Notifications : MonoBehaviour
 
     void OnMessageReceived()
     {
-
+        
     }
 }
