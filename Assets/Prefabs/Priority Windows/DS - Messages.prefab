@@ -1464,16 +1464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af7952153a660c4da5abad78637df1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftTextBubble: {fileID: 7818590067228127173, guid: 12a3db13605098f478663545408044e4, type: 3}
-  rightTextBubble: {fileID: 5588205457395536875, guid: 08623d1c9bbd30a4ab01660d8d68a06a, type: 3}
-  referenceTransformWidth: {fileID: 7567025523878266907}
+  assistantMessage: {fileID: 4302133973607398574, guid: bcc4099411cc59c468802bad97fe2531, type: 3}
   viewport: {fileID: 7567025523742300093}
-  assistantEmotions:
-  - {fileID: 2800000, guid: 70409b3ab5a27e6409768152bd14141e, type: 3}
-  - {fileID: 2800000, guid: 429f41e35daec1742aab585feaac0777, type: 3}
-  - {fileID: 2800000, guid: f19b0b7f877288f4193311c9fb4a15d7, type: 3}
-  - {fileID: 2800000, guid: 40060c7310c69d246934ae36d26a212f, type: 3}
-  messageText: aregaureigenaqrogbaeigeruabgoa
+  referenceTransformWidth: {fileID: 7567025523878266907}
 --- !u!1 &2999415229479614247
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,20 +1,14 @@
 using UnityEngine;
-
-public enum AssistantEmotion
-{
-    angry,
-    concerned,
-    crazy,
-    happy,
-    none
-}
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class NotificationHandler : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private TextMessage[] messages;
+    [SerializeField] List<NotificationInfo> notifications = new List<NotificationInfo>();
     [SerializeField] private GameObject messageWindow;
     [SerializeField] private CanvasHandler canvasHandler;
+    [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
 
     bool isWindowOpen;
     GameObject openWindow;
@@ -23,12 +17,10 @@ public class NotificationHandler : MonoBehaviour
     [SerializeField] private Texture2D[] assistantEmotions;
 
     [Header("Notification Prefabs")]
-    [SerializeField] private GameObject assistantNotification;
+    [SerializeField] private GameObject notificationPrefab;
 
     [Header("Debug")]
-    [SerializeField] private string messageText;
-    [SerializeField] private AssistantEmotion assEmotion;
-
+    [SerializeField] private NotificationInfo debugNotification;
 
     private void Start()
     {
@@ -44,33 +36,8 @@ public class NotificationHandler : MonoBehaviour
      
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isWindowOpen)
-            {
-                openWindow.SendMessage("DisplayMessage", new TextMessage(messageText, true, assEmotion));
-            }
-            else
-            {
-                SendAssistantMessage(new TextMessage(messageText, true, assEmotion));
-            }
+            ReceiveNotification(debugNotification);
         }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (isWindowOpen)
-            {
-                openWindow.SendMessage("DisplayMessage", new TextMessage(messageText, false, AssistantEmotion.none));
-            }
-            else
-            {
-                SendAssistantMessage(new TextMessage(messageText, false, AssistantEmotion.none));
-            }
-        }
-    }
-
-    public void GetMessageHistory(TextMessage[] arrayOfMessages)
-    {
-        messages = new TextMessage[arrayOfMessages.Length];
-        messages = arrayOfMessages;
-        isWindowOpen = false;
     }
 
     void SpawnWindow()
@@ -79,23 +46,30 @@ public class NotificationHandler : MonoBehaviour
 
         openWindow.BroadcastMessage("OnWindowStart");
         openWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
-        openWindow.SendMessage("GetNotifications", this);
 
-        if (messages != null)
+        if (notifications != null)
         {
-            for (int i = 0; i < messages.Length; i++)
+            for (int i = 0; i < notifications.Count; i++)
             {
-                openWindow.SendMessage("DisplayMessage", messages[i]);
+                if (!notifications[i].fromAssistant)
+                    continue;
+                else
+                    openWindow.SendMessage("DisplayMessage", notifications[i]);
             }
         }
 
         isWindowOpen = true;
     }
 
-    public void SendAssistantMessage(TextMessage message)
+    public void ReceiveNotification(NotificationInfo info)
     {
-        GameObject notif = Instantiate(assistantNotification, transform);
-        notif.SendMessage("DisplayMessage", message);
-        notif.SendMessage("OnWindowStart");
+        GameObject notif = Instantiate(notificationPrefab, verticalLayoutGroup.transform);
+        notifications.Add(info);
+        notif.SendMessage("DisplayNotification", info);
+
+        if (isWindowOpen)
+        {
+            openWindow.SendMessage("DisplayMessage", info);
+        }
     }
 }
