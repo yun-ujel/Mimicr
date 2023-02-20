@@ -34,18 +34,22 @@ public class Colour8
 public class CanvasHandler : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private RawImage stage1Wallpaper;
-    [SerializeField] private RawImage stage2Wallpaper;
-    [SerializeField] private Image notificationBackground;
-
     private GameObject cursor;
     private SpriteRenderer cursorRenderer;
+    private AutoSpawning autoSpawning;
 
     [Header("Colour Themes")]
     public Colour8[] palettes;
     [SerializeField] public int currentPalette;
 
-    
+    [Header("Other Visuals")]
+    [SerializeField] private RawImage stage1Wallpaper;
+    [SerializeField] private RawImage stage2Wallpaper;
+    [SerializeField] private Image notificationBackground;
+
+    [Header("Sequencing")]
+    [SerializeField] private GameObject softwarePolicyWindow;
+    private bool agreedSoftwarePolicy = false;
 
     void Awake()
     {
@@ -54,6 +58,7 @@ public class CanvasHandler : MonoBehaviour
             cursor = GameObject.FindGameObjectWithTag("IsCursorObject");
         }
         cursorRenderer = cursor.GetComponent<SpriteRenderer>();
+        autoSpawning = GetComponent<AutoSpawning>();
     }
     void Start()
     {
@@ -67,14 +72,18 @@ public class CanvasHandler : MonoBehaviour
 
         BroadcastMessage("OnColourUpdate", palettes[currentPalette], SendMessageOptions.DontRequireReceiver);
         BroadcastMessage("SetDrag", 6f);
-
-        //Debug.Log("End Start() method");
     }
-    void Update()
+    private GameObject InstantiateWindow(GameObject window)
     {
-        LogPositions();
-    }
+        GameObject newWindow = Instantiate(window, transform);
 
+        newWindow.name = window.name;
+
+        newWindow.BroadcastMessage("OnWindowStart");
+        newWindow.BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
+
+        return newWindow;
+    }
     public void OnCursorEnter(int mode) // Adds a cursor indicator, called when hovering over Resize bars
     {
         if (mode != 4) // If Anchor Index isn't set to None/No effect
@@ -123,19 +132,19 @@ public class CanvasHandler : MonoBehaviour
             cursorRenderer.color.b,
             0f
         );
-    } 
-    
-    
+    }
 
-
-    [Header("Debug")]
-    [SerializeField] private RectTransform[] windowsToLog;
-    void LogPositions()
+    // Sequencing
+    void SpawnMainWindow()
     {
-        foreach (RectTransform window in windowsToLog)
+        if (!agreedSoftwarePolicy && transform.Find(softwarePolicyWindow.name) == null)
         {
-            Debug.Log(window.name + " position: " + window.rect.position);
+            InstantiateWindow(softwarePolicyWindow);
         }
     }
 
+    void AcceptSoftwarePolicy()
+    {
+        agreedSoftwarePolicy = true;
+    }
 }

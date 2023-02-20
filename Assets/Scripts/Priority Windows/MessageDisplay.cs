@@ -7,11 +7,12 @@ public class TextMessage
 {
     public string text;
     public bool isLeft;
-
-    public TextMessage(string newText, bool isNewLeft)
+    public AssistantEmotion emotion;
+    public TextMessage(string newText, bool isNewLeft, AssistantEmotion emote)
     {
         text = newText;
         isLeft = isNewLeft;
+        emotion = emote;
     }
 }
 
@@ -23,15 +24,15 @@ public class MessageDisplay : MonoBehaviour
     [SerializeField] public RectTransform referenceTransformWidth;
     [SerializeField] private RectTransform viewport;
 
-    [Header("Text Options")]
-    [SerializeField] private string messageText;
-    private Vector2 bottomRightPadding = new Vector2(25, 30);
+    [Header("Graphics")]
+    [SerializeField] private Texture2D[] assistantEmotions;
+
     private float fontSize = 28;
     private float pixelsPerUnitMultiplier = 30;
 
     List<TextMessage> messages = new List<TextMessage>();
 
-    private Notifications notifs;
+    private NotificationHandler notificationsHandler;
 
     private void Awake()
     {
@@ -57,35 +58,46 @@ public class MessageDisplay : MonoBehaviour
         GameObject messageObject = Instantiate(chosenSide, viewport.transform);
 
         TextMeshProUGUI messageContent = messageObject.GetComponentInChildren<TextMeshProUGUI>();
-        MessageResize messageResize = messageObject.GetComponentInChildren<MessageResize>();
 
         messageContent.text = textMessage.text;
-        messageResize.bottomRightPadding = bottomRightPadding;
         messageContent.fontSize = fontSize;
         messageObject.GetComponentInChildren<Image>().pixelsPerUnitMultiplier = pixelsPerUnitMultiplier;
+
+        if (textMessage.emotion != AssistantEmotion.none)
+        {
+            messageObject.transform.Find("Circle").Find("Face").GetComponent<RawImage>().texture = GetEmotionTexture(textMessage.emotion);
+        }
 
         messages.Add(textMessage);
     }
 
-    private void Update()
+    void GetNotifications(NotificationHandler notifications)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DisplayMessage(new TextMessage(messageText, true));
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            DisplayMessage(new TextMessage(messageText, false));
-        }
-    }
-
-    void GetNotifications(Notifications notifications)
-    {
-        notifs = notifications;
+        notificationsHandler = notifications;
     }
 
     void OnWindowComplete()
     {
-        notifs.SendMessage("GetMessageHistory", messages.ToArray());
+        notificationsHandler.SendMessage("GetMessageHistory", messages.ToArray());
+    }
+
+    Texture2D GetEmotionTexture(AssistantEmotion emote)
+    {
+        if (emote == AssistantEmotion.angry)
+        {
+            return assistantEmotions[0];
+        }
+        else if (emote == AssistantEmotion.concerned)
+        {
+            return assistantEmotions[1];
+        }
+        else if (emote == AssistantEmotion.crazy)
+        {
+            return assistantEmotions[2];
+        }
+        else // emote == happy
+        {
+            return assistantEmotions[3];
+        }
     }
 }

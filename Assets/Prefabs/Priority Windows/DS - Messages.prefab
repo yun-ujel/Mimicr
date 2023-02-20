@@ -1413,8 +1413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2080e54a8225be0429b37607b26cd78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeSizeOnSpawn: 0
-  maxWindowSize: {x: 0, y: 0}
+  maxRandomWindowSize: {x: 0, y: 0}
+  randomizeSize: 0
 --- !u!114 &2518572522131914354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b844605c3df7cd4eab0fd077f62ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rectTransform: {fileID: 0}
+  rectTransform: {fileID: 2518572522131914353}
   anchorIndex: 0
   minWindowSize: {x: 375, y: 475}
   canvas: {fileID: 0}
@@ -1464,10 +1464,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af7952153a660c4da5abad78637df1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftTextBubble: {fileID: 2944373957507245445, guid: 22e521943a7e5e14b814e8508e9fcf87, type: 3}
+  leftTextBubble: {fileID: 7818590067228127173, guid: 12a3db13605098f478663545408044e4, type: 3}
   rightTextBubble: {fileID: 5588205457395536875, guid: 08623d1c9bbd30a4ab01660d8d68a06a, type: 3}
   referenceTransformWidth: {fileID: 7567025523878266907}
   viewport: {fileID: 7567025523742300093}
+  assistantEmotions:
+  - {fileID: 2800000, guid: 70409b3ab5a27e6409768152bd14141e, type: 3}
+  - {fileID: 2800000, guid: 429f41e35daec1742aab585feaac0777, type: 3}
+  - {fileID: 2800000, guid: f19b0b7f877288f4193311c9fb4a15d7, type: 3}
+  - {fileID: 2800000, guid: 40060c7310c69d246934ae36d26a212f, type: 3}
   messageText: aregaureigenaqrogbaeigeruabgoa
 --- !u!1 &2999415229479614247
 GameObject:

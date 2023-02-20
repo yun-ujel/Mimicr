@@ -16,6 +16,8 @@ public class MoveInertiaAndCollision : DragFunction, IEndDragHandler, IPointerDo
 
     Padding padding; // Padding for the parent bounds to slightly adjust their size
 
+    bool gotInfo = false;
+
     private Vector2 velocity;
     [SerializeField] private float drag = 4;
     List<Vector2> eventDataDeltas = new List<Vector2>();
@@ -28,6 +30,8 @@ public class MoveInertiaAndCollision : DragFunction, IEndDragHandler, IPointerDo
 
         boundsRectTransform = rectTransform.parent.GetComponent<RectTransform>();
         padding = uIMaster.padding;
+        
+        gotInfo = true;
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -55,14 +59,17 @@ public class MoveInertiaAndCollision : DragFunction, IEndDragHandler, IPointerDo
 
     private void FixedUpdate()
     {
-        velocity *= 1 - (Time.deltaTime * drag);
-        Move(velocity);
-        
-        for (int axis = 0; axis < 2; axis++)
+        if (gotInfo)
         {
-            if (Mathf.Abs(velocity[axis]) < 0.4f)
+            velocity *= 1 - (Time.deltaTime * drag);
+            Move(velocity);
+
+            for (int axis = 0; axis < 2; axis++)
             {
-                velocity[axis] = 0f;
+                if (Mathf.Abs(velocity[axis]) < 0.4f)
+                {
+                    velocity[axis] = 0f;
+                }
             }
         }
     }

@@ -44,8 +44,8 @@ public class AutoSpawning : MonoBehaviour
     // These are specific minigames that will usually be more difficult, and will be placed in a specific order
 
     [SerializeField] private Texture2D[] postImages;
-    [SerializeField] public List<AccountInfo> allAccounts = new List<AccountInfo>();
-    [SerializeField] private List<AccountInfo> incompleteAccounts = new List<AccountInfo>();
+    public List<AccountInfo> allAccounts = new List<AccountInfo>();
+    public List<AccountInfo> incompleteAccounts = new List<AccountInfo>();
 
     [Header("Pop Ups")]
     [SerializeField] private List<GameObject> popUpWindows = new List<GameObject>(); // Windows built for pop-ups, will spawn at random intervals
@@ -66,12 +66,12 @@ public class AutoSpawning : MonoBehaviour
     
     private void Start()
     {
-        incompleteAccounts.Add(CreateNewAccount());
-        incompleteAccounts.Add(CreateNewAccount());
-        UpdateAccountView();
+        //incompleteAccounts.Add(CreateNewAccount());
+        //incompleteAccounts.Add(CreateNewAccount());
+        //UpdateAccountView();
     }
 
-    private AccountInfo CreateNewAccount()
+    public AccountInfo CreateNewAccount()
     {
         int imagesCount = 0;
         for (int i = 0; i < defaultStackWindows.Length; i++)
@@ -207,10 +207,6 @@ public class AutoSpawning : MonoBehaviour
                     SpawnStack(incompleteAccounts[i]);
                 }
             }
-        }
-        else
-        {
-            Debug.Log("All Accounts Complete");
         }
 
         if (timeSinceLastPopUp > timeToNextPopUp)

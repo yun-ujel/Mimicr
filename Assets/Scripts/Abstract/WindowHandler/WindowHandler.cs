@@ -61,7 +61,7 @@ public abstract class WindowHandler : MonoBehaviour
         isOpeningAnim = true;
     }
 
-    public virtual void FixedUpdate()
+    public virtual void Update()
     {
         if (isOpeningAnim)
         {
@@ -101,7 +101,7 @@ public abstract class WindowHandler : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        t += 8 * Time.deltaTime;
+        t += 2 * Time.deltaTime;
     }
 
     public virtual void OnWindowComplete()
