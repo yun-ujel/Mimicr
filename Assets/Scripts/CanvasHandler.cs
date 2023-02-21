@@ -87,6 +87,7 @@ public class CanvasHandler : MonoBehaviour
 
         newWindow.BroadcastMessage("OnWindowStart");
         newWindow.BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
+        newWindow.BroadcastMessage("SetDrag", 6f);
 
         return newWindow;
     }
