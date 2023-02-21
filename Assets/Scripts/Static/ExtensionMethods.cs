@@ -55,7 +55,6 @@ public static class ExtensionMethods
         }
         return rtn;
     }
-
     public static List<T> Shuffle<T>(this List<T> list)
     {
         List<T> returnedList = new List<T>();

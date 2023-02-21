@@ -62,7 +62,6 @@ public class AutoSpawning : MonoBehaviour
     [SerializeField] private RectTransform canvasRectTransform; // The RectTransform of the canvas. Used for random spawning.
     [SerializeField] private CanvasHandler canvasHandler; // The CanvasHandler. Used to reference palettes.
     [SerializeField] private PinGenerator pinGenerator;
-    [SerializeField] private GameObject accountDisplay;
     float drag;
     
     private void Start()
@@ -117,8 +116,8 @@ public class AutoSpawning : MonoBehaviour
 
         // Set Stack Window Position to where the last Stack Window was
         RectTransform rT = newWindow.GetComponent<RectTransform>();
-        rT.anchoredPosition = rT.ReanchorPosition(new Vector2
-        (
+        rT.anchoredPosition = rT.ReanchorPosition
+        (new Vector2(
             Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
             Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
         ));
@@ -142,8 +141,8 @@ public class AutoSpawning : MonoBehaviour
 
         // Randomize position of the object
         RectTransform rT = newWindow.GetComponent<RectTransform>();
-        Vector2 randomizedPosition = rT.ReanchorPosition(new Vector2
-        (
+        Vector2 randomizedPosition = rT.ReanchorPosition
+        (new Vector2(
             Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
             Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
         ));
