@@ -22,11 +22,6 @@ public class UIShaker : MonoBehaviour
     private void Update()
     {
         TryShake();
-
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            TriggerShake(new Vector2(0.2f, 10f));
-        }
     }
 
     void TryShake()

@@ -24,8 +24,13 @@ public abstract class WindowHandler : MonoBehaviour
 
     [Header("Failing Timer")]
     protected bool isRunningTimer;
-    protected float failTime;
+    protected bool isTimerLow;
     protected float failTimeCounter;
+
+    // Blinking / Alert
+    protected float blinkFrequency = 0.1f;
+    protected float blinkTimeCounter;
+    protected bool blinkFlip;
 
     protected ColourController[] topColourControllers;
     protected ColourType[] topColourTypes;
@@ -84,8 +89,6 @@ public abstract class WindowHandler : MonoBehaviour
         canvasGroup.alpha = 0f;
         rectTransform.sizeDelta = targetWindowSize * 0.8f;
         isOpeningAnim = true;
-
-        Debug.Log("Successfully Started " + gameObject.name);
     }
 
     public virtual void Update()
@@ -104,7 +107,6 @@ public abstract class WindowHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log(gameObject.name + " Has Completed Opening Animation");
                 canvasGroup.alpha = 1f;
                 isOpeningAnim = false;
                 rectTransform.sizeDelta = targetWindowSize;
@@ -132,7 +134,7 @@ public abstract class WindowHandler : MonoBehaviour
         t += 2 * Time.deltaTime;
 
 
-
+        
         if (isRunningTimer && failTimeCounter > 0f)
         {
             failTimeCounter -= Time.deltaTime;
@@ -147,6 +149,11 @@ public abstract class WindowHandler : MonoBehaviour
         if (failTimeCounter < 5f && isRunningTimer)
         {
             BroadcastMessage("FailTimerLow");
+            if (!isTimerLow)
+            {
+                SendMessage("TriggerShake", new Vector2(0.25f, 10f), SendMessageOptions.DontRequireReceiver);
+                isTimerLow = true;
+            }
         }
     }
 
@@ -159,6 +166,7 @@ public abstract class WindowHandler : MonoBehaviour
 
     public virtual void OnWindowFail()
     {
+        Debug.Log("Failed " + gameObject.name);
         t = 0.0f;
         targetWindowSize = rectTransform.sizeDelta * 0.8f;
         isClosingAnim = true;
@@ -166,18 +174,31 @@ public abstract class WindowHandler : MonoBehaviour
 
     public virtual void StartFailTimer(float timeUntilFail)
     {
+        Debug.Log("Started Fail Timer on " + gameObject.name);
         isRunningTimer = true;
-        failTime = timeUntilFail;
+        isTimerLow = false;
+        failTimeCounter = timeUntilFail;
     }
 
     public virtual void FailTimerLow()
     {
-        if (Mathf.CeilToInt(failTimeCounter)%2 == 0)
+        if (blinkTimeCounter < blinkFrequency)
+        {
+            blinkTimeCounter += Time.deltaTime;
+        }
+        else
+        {
+            blinkTimeCounter = 0f;
+            blinkFlip = !blinkFlip;
+        }
+
+        if (blinkFlip)
         {
             for (int i = 0; i < topColourControllers.Length; i++)
             {
-                topColourControllers[i].colourType = ColourType.bright;
-                topColourControllers[i].outlineType = ColourType.bright;
+                topColourControllers[i].colourType = ColourType.wildCard;
+
+                topColourControllers[i].OnColourUpdate(null);
             }
         }
         else
@@ -185,7 +206,8 @@ public abstract class WindowHandler : MonoBehaviour
             for (int i = 0; i < topColourControllers.Length; i++)
             {
                 topColourControllers[i].colourType = topColourTypes[i];
-                topColourControllers[i].outlineType = ColourType.outline;
+
+                topColourControllers[i].OnColourUpdate(null);
             }
         }
     }

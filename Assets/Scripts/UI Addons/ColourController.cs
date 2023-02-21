@@ -24,6 +24,8 @@ public class ColourController : MonoBehaviour
     [HideInInspector] public RawImage rawImage;
     [HideInInspector] public TextMeshProUGUI text;
 
+    private Colour8 lastPaletteUsed;
+
     private void Awake()
     {
         // Assign UI Graphic Reference
@@ -41,13 +43,18 @@ public class ColourController : MonoBehaviour
 
     public void OnColourUpdate(Colour8 colour8)
     {
+        if (colour8 != null)
+        {
+            lastPaletteUsed = colour8;
+        }
+
         if (colourType != ColourType.none)
         {
-            ChangeColour(colour8);
+            ChangeColour(lastPaletteUsed);
         }
         if (outline != null && outlineType != ColourType.none)
         {
-            ChangeOutline(colour8);
+            ChangeOutline(lastPaletteUsed);
         }
         
     }
