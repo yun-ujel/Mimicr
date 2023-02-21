@@ -132,6 +132,21 @@ public class MoveInertiaAndCollision : DragFunction, IEndDragHandler, IPointerDo
         maxDistance = boundsRectTransform.rect.size - maxPosition;
     }
 
+    private void Update()
+    {
+        Vector2 moddedSize = rectTransform.sizeDelta;
+
+        for (int axis = 0; axis < 2; axis++)
+        {
+            if (rectTransform.sizeDelta[axis] > boundsRectTransform.sizeDelta[axis])
+            {
+                moddedSize[axis] = boundsRectTransform.sizeDelta[axis];
+            }
+        }
+
+        rectTransform.sizeDelta = moddedSize;
+    }
+
     public override void OnPointerEnter(PointerEventData eventData)
     {
 

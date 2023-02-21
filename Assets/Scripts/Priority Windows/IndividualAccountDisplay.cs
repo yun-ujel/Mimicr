@@ -7,6 +7,7 @@ public class IndividualAccountDisplay : MonoBehaviour
     [SerializeField] private RawImage[] postGraphics = new RawImage[3];
     [SerializeField] private TextMeshProUGUI pINText;
     [SerializeField] private TextMeshProUGUI nameText;
+
     public void SetGraphics(AccountInfo accountInfo)
     {
         for (int i = 0; i < postGraphics.Length; i++)

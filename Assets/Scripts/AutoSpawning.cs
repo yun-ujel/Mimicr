@@ -61,8 +61,8 @@ public class AutoSpawning : MonoBehaviour
     [Header("References")]
     [SerializeField] private RectTransform canvasRectTransform; // The RectTransform of the canvas. Used for random spawning.
     [SerializeField] private CanvasHandler canvasHandler; // The CanvasHandler. Used to reference palettes.
-    
     [SerializeField] private PinGenerator pinGenerator;
+    [SerializeField] private GameObject accountDisplay;
     
     private void Start()
     {
@@ -102,6 +102,8 @@ public class AutoSpawning : MonoBehaviour
 
         AccountInfo newAccount = new AccountInfo(pinGenerator.GeneratePin(), chosenImages, defaultStackWindows, 0, 0, allAccounts.Count);
         allAccounts.Add(newAccount);
+
+        UpdateAccountView();
 
         return newAccount;
     }
@@ -231,7 +233,7 @@ public class AutoSpawning : MonoBehaviour
         GameObject[] viewers = GameObject.FindGameObjectsWithTag("PriorityWindow");
         for (int i = 0; i < viewers.Length; i++)
         {
-            viewers[i].SendMessage("UpdateAccountView", allAccounts.ToArray());
+            viewers[i].SendMessage("UpdateAccountView", allAccounts.ToArray(), SendMessageOptions.DontRequireReceiver);
         }
     }
 }

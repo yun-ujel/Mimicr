@@ -685,8 +685,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 360, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -740,8 +740,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6370967c706f3da45b317c089c8502b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: {fileID: 7908635645457275501}
   maxRandomWindowSize: {x: 360, y: 320}
+  randomizeSize: 0
+  header: {fileID: 7908635645457275501}
 --- !u!114 &5457946387003074497
 MonoBehaviour:
   m_ObjectHideFlags: 0

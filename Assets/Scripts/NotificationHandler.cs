@@ -24,7 +24,7 @@ public class NotificationHandler : MonoBehaviour
 
     private void Start()
     {
-        SpawnWindow();
+        //SpawnWindow();
     }
 
     private void Update()

@@ -1,29 +1,54 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CanvasGroup))]
 [RequireComponent(typeof(RectTransform))]
 // WindowHandler should be a newer form of MinigameHandler built as a base for all window types.
 public abstract class WindowHandler : MonoBehaviour
 {
+    [Header("References")]
     protected RectTransform rectTransform;
     protected CanvasGroup canvasGroup;
 
+    [Header("Random Sizing")]
     protected Vector2 targetWindowSize;
-
     protected Vector2 minRandomWindowSize;                 // Randomized window size - minimum X and Y values
     [SerializeField] protected Vector2 maxRandomWindowSize;// Randomized window size - maximum X and Y values
-
     [SerializeField] protected bool randomizeSize;
 
+    [Header("Opening/Closing Animations")]
     protected bool isOpeningAnim = false;
     protected bool isClosingAnim = false;
 
     protected float t;
 
+    [Header("Failing Timer")]
+    protected bool isRunningTimer;
+    protected float failTime;
+    protected float failTimeCounter;
+
+    protected ColourController[] topColourControllers;
+    protected ColourType[] topColourTypes;
+
     public virtual void Awake()
     {
         rectTransform = gameObject.GetComponent<RectTransform>();
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
+
+        List<ColourController> colourControllers = new List<ColourController>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent(out ColourController cC))
+                colourControllers.Add(cC);
+        }
+        topColourControllers = colourControllers.ToArray();
+
+        topColourTypes = new ColourType[topColourControllers.Length];
+        for (int i = 0; i < topColourTypes.Length; i++)
+        {
+            topColourTypes[i] = topColourControllers[i].colourType;
+        }
+
     }
 
     public virtual void OnWindowStart()
@@ -59,6 +84,8 @@ public abstract class WindowHandler : MonoBehaviour
         canvasGroup.alpha = 0f;
         rectTransform.sizeDelta = targetWindowSize * 0.8f;
         isOpeningAnim = true;
+
+        Debug.Log("Successfully Started " + gameObject.name);
     }
 
     public virtual void Update()
@@ -77,6 +104,7 @@ public abstract class WindowHandler : MonoBehaviour
             }
             else
             {
+                Debug.Log(gameObject.name + " Has Completed Opening Animation");
                 canvasGroup.alpha = 1f;
                 isOpeningAnim = false;
                 rectTransform.sizeDelta = targetWindowSize;
@@ -102,6 +130,24 @@ public abstract class WindowHandler : MonoBehaviour
             }
         }
         t += 2 * Time.deltaTime;
+
+
+
+        if (isRunningTimer && failTimeCounter > 0f)
+        {
+            failTimeCounter -= Time.deltaTime;
+        }
+        else if (isRunningTimer)
+        {
+            isRunningTimer = false;
+            failTimeCounter = 0f;
+            OnWindowFail();
+        }
+
+        if (failTimeCounter < 5f && isRunningTimer)
+        {
+            BroadcastMessage("FailTimerLow");
+        }
     }
 
     public virtual void OnWindowComplete()
@@ -116,5 +162,31 @@ public abstract class WindowHandler : MonoBehaviour
         t = 0.0f;
         targetWindowSize = rectTransform.sizeDelta * 0.8f;
         isClosingAnim = true;
+    }
+
+    public virtual void StartFailTimer(float timeUntilFail)
+    {
+        isRunningTimer = true;
+        failTime = timeUntilFail;
+    }
+
+    public virtual void FailTimerLow()
+    {
+        if (Mathf.CeilToInt(failTimeCounter)%2 == 0)
+        {
+            for (int i = 0; i < topColourControllers.Length; i++)
+            {
+                topColourControllers[i].colourType = ColourType.bright;
+                topColourControllers[i].outlineType = ColourType.bright;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < topColourControllers.Length; i++)
+            {
+                topColourControllers[i].colourType = topColourTypes[i];
+                topColourControllers[i].outlineType = ColourType.outline;
+            }
+        }
     }
 }

@@ -49,7 +49,13 @@ public class CanvasHandler : MonoBehaviour
 
     [Header("Sequencing")]
     [SerializeField] private GameObject softwarePolicyWindow;
-    private bool agreedSoftwarePolicy = false;
+    private bool[] storyTriggers = new bool[]
+    {
+        false, // Player Agrees to Software Policy
+        false, // Adds an Incomplete Account to AutoSpawning
+        false,
+        false
+    };
 
     void Awake()
     {
@@ -137,14 +143,27 @@ public class CanvasHandler : MonoBehaviour
     // Sequencing
     void SpawnMainWindow()
     {
-        if (!agreedSoftwarePolicy && transform.Find(softwarePolicyWindow.name) == null)
+        if (!storyTriggers[0] && transform.Find(softwarePolicyWindow.name) == null)
         {
             InstantiateWindow(softwarePolicyWindow);
         }
     }
 
+    private void Update()
+    {
+        if (!storyTriggers[0])
+        {
+
+        }
+        else if (!storyTriggers[1])
+        {
+            autoSpawning.incompleteAccounts.Add(autoSpawning.CreateNewAccount());
+            storyTriggers[1] = true;
+        }
+    }
+
     void AcceptSoftwarePolicy()
     {
-        agreedSoftwarePolicy = true;
+        storyTriggers[0] = true;
     }
 }
