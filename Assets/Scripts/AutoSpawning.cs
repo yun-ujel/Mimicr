@@ -63,6 +63,7 @@ public class AutoSpawning : MonoBehaviour
     [SerializeField] private CanvasHandler canvasHandler; // The CanvasHandler. Used to reference palettes.
     [SerializeField] private PinGenerator pinGenerator;
     [SerializeField] private GameObject accountDisplay;
+    float drag;
     
     private void Start()
     {
@@ -127,6 +128,7 @@ public class AutoSpawning : MonoBehaviour
         newWindow.BroadcastMessage("OnWindowStart");
         newWindow.BroadcastMessage("OnStackStart", accountInfo);
         newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
+        newWindow.BroadcastMessage("SetDrag", drag);
 
         accountInfo.hasWindowOpen = true;
     }
@@ -150,6 +152,7 @@ public class AutoSpawning : MonoBehaviour
 
         newWindow.BroadcastMessage("OnWindowStart");
         newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
+        newWindow.BroadcastMessage("SetDrag", drag);
 
         popUpsOpen += 1;
     }
@@ -172,6 +175,7 @@ public class AutoSpawning : MonoBehaviour
         newWindow.BroadcastMessage("OnWindowStart");
         newWindow.SendMessage("TriggerShake", new Vector2(0.25f, 10f), SendMessageOptions.DontRequireReceiver);
         newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
+        newWindow.BroadcastMessage("SetDrag", drag);
 
         popUpsOpen += 1;
     }
@@ -235,5 +239,10 @@ public class AutoSpawning : MonoBehaviour
         {
             viewers[i].SendMessage("UpdateAccountView", allAccounts.ToArray(), SendMessageOptions.DontRequireReceiver);
         }
+    }
+
+    void SetDrag(float newDrag)
+    {
+        drag = newDrag;
     }
 }
