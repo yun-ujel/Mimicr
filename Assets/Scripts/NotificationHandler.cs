@@ -5,71 +5,52 @@ using System.Collections.Generic;
 public class NotificationHandler : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] List<NotificationInfo> notifications = new List<NotificationInfo>();
-    [SerializeField] private GameObject messageWindow;
+    [SerializeField] List<NotificationInfo> notificationsInfo = new List<NotificationInfo>();
     [SerializeField] private CanvasHandler canvasHandler;
     [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
+    private List<GameObject> notifications = new List<GameObject>();
 
-    bool isWindowOpen;
-    GameObject openWindow;
+    [SerializeField] private MessageDisplay messagesWindow;
 
     [Header("Graphics")]
     [SerializeField] private Texture2D[] assistantEmotions;
 
     [Header("Notification Prefabs")]
     [SerializeField] private GameObject notificationPrefab;
+    [SerializeField] private int maxNotifications = 7;
 
     [Header("Debug")]
     [SerializeField] private NotificationInfo debugNotification;
 
     private void Start()
     {
-        //SpawnWindow();
+        
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !isWindowOpen)
-        {
-            SpawnWindow();
-        }
      
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ReceiveNotification(debugNotification);
         }
-    }
 
-    void SpawnWindow()
-    {
-        openWindow = Instantiate(messageWindow, transform.parent);
-
-        openWindow.BroadcastMessage("OnWindowStart");
-        openWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
-
-        if (notifications != null)
+        if (notifications.Count > maxNotifications)
         {
-            for (int i = 0; i < notifications.Count; i++)
-            {
-                if (!notifications[i].fromAssistant)
-                    continue;
-                else
-                    openWindow.SendMessage("DisplayMessage", notifications[i]);
-            }
+            notifications[0].SendMessage("StartFadeOut");
+            notifications.RemoveAt(0);
         }
-
-        isWindowOpen = true;
     }
 
     public void ReceiveNotification(NotificationInfo info)
     {
         GameObject notif = Instantiate(notificationPrefab, verticalLayoutGroup.transform);
-        notifications.Add(info);
+        notificationsInfo.Add(info);
+        notifications.Add(notif);
         notif.SendMessage("DisplayNotification", info);
 
-        if (isWindowOpen)
-        {
-            openWindow.SendMessage("DisplayMessage", info);
-        }
+
+        messagesWindow.SendMessage("DisplayMessage", info, SendMessageOptions.DontRequireReceiver);
+        
     }
 }

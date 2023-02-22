@@ -38,6 +38,10 @@ public class NotificationDisplay : MonoBehaviour
     float targetHeight;
     float t;
 
+    [Header("Closing Antimation")]
+    private bool isClosing = false;
+    private float startCloseTimer;
+
     public void DisplayNotification(NotificationInfo info)
     {
         if (title != null)
@@ -83,7 +87,6 @@ public class NotificationDisplay : MonoBehaviour
             {
                 rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, Mathf.Lerp(rectTransform.sizeDelta.y, targetHeight, t));
                 canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1f, t);
-                Debug.Log(canvasGroup.alpha);
             }
             else
             {
@@ -92,6 +95,29 @@ public class NotificationDisplay : MonoBehaviour
                 isOpeningAnim = false;
             }
         }
-        t += 2 * Time.deltaTime;
+        
+        if (t > startCloseTimer)
+        {
+            if (isClosing && canvasGroup.alpha > 0f)
+            {
+                canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, t - startCloseTimer);
+            }
+            else if (isClosing)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        t += 1f * Time.deltaTime;
+    }
+
+    void StartFadeOut()
+    {
+        if (!isClosing)
+        {
+            isClosing = true;
+            startCloseTimer = 5f;
+            t = 0.0f;
+        }
     }
 }

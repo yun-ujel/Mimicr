@@ -102,11 +102,6 @@ public class MoveCollision : DragFunction
         minDistance = -minPosition;
         maxDistance = boundsRectTransform.rect.size - maxPosition;
     }
-
-
-
-    Vector2 subtractMax;
-    Vector2 subtractMin;
     private void Update()
     {
         Vector2 moddedSize = rectTransform.sizeDelta;

@@ -12,7 +12,7 @@ public class AccountInfo
 
     public int CurrentPostIndex { get; set; }
 
-    public bool isComplete;// { get; set; }
+    public bool isFinished;// { get; set; }
 
     public bool hasWindowOpen { get; set; }
 
@@ -29,7 +29,7 @@ public class AccountInfo
         windows = new GameObject[newWindows.Length];
         System.Array.Copy(newWindows, windows, newWindows.Length);
 
-        isComplete = false;
+        isFinished = false;
         hasWindowOpen = false;
     }
 }
@@ -129,6 +129,8 @@ public class AutoSpawning : MonoBehaviour
         newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
         newWindow.BroadcastMessage("SetDrag", drag);
 
+        //newWindow.SendMessage("StartFailTimer", 10f);
+
         accountInfo.hasWindowOpen = true;
     }
 
@@ -192,8 +194,19 @@ public class AutoSpawning : MonoBehaviour
 
         if (accountInfo.CurrentWindowIndex >= accountInfo.windows.Length)
         {
-            accountInfo.isComplete = true;
+            accountInfo.isFinished = true;
         }
+
+        UpdateAccountView();
+    }
+
+    void FailStackWindow(AccountInfo accountInfo)
+    {
+        accountInfo.hasWindowOpen = false;
+
+        accountInfo.isFinished = true;
+
+        UpdateAccountView();
     }
 
     private void Update()
@@ -202,7 +215,7 @@ public class AutoSpawning : MonoBehaviour
         {
             for (int i = 0; i < incompleteAccounts.Count; i++)
             {
-                if (incompleteAccounts[i].isComplete)
+                if (incompleteAccounts[i].isFinished)
                 {
                     incompleteAccounts.RemoveAt(i);
                     continue;

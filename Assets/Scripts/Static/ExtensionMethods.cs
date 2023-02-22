@@ -66,6 +66,7 @@ public static class ExtensionMethods
             returnedList.Add(list[selection]);
             list.Remove(list[selection]);
         }
+
         return returnedList;
     }
 }

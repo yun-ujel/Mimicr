@@ -23,6 +23,12 @@ public class StackHandler : WindowHandler
         canvas.SendMessage("CompleteStackWindow", accountInfo);
     }
 
+    public override void OnWindowFail()
+    {
+        base.OnWindowFail();
+        canvas.SendMessage("FailStackWindow", accountInfo);
+    }
+
     void OnStackStart(AccountInfo inAccountInfo)
     {
         inAccountInfo.windows[inAccountInfo.CurrentWindowIndex] = gameObject;
