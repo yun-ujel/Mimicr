@@ -14,6 +14,7 @@ public class NotificationHandler : MonoBehaviour
 
     [Header("Graphics")]
     [SerializeField] private Texture2D[] assistantEmotions;
+    [SerializeField] private Texture2D circleBackground;
 
     [Header("Notification Prefabs")]
     [SerializeField] private GameObject notificationPrefab;
@@ -37,7 +38,7 @@ public class NotificationHandler : MonoBehaviour
 
         if (notifications.Count > maxNotifications)
         {
-            notifications[0].SendMessage("StartFadeOut");
+            notifications[0].SendMessage("StartFadeOut", 12);
             notifications.RemoveAt(0);
         }
     }
@@ -49,8 +50,21 @@ public class NotificationHandler : MonoBehaviour
         notifications.Add(notif);
         notif.SendMessage("DisplayNotification", info);
 
+        messagesWindow.SendMessage("DisplayMessage", info, SendMessageOptions.DontRequireReceiver);
+    }
+
+    public void ReceiveAssistantNotification(string content, int emotionIndex)
+    {
+        GameObject notif = Instantiate(notificationPrefab, verticalLayoutGroup.transform);
+
+        Texture2D emotion = assistantEmotions[emotionIndex];
+
+        NotificationInfo info = new NotificationInfo("Assistant", content, true, circleBackground, emotion);
+
+        notificationsInfo.Add(info);
+        notifications.Add(notif);
+        notif.SendMessage("DisplayNotification", info);
 
         messagesWindow.SendMessage("DisplayMessage", info, SendMessageOptions.DontRequireReceiver);
-        
     }
 }

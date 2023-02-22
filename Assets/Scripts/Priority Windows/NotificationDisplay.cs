@@ -111,12 +111,12 @@ public class NotificationDisplay : MonoBehaviour
         t += 1f * Time.deltaTime;
     }
 
-    void StartFadeOut()
+    void StartFadeOut(float timer)
     {
         if (!isClosing)
         {
             isClosing = true;
-            startCloseTimer = 5f;
+            startCloseTimer = timer;
             t = 0.0f;
         }
     }

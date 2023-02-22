@@ -21,7 +21,7 @@ public class AllAccountsDisplay : MonoBehaviour
             accountDisplay.SendMessage("SetGraphics", accountsInfo[i]);
         }
 
-        topRectTransform.offsetMax += new Vector2(1, 0);
-        // This one line of code somehow single-handedly fixes the layouts being slightly off on load
+        //topRectTransform.offsetMax += new Vector2(0.01f, 0);
+        // This one line of code somehow single-handedly fixed the layouts being slightly off on load
     }
 }

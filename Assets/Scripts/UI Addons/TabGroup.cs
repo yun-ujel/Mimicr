@@ -12,11 +12,11 @@ public class TabGroup : MonoBehaviour
         {
             if (i == buttonIndex)
             {
-                objectsToSwap[i].SetActive(true);
+                objectsToSwap[i].transform.SetAsLastSibling();
             }
             else
             {
-                objectsToSwap[i].SetActive(false);
+                objectsToSwap[i].transform.SetAsFirstSibling();
             }
         }
     }

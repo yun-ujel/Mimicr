@@ -37,6 +37,7 @@ public class CanvasHandler : MonoBehaviour
     private GameObject cursor;
     private SpriteRenderer cursorRenderer;
     private AutoSpawning autoSpawning;
+    private RectTransform canvasRectTransform;
 
     [Header("Colour Themes")]
     public Colour8[] palettes;
@@ -49,13 +50,16 @@ public class CanvasHandler : MonoBehaviour
 
     [Header("Sequencing")]
     [SerializeField] private GameObject softwarePolicyWindow;
+    [SerializeField] private GameObject mainMimicrWindow;
+    [SerializeField] private NotificationHandler notifications;
     private bool[] storyTriggers = new bool[]
     {
         false, // Player Agrees to Software Policy
+        false, // Opens Mimicr Window and sends in notifications
         false, // Adds an Incomplete Account to AutoSpawning
-        false,
         false
     };
+    private int messagesSent;
 
     void Awake()
     {
@@ -65,6 +69,7 @@ public class CanvasHandler : MonoBehaviour
         }
         cursorRenderer = cursor.GetComponent<SpriteRenderer>();
         autoSpawning = GetComponent<AutoSpawning>();
+        canvasRectTransform = GetComponent<RectTransform>();
     }
     void Start()
     {
@@ -84,6 +89,14 @@ public class CanvasHandler : MonoBehaviour
         GameObject newWindow = Instantiate(window, transform);
 
         newWindow.name = window.name;
+
+        RectTransform rT = newWindow.GetComponent<RectTransform>();
+        rT.anchoredPosition = rT.ReanchorPosition
+        (new Vector2(
+            Random.Range(0f, canvasRectTransform.sizeDelta.x - rT.sizeDelta.x),
+            Random.Range(0f, canvasRectTransform.sizeDelta.y - rT.sizeDelta.y)
+        ));
+
 
         newWindow.BroadcastMessage("OnWindowStart");
         newWindow.BroadcastMessage("OnColourUpdate", palettes[currentPalette]);
@@ -154,17 +167,68 @@ public class CanvasHandler : MonoBehaviour
     {
         if (!storyTriggers[0])
         {
-
+            // Do nothing until player has accepted software policy
         }
         else if (!storyTriggers[1])
         {
+            mainMimicrWindow.transform.SetAsLastSibling();
+            mainMimicrWindow.SetActive(true);
+            mainMimicrWindow.SendMessage("OnWindowStart");
+
+            Invoke("SendAssistantNotification", 1f);
+            Invoke("SendAssistantNotification", 3f);
+            Invoke("SendAssistantNotification", 7f);
+            Invoke("SendAssistantNotification", 10f);
+
+            UpdateStoryTrigger();
+        }
+        else if (!storyTriggers[2] && messagesSent >= 4)
+        {
             autoSpawning.incompleteAccounts.Add(autoSpawning.CreateNewAccount());
-            storyTriggers[1] = true;
+            UpdateStoryTrigger();
         }
     }
 
     void AcceptSoftwarePolicy()
     {
         storyTriggers[0] = true;
+    }
+
+    void SendAssistantNotification()
+    {
+        if (messagesSent < 1)
+        {
+            notifications.ReceiveAssistantNotification("Hi! I'm the MIMICR Assistant.", 3);
+        }
+        else if (messagesSent < 2)
+        {
+            notifications.ReceiveAssistantNotification("In order to reach a larger audience, you'll have multiple accounts for MIMICR.", 3);
+        }
+        else if (messagesSent < 3)
+        {
+            notifications.ReceiveAssistantNotification("I'll manage all of them, just refer to the Account Manager tab for any info.", 3);
+        }
+        else if (messagesSent < 4)
+        {
+            notifications.ReceiveAssistantNotification("Creating your first account now...", 3);
+        }
+
+        messagesSent += 1;
+    }
+
+    void UpdateStoryTrigger()
+    {
+        for (int i = 0; i < storyTriggers.Length; i++)
+        {
+            if (storyTriggers[i])
+            {
+                continue;
+            }
+            else
+            {
+                storyTriggers[i] = true;
+                break;
+            }
+        }
     }
 }
