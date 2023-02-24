@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
     [Header("References")]
     [HideInInspector] public RectTransform rectTransform; // RectTransform used to move, resize or send to top. Usually a direct child of the canvas/very high in the hierarchy
@@ -99,7 +99,11 @@ public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
         {
             windowToClose.BroadcastMessage("OnWindowComplete");
         }
-        else if (functionOnClick == FunctionOnClick.sendMessageToCanvas)
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (functionOnClick == FunctionOnClick.sendMessageToCanvas)
         {
             canvas.SendMessage(messageToSend);
         }

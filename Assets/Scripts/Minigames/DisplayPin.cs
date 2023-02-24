@@ -63,7 +63,6 @@ public class DisplayPin : MonoBehaviour
     void SetPin(int sixDigitPin)
     {
         targetPin = sixDigitPin.ToString();
-        Debug.Log(targetPin);
 
         int[] digitsInPasscode = sixDigitPin.GetDigits();
         List<int> pin = new List<int>(sixDigitPin.GetDigits());

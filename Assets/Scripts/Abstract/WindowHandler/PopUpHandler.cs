@@ -11,4 +11,10 @@ public class PopUpHandler : WindowHandler
         base.Awake();
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
     }
+
+    public override void OnWindowFail()
+    {
+        base.OnWindowFail();
+        canvas.SendMessage("AcceptMonetPolicy");
+    }
 }

@@ -29,7 +29,7 @@ public class MessageResize : MonoBehaviour
 
     void LateUpdate()
     {
-        bottomRightPadding = new Vector2(textMeshTransform.anchorMin.x + TMPMesh.fontSize, textMeshTransform.anchorMax.y + TMPMesh.fontSize);
+        bottomRightPadding = new Vector2(textMeshTransform.anchorMin.x + TMPMesh.fontSize + 2, textMeshTransform.anchorMax.y + TMPMesh.fontSize);
         //Vector2.zero;
 
         UpdateSize();

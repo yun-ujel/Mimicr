@@ -18,7 +18,8 @@ public class NotificationHandler : MonoBehaviour
 
     [Header("Notification Prefabs")]
     [SerializeField] private GameObject notificationPrefab;
-    [SerializeField] private int maxNotifications = 7;
+    public int maxNotifs = 0;
+    public float notifFadeOutTime = 12;
 
     [Header("Debug")]
     [SerializeField] private NotificationInfo debugNotification;
@@ -36,9 +37,9 @@ public class NotificationHandler : MonoBehaviour
             ReceiveNotification(debugNotification);
         }
 
-        if (notifications.Count > maxNotifications)
+        if (notifications.Count > maxNotifs)
         {
-            notifications[0].SendMessage("StartFadeOut", 12);
+            notifications[0].SendMessage("StartFadeOut", notifFadeOutTime);
             notifications.RemoveAt(0);
         }
     }
@@ -50,7 +51,10 @@ public class NotificationHandler : MonoBehaviour
         notifications.Add(notif);
         notif.SendMessage("DisplayNotification", info);
 
-        messagesWindow.SendMessage("DisplayMessage", info, SendMessageOptions.DontRequireReceiver);
+        if (info.fromAssistant)
+        {
+            messagesWindow.SendMessage("DisplayMessage", info, SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     public void ReceiveAssistantNotification(string content, int emotionIndex)

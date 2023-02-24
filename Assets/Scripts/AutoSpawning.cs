@@ -47,8 +47,12 @@ public class AutoSpawning : MonoBehaviour
     public List<AccountInfo> allAccounts = new List<AccountInfo>();
     public List<AccountInfo> incompleteAccounts = new List<AccountInfo>();
 
+    [HideInInspector] public float stackWindowTimer = 0f;
+    [HideInInspector] public int failedAccounts = 0;
+    [HideInInspector] public int completedAccounts = 0;
+
     [Header("Pop Ups")]
-    [SerializeField] private List<GameObject> popUpWindows = new List<GameObject>(); // Windows built for pop-ups, will spawn at random intervals
+    public List<GameObject> popUpWindows = new List<GameObject>(); // Windows built for pop-ups, will spawn at random intervals
     // These should be less difficult to complete/close
 
     [SerializeField] private GameObject[] adWindows; // Pop-up ads, windows that can simply be clicked to close
@@ -62,14 +66,9 @@ public class AutoSpawning : MonoBehaviour
     [SerializeField] private RectTransform canvasRectTransform; // The RectTransform of the canvas. Used for random spawning.
     [SerializeField] private CanvasHandler canvasHandler; // The CanvasHandler. Used to reference palettes.
     [SerializeField] private PinGenerator pinGenerator;
+    [SerializeField] private NotificationHandler notifications;
+    [SerializeField] private NotificationInfo newAccountNotification;
     float drag;
-    
-    private void Start()
-    {
-        //incompleteAccounts.Add(CreateNewAccount());
-        //incompleteAccounts.Add(CreateNewAccount());
-        //UpdateAccountView();
-    }
 
     public AccountInfo CreateNewAccount()
     {
@@ -129,7 +128,7 @@ public class AutoSpawning : MonoBehaviour
         newWindow.BroadcastMessage("OnColourUpdate", canvasHandler.palettes[canvasHandler.currentPalette]);
         newWindow.BroadcastMessage("SetDrag", drag);
 
-        //newWindow.SendMessage("StartFailTimer", 10f);
+        newWindow.SendMessage("StartFailTimer", stackWindowTimer);
 
         accountInfo.hasWindowOpen = true;
     }
@@ -197,6 +196,8 @@ public class AutoSpawning : MonoBehaviour
             accountInfo.isFinished = true;
         }
 
+        completedAccounts += 1;
+
         UpdateAccountView();
     }
 
@@ -205,6 +206,8 @@ public class AutoSpawning : MonoBehaviour
         accountInfo.hasWindowOpen = false;
 
         accountInfo.isFinished = true;
+
+        failedAccounts += 1;
 
         UpdateAccountView();
     }
@@ -251,6 +254,21 @@ public class AutoSpawning : MonoBehaviour
         {
             viewers[i].SendMessage("UpdateAccountView", allAccounts.ToArray(), SendMessageOptions.DontRequireReceiver);
         }
+    }
+
+    public void AddNewAccount()
+    {
+        incompleteAccounts.Add(CreateNewAccount());
+
+        NotificationInfo modifiedNotif = new NotificationInfo
+        (
+            newAccountNotification.titleText,
+            "New Account Created. You have (" + allAccounts.Count + ") Total Accounts.",
+            newAccountNotification.fromAssistant, newAccountNotification.backIconTexture,
+            newAccountNotification.frontIconTexture
+        );
+
+        notifications.ReceiveNotification(modifiedNotif);
     }
 
     void SetDrag(float newDrag)

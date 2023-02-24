@@ -88,6 +88,7 @@ public abstract class WindowHandler : MonoBehaviour
         t = 0.0f;
         canvasGroup.alpha = 0f;
         rectTransform.sizeDelta = targetWindowSize * 0.8f;
+        canvasGroup.interactable = true;
         isOpeningAnim = true;
     }
 
@@ -139,7 +140,7 @@ public abstract class WindowHandler : MonoBehaviour
         {
             failTimeCounter -= Time.deltaTime;
         }
-        else if (isRunningTimer)
+        else if (isRunningTimer && !isClosingAnim)
         {
             isRunningTimer = false;
             failTimeCounter = 0f;
@@ -161,23 +162,28 @@ public abstract class WindowHandler : MonoBehaviour
     {
         t = 0.0f;
         targetWindowSize = rectTransform.sizeDelta * 0.8f;
+        canvasGroup.interactable = false;
         isClosingAnim = true;
     }
 
     public virtual void OnWindowFail()
     {
-        Debug.Log("Failed " + gameObject.name);
+        //Debug.Log("Failed " + gameObject.name);
         t = 0.0f;
         targetWindowSize = rectTransform.sizeDelta * 0.8f;
+        canvasGroup.interactable = false;
         isClosingAnim = true;
     }
 
     public virtual void StartFailTimer(float timeUntilFail)
     {
-        Debug.Log("Started Fail Timer on " + gameObject.name);
-        isRunningTimer = true;
-        isTimerLow = false;
-        failTimeCounter = timeUntilFail;
+        if (timeUntilFail > 0f)
+        {
+            //Debug.Log("Started Fail Timer on " + gameObject.name);
+            isRunningTimer = true;
+            isTimerLow = false;
+            failTimeCounter = timeUntilFail;
+        }
     }
 
     public virtual void FailTimerLow()

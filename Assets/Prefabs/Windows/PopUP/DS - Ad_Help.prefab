@@ -792,7 +792,7 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
   windowToClose: {fileID: 0}
-  messageToSend: SpawnAd
+  messageToSend: SpawnPopUp
   padding:
     left: 0
     right: 0

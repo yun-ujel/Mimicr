@@ -62,7 +62,7 @@ public class NotificationDisplay : MonoBehaviour
         if (info.fromAssistant)
             frontIcon.texture = info.frontIconTexture;
         else
-            frontIcon.color = new Color(0f, 0f, 0f, 0f);
+            frontIcon.gameObject.SetActive(false);
 
         TriggerOpenAnimation();
     }

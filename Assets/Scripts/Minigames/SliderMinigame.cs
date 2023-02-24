@@ -33,7 +33,7 @@ public class SliderMinigame : MonoBehaviour
     private CanvasHandler cHandler;
 
     [Header("Rules")]
-    [SerializeField] private float marginOfError = 0.05f;
+    [SerializeField] private float marginOfError = 0.08f;
 
     private float hValue;
     private float sValue;

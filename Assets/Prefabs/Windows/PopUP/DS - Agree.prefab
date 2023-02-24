@@ -522,18 +522,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "We and our partners store and/or access information on a device, such
-    as cookies and process personal data, such as unique identifiers and standard
-    information sent by a device for personalised ads and content, ad and content
-    measurement, and audience insights, as well as to develop and improve products.
-    With your permission we and our partners may use precise geolocation data and
-    identification through device scanning. You may click to consent to our and our
-    partners\u2019 processing as described above. Alternatively you may click to
-    refuse to consent or access more detailed information and change your preferences
-    before consenting. Please note that some processing of your personal data may
-    not require your consent, but you have a right to object to such processing.
-    Your preferences will apply to this website only. You can change your preferences
-    at any time by returning to this site or visit our privacy policy."
+  m_text: "We'd like to remind you that MIMICR has been reviewed and officially classified
+    as the best social media for creator-viewer interaction and connection. This
+    kind of service is by no means easier to maintain or monetize. \r\nIn return
+    for your continued free use of the platform, we ask for your confirmation for
+    MIMICR's features to be used for advertisement. This may include pop-up ads and
+    other small integrations, such as accessing and processing of personal data.
+    We maintain that MIMICR will never force viewers or creators into purchasing
+    products, and will only use data to advertise products we believe may be beneficial
+    to your quality of life and user experience.\r\n\r\nYou may click to consent
+    to our monetisation process as described above, closing this window. MIMICR may
+    occasionally ask you to review your preferences or agree to a new policy if any
+    changes are made to our methods of monetisation."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1106,7 +1106,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 200, y: 0}
+  m_SizeDelta: {x: 1920, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &8506438815789868069
 MonoBehaviour:
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: privacy policy
+  m_text: Monetisation Policy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9148529854596106310}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.875698
+  m_Size: 0.68209386
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: We value your privacy
+  m_text: We value your experience
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2050,13 +2050,13 @@ MonoBehaviour:
   minWindowSize: {x: 0, y: 0}
   canvas: {fileID: 0}
   windowToClose: {fileID: 0}
-  messageToSend: 
+  messageToSend: AcceptMonetPolicy
   padding:
     left: 0
     right: 0
     top: 0
     bottom: 0
-  functionOnClick: 2
+  functionOnClick: 3
   dragFunction: {fileID: 0}
 --- !u!114 &9148529855764224103
 MonoBehaviour:
@@ -2101,7 +2101,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9148529855764224104}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9148529856201498290}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SendMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OnWindowComplete
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &9148529855764224105
 CanvasRenderer:
   m_ObjectHideFlags: 0
