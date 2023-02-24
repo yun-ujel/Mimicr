@@ -8,6 +8,11 @@ public class AllAccountsDisplay : MonoBehaviour
     [SerializeField] private CanvasHandler cHandler;
 
     [SerializeField] private RectTransform topRectTransform;
+
+    private void Start()
+    {
+        cHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+    }
     private void UpdateAccountView(AccountInfo[] accountsInfo)
     {
         int childCount = contentRectTransform.transform.childCount;
