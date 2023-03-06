@@ -31,12 +31,6 @@ public class NotificationHandler : MonoBehaviour
 
     private void Update()
     {
-     
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ReceiveNotification(debugNotification);
-        }
-
         if (notifications.Count > maxNotifs)
         {
             notifications[0].SendMessage("StartFadeOut", notifFadeOutTime);
