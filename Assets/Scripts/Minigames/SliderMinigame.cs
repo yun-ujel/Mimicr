@@ -17,6 +17,8 @@ public class GameSlider
         saturation,
         value
     }
+
+    public GameObject correctIndicator;
 }
 
 
@@ -57,11 +59,13 @@ public class SliderMinigame : MonoBehaviour
             {
                 ChangeSliderColour(sliders[i].slider, ColourType.wildCard, ColourType.bright);
                 sliders[i].IsComplete = true;
+                sliders[i].correctIndicator.SetActive(true);
 
                 completedSliders += 1;
             }
             else
             {
+                sliders[i].correctIndicator.SetActive(false);
                 sliders[i].IsComplete = false;
                 ChangeSliderColour(sliders[i].slider, ColourType.bright, ColourType.outline);
             }

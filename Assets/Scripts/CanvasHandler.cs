@@ -461,7 +461,7 @@ public class CanvasHandler : MonoBehaviour
         else if (messagesSent < 5)
         {
             notifications.ReceiveAssistantNotification
-                ("When Editing a Photo, just drag each slider until you see the handle change colour.", 3);
+                ("When Editing a Photo, just drag each slider until you see the Handle turn pink.", 3);
         }
         else if (messagesSent < 6)
         {
