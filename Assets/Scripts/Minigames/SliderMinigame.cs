@@ -130,6 +130,7 @@ public class SliderMinigame : MonoBehaviour
 
         completionGroup.alpha = 0f;
         completionGroup.interactable = false;
+        completionGroup.blocksRaycasts = false;
     }
 
     void GameComplete()
@@ -153,6 +154,7 @@ public class SliderMinigame : MonoBehaviour
         );
 
         completionGroup.interactable = true;
+        completionGroup.blocksRaycasts = true;
     }
     // The completion group should include a button that closes the window,
     // A.K.A. triggering method "OnWindowComplete" on StackHandler
