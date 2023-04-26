@@ -1433,7 +1433,7 @@ MonoBehaviour:
     right: 0
     top: 0
     bottom: 0
-  functionOnClick: 2
+  functionOnClick: 0
   dragFunction: {fileID: 0}
 --- !u!222 &7586740979741002454
 CanvasRenderer:
@@ -1516,7 +1516,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7567786576543997006}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5472082189793802703}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: BroadcastMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OnWindowComplete
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &156598582986760098
 MonoBehaviour:
   m_ObjectHideFlags: 0

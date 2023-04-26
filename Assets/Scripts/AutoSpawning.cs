@@ -14,9 +14,11 @@ public class AccountInfo
 
     public bool isFinished;// { get; set; }
 
-    public bool hasWindowOpen { get; set; }
+    public bool HasWindowOpen { get; set; }
 
-    public int accountIndex { get; set; }
+    public int AccountIndex { get; set; }
+
+    public Vector3[] CorrectPostColours { get; set; }
 
     public AccountInfo(int pIN, Texture2D[] posts, GameObject[] newWindows, int currentWindowIndex, int currentPostIndex, int newAccountIndex)
     {
@@ -24,13 +26,15 @@ public class AccountInfo
         Posts = posts;
         CurrentWindowIndex = currentWindowIndex;
         CurrentPostIndex = currentPostIndex;
-        accountIndex = newAccountIndex;
+        AccountIndex = newAccountIndex;
+
+        CorrectPostColours = new Vector3[3];
 
         windows = new GameObject[newWindows.Length];
         System.Array.Copy(newWindows, windows, newWindows.Length);
 
         isFinished = false;
-        hasWindowOpen = false;
+        HasWindowOpen = false;
     }
 }
 
@@ -100,6 +104,15 @@ public class AutoSpawning : MonoBehaviour
         }
 
         AccountInfo newAccount = new AccountInfo(pinGenerator.GeneratePin(), chosenImages, defaultStackWindows, 0, 0, allAccounts.Count);
+
+        // Correct Slider Values are between 0 and 1
+        for (int i = 0; i < newAccount.CorrectPostColours.Length; i++)
+        {
+            newAccount.CorrectPostColours[i].x = Random.Range(0f, 1f); // Correct Hue value can be anything
+            newAccount.CorrectPostColours[i].y = Random.Range(0f, 0.8f); // Correct Sat value can be anything below 0.8
+            newAccount.CorrectPostColours[i].z = Random.Range(0.6f, 1f); // Correct Value value can be anything above 0.6
+        }
+
         allAccounts.Add(newAccount);
 
         UpdateAccountView();
@@ -130,7 +143,7 @@ public class AutoSpawning : MonoBehaviour
 
         newWindow.SendMessage("StartFailTimer", stackWindowTimer);
 
-        accountInfo.hasWindowOpen = true;
+        accountInfo.HasWindowOpen = true;
     }
 
 
@@ -182,7 +195,7 @@ public class AutoSpawning : MonoBehaviour
 
     void CompleteStackWindow(AccountInfo accountInfo)
     {
-        accountInfo.hasWindowOpen = false;
+        accountInfo.HasWindowOpen = false;
 
         if (accountInfo.windows[accountInfo.CurrentWindowIndex].TryGetComponent(out SliderMinigame sliM))
         {
@@ -203,7 +216,7 @@ public class AutoSpawning : MonoBehaviour
 
     void FailStackWindow(AccountInfo accountInfo)
     {
-        accountInfo.hasWindowOpen = false;
+        accountInfo.HasWindowOpen = false;
 
         accountInfo.isFinished = true;
 
@@ -244,7 +257,7 @@ public class AutoSpawning : MonoBehaviour
     private bool StackSpawnViable(AccountInfo accountInfo)
     {
         // return true if the account doesn't have a stack window open
-        return !accountInfo.hasWindowOpen;
+        return !accountInfo.HasWindowOpen;
     }
 
     void UpdateAccountView()

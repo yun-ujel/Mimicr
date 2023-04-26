@@ -11,7 +11,7 @@ public class AllAccountsDisplay : MonoBehaviour
 
     private void Start()
     {
-        cHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+        cHandler = CanvasHandler.Instance;
     }
     private void UpdateAccountView(AccountInfo[] accountsInfo)
     {

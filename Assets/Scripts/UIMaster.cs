@@ -95,10 +95,6 @@ public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
         {
             rectTransform.SetAsLastSibling(); // Send to Top
         }
-        else if (functionOnClick == FunctionOnClick.close) // ClickFunction.close is used only for Window Completions (victories), not failures
-        {
-            windowToClose.BroadcastMessage("OnWindowComplete");
-        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -106,6 +102,10 @@ public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
         if (functionOnClick == FunctionOnClick.sendMessageToCanvas)
         {
             canvas.SendMessage(messageToSend);
+        }
+        else if (functionOnClick == FunctionOnClick.close) // ClickFunction.close is used only for Window Completions (victories), not failures
+        {
+            CloseWindow();
         }
     }
 
@@ -123,5 +123,10 @@ public class UIMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
         {
             canvas.SendMessage("OnCursorExit"); // Hide resize indicator
         }
+    }
+
+    public void CloseWindow()
+    {
+        windowToClose.BroadcastMessage("OnWindowComplete");
     }
 }

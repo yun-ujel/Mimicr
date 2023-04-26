@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +42,7 @@ public class SliderMinigame : MonoBehaviour
 
     private void Awake()
     {
-        cHandler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasHandler>();
+        cHandler = CanvasHandler.Instance;
     }
 
     void Update()
@@ -112,17 +111,17 @@ public class SliderMinigame : MonoBehaviour
         {
             if (sliders[i].ColorMode == GameSlider.HSVMode.hue)
             {
-                sliders[i].CorrectValue = Random.Range(sliders[i].slider.minValue, sliders[i].slider.maxValue - (marginOfError * 2f)); // Correct Hue value can be anything
+                sliders[i].CorrectValue = accountInfo.CorrectPostColours[accountInfo.CurrentPostIndex].x;
                 sliders[i].slider.value = RandomNewValue(sliders[i].CorrectValue, sliders[i].slider.minValue, sliders[i].slider.maxValue);
             }
             else if (sliders[i].ColorMode == GameSlider.HSVMode.saturation)
             {
-                sliders[i].CorrectValue = Random.Range(sliders[i].slider.minValue, sliders[i].slider.maxValue * 0.8f); // Correct Sat value can be anything below 0.8
+                sliders[i].CorrectValue = accountInfo.CorrectPostColours[accountInfo.CurrentPostIndex].y;
                 sliders[i].slider.value = RandomNewValue(sliders[i].CorrectValue, sliders[i].slider.minValue, sliders[i].slider.maxValue);
             }
             else // if ColorMode == HSVMode.value
             {
-                sliders[i].CorrectValue = Random.Range(sliders[i].slider.maxValue * 0.75f, sliders[i].slider.maxValue); // Correct Value value can be anything above 0.75
+                sliders[i].CorrectValue = accountInfo.CorrectPostColours[accountInfo.CurrentPostIndex].z;
                 sliders[i].slider.value = RandomNewValue(sliders[i].CorrectValue, sliders[i].slider.maxValue * 0.4f, sliders[i].slider.maxValue);
                 // Starting value can be anything above 0.4
             }
@@ -141,7 +140,7 @@ public class SliderMinigame : MonoBehaviour
     {
         for (int i = 0; i < sliders.Length; i++)
         {
-            ChangeSliderColour(sliders[i].slider, ColourType.bright, ColourType.bright);
+            ChangeSliderColour(sliders[i].slider, ColourType.wildCard, ColourType.bright);
             sliders[i].slider.interactable = false;
         }
 
@@ -149,13 +148,6 @@ public class SliderMinigame : MonoBehaviour
         {
             completionGroup.alpha += Time.deltaTime * 4f;
         }
-
-        imageReference.color = new Color
-        (
-            Mathf.MoveTowards(imageReference.color.r, 1f, 0.005f),
-            Mathf.MoveTowards(imageReference.color.g, 1f, 0.005f),
-            Mathf.MoveTowards(imageReference.color.b, 1f, 0.005f)
-        );
 
         completionGroup.interactable = true;
         completionGroup.blocksRaycasts = true;

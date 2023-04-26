@@ -34,6 +34,8 @@ public class Colour8
 
 public class CanvasHandler : MonoBehaviour
 {
+    public static CanvasHandler Instance { get; private set; }
+
     [Header("References")]
     private GameObject cursor;
     private SpriteRenderer cursorRenderer;
@@ -82,6 +84,16 @@ public class CanvasHandler : MonoBehaviour
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+
+
         if (cursor == null)
         {
             cursor = GameObject.FindGameObjectWithTag("IsCursorObject");

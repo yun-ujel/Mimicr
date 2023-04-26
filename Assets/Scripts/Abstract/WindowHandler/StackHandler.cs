@@ -33,6 +33,6 @@ public class StackHandler : WindowHandler
     {
         inAccountInfo.windows[inAccountInfo.CurrentWindowIndex] = gameObject;
         accountInfo = inAccountInfo;
-        header.text = gameObject.name + " - " + "Account #" + (accountInfo.accountIndex + 1).ToString();
+        header.text = gameObject.name + " - " + "Account #" + (accountInfo.AccountIndex + 1).ToString();
     }
 }

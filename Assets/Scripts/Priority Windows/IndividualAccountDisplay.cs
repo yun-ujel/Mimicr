@@ -37,7 +37,12 @@ public class IndividualAccountDisplay : MonoBehaviour
         for (int i = 0; i < postGraphics.Length; i++)
         {
             postGraphics[i].texture = accountInfo.Posts[i];
-            postGraphics[i].color = Color.white;
+            postGraphics[i].color = Color.HSVToRGB
+            (
+                accountInfo.CorrectPostColours[i].x,
+                accountInfo.CorrectPostColours[i].y,
+                accountInfo.CorrectPostColours[i].z
+            );
 
             if (accountInfo.CurrentPostIndex > i)
             {
@@ -58,9 +63,9 @@ public class IndividualAccountDisplay : MonoBehaviour
             }
         }
         pINText.text = "PIN: " + accountInfo.PIN;
-        nameText.text = "Account #" + (accountInfo.accountIndex + 1).ToString();
+        nameText.text = "Account #" + (accountInfo.AccountIndex + 1).ToString();
 
-        
+
 
     }
 
